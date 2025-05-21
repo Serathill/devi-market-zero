@@ -3368,7 +3368,7 @@ Acest capitol final al documentului conține template-uri standardizate pentru d
 
 Fiecare echipă (sau student individual, dacă lucrează la un sub-modul distinct) responsabilă pentru dezvoltarea și întreținerea unui modul tehnic major (ex: MuleSoft APIs, Talend Jobs, React Frontend, RPi Pico Script, Docker Infrastructure) va crea și va actualiza constant un fișier `SETUP_MODUL.md` în directorul corespunzător al modulului său pe GitHub. Acest fișier este **crucial** și trebuie să fie un ghid "la cheie", extrem de detaliat, permițând oricărui alt membru al echipei (inclusiv Tutorelui sau unui student nou venit ipotetic) să instaleze, configureze și să ruleze o versiune de bază ("Hello World" sau funcționalitate minimă) a modulului respectiv pe un VM Ubuntu proaspăt, fără a necesita asistență suplimentară extinsă.
 
-```markdown
+
 # SETUP_MODUL.MD: Ghid Complet de Instalare, Configurare și Rulare Inițială pentru Modulul [Numele Exact și Clar al Modulului, ex: MuleSoft Anypoint Studio și Aplicația API Scanner]
 
 **Nume Modul:** [Reiterați Numele Modulului]
