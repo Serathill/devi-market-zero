@@ -1,19 +1,22 @@
 # SETUP_MULESOFT_ANYPOINT_STUDIO_SPRINT2.md
 
-# 1. Instalarea MuleSoft Anypoint Studio
+### Pași pentru instalare:
 
-- Accesează site-ul oficial MuleSoft:  
-  https://www.mulesoft.com/lp/dl/studio
+1. Accesează site-ul oficial MuleSoft:  
+   👉 [https://www.mulesoft.com/lp/dl/studio](https://www.mulesoft.com/lp/dl/studio)
 
-- Descarcă versiunea potrivită pentru sistemul tău de operare.
+2. Descarcă versiunea corespunzătoare pentru sistemul tău de operare (Windows, macOS, Linux).
 
-- Pentru instalare am folosit informațiile despre firmă furnizate de administrator.
+3. Dacă este solicitat un cont, autentifică-te cu datele furnizate de echipa IT sau administrator.
 
-- Instalează Anypoint Studio urmând pașii din installer.
+4. Urmează pașii de instalare din installerul specific sistemului tău.
 
-- Pornește Anypoint Studio.
+5. La prima rulare, setează un workspace într-o locație accesibilă (ex: `C:\Users\[nume_utilizator]\MuleWorkspace`).
+
+6. Lansează Anypoint Studio.
 
 ---
+
 
 # 2. Crearea proiectului „Hello World” în MuleSoft
 
