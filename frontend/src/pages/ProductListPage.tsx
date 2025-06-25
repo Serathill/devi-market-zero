@@ -24,13 +24,34 @@ const ProductListPage: React.FC = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.get('/api/marketplace/products', {
-        params: { page, limit },
-      });
+      await new Promise((res) => setTimeout(res, 500)); // simulează delay
 
-      setProducts(response.data.items); // adaptează dacă API-ul returnează alt format
-      setTotalPages(response.data.totalPages || 1);
-      setTotalCount(response.data.totalCount || 0);
+const fakeData = {
+  items: [
+    { id: '1', name: 'Laptop Dell XPS 13', price: 4500, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Dell+XPS+13' },
+    { id: '2', name: 'Telefon iPhone 14', price: 5200, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=iPhone+14' },
+    { id: '3', name: 'Căști Bose QC35', price: 1200, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Bose+QC35' },
+    { id: '4', name: 'Smartwatch Samsung Galaxy', price: 900, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Samsung+Watch' },
+    { id: '5', name: 'Monitor LG UltraFine', price: 1700, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=LG+UltraFine' },
+    { id: '6', name: 'Tablet iPad Pro', price: 3500, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=iPad+Pro' },
+    { id: '7', name: 'Laptop ASUS ZenBook', price: 4000, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=ASUS+ZenBook' },
+    { id: '8', name: 'Telefon Google Pixel 6', price: 3000, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Pixel+6' },
+    { id: '9', name: 'Cameră GoPro Hero 9', price: 1400, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=GoPro+Hero+9' },
+    { id: '10', name: 'Boxe JBL Charge 5', price: 600, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=JBL+Charge+5' },
+  ],
+  totalPages: 2,
+  totalCount: 20,
+};
+
+
+setProducts(fakeData.items);
+setTotalPages(fakeData.totalPages);
+setTotalCount(fakeData.totalCount);
+
+
+    //  setProducts(response.data.items); // adaptează dacă API-ul returnează alt format
+    //  setTotalPages(response.data.totalPages || 1);
+    //  setTotalCount(response.data.totalCount || 0);
     } catch (err: any) {
       setError('A apărut o eroare la încărcarea produselor.');
     } finally {
