@@ -11,7 +11,7 @@ interface Product {
 }
 
 const allProducts: Product[] = [
-  { id: '1', name: 'Laptop Dell XPS 13', price: 4500, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Dell+XPS+13' },
+  { id: '123', name: 'Laptop Dell XPS 13', price: 4500, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Dell+XPS+13' },
   { id: '2', name: 'Telefon iPhone 14', price: 5200, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=iPhone+14' },
   { id: '3', name: 'Căști Bose QC35', price: 1200, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Bose+QC35' },
   { id: '4', name: 'Smartwatch Samsung Galaxy', price: 900, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Samsung+Watch' },
@@ -47,7 +47,7 @@ const ProductListPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -63,10 +63,10 @@ const ProductListPage: React.FC = () => {
 
       setProducts(paginatedItems);
       setTotalPages(Math.ceil(allProducts.length / limit));
-      setTotalCount(allProducts.length);
-    } catch (err: any) {
-      setError('A apărut o eroare la încărcarea produselor.');
-    } finally {
+      
+    } catch {
+  setError('A apărut o eroare la încărcarea produselor.');
+} finally {
       setLoading(false);
     }
   };
