@@ -7,12 +7,12 @@
                           http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
                           http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 
-    <http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="46c0bae8-616f-46fb-bf39-0b88d18a9a4a">
+    
+	<http:listener-config name="HTTP_Listener_config_2" doc:name="HTTP Listener config" doc:id="46c0bae8-616f-46fb-bf39-0b88d18a9a4a">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-
-    <flow name="hello-word-apiFlow" doc:id="a5776e76-7ea2-4cc0-b726-59338d9afaa2">
-        <http:listener doc:name="Listener" doc:id="ebeae70b-e3b9-4633-8734-ccf6a1d54965" config-ref="HTTP_Listener_config" path="/api/hello"/>
+	<flow name="hello-word-apiFlow" doc:id="a5776e76-7ea2-4cc0-b726-59338d9afaa2">
+        <http:listener doc:name="Listener" doc:id="ebeae70b-e3b9-4633-8734-ccf6a1d54965" path="/api/hello" config-ref="HTTP_Listener_config_2"/>
         <ee:transform doc:name="Transform Message" doc:id="5ee00afc-05f6-4e3d-8332-76f7b87b5167">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0

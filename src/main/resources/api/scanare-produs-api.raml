@@ -1,0 +1,46 @@
+#%RAML 1.0
+title: Scanare produs API
+version: v1
+baseUri: /api/scanner
+
+/product_scan:
+  post:
+    description: Receive product scan data and process it.
+    body:
+      application/json:
+        type: object
+        properties:
+          barcode: string
+          scan_timestamp: datetime
+        example:
+          barcode: "1234567890123"
+          scan_timestamp: "2025-06-25T13:45:00Z"
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              status: "success"
+              operation: "updated"
+              productId: "abc-uuid"
+              barcode: "1234567890123"
+      201:
+        body:
+          application/json:
+            example:
+              status: "success"
+              operation: "created"
+              productId: "abc-uuid"
+              barcode: "1234567890123"
+      400:
+        body:
+          application/json:
+            example:
+              status: "error"
+              message: "Invalid request"
+      500:
+        body:
+          application/json:
+            example:
+              status: "error"
+              message: "Internal server error"
