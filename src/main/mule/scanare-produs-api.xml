@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
-http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
     <apikit:config name="scanare-produs-api-config" api="scanare-produs-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
 	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="bd53a6dd-14d5-4e95-a9f6-c78a46a06c1e" >
 		<tls:key-store type="jks" path="certificates/scanner-keystore.jks" keyPassword="team1devidevs" password="team1devidevs" />
@@ -13,6 +14,9 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
     </http:listener-connection>
 </http:listener-config>
 
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="c69fe64d-b2d5-40bc-b75a-a97e741f46af" >
+		<db:generic-connection url="jdbc:clickhouse:https://cd1snbyswh.germanywestcentral.azure.clickhouse.cloud:8443/default?ssl=true" driverClassName="com.clickhouse.jdbc.ClickHouseDriver" user="default" password="ORO~b1.47MDxJ" />
+	</db:config>
 	<flow name="scanare-produs-api-main">
         <http:listener path="/api/scanner/product_scan" config-ref="HTTPS_Listener_config">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -116,26 +120,12 @@ output application/json
             </http:error-response>
         </http:listener>
         <apikit:console config-ref="scanare-produs-api-config" />
-        <error-handler>
-            <on-error-propagate type="APIKIT:NOT_FOUND">
-				<ee:transform doc:name="Transform Message">
-                    <ee:message>
-                        <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{message: "Resource not found"}]]></ee:set-payload>
-                    </ee:message>
-                    <ee:variables>
-                        <ee:set-variable variableName="httpStatus">404</ee:set-variable>
-                    </ee:variables>
-                </ee:transform>
-            </on-error-propagate>
-        </error-handler>
+        
     </flow>
     <flow name="post:\product_scan:application\json:scanare-produs-api-config">
         <set-variable value="#[payload]" doc:name="Set Variable" doc:id="ef042891-e289-4a07-9cce-83628a034c75" variableName="RAW_JSON"/>
 		<choice doc:name="Choice" doc:id="4b858e8e-c30e-4ce7-bb2f-a4e86897c91e">
-					<when expression="#[!isEmpty(payload.barcode) and !isEmpty(payload.scan_timestamp)]">
+					<when expression="#[!isEmpty(payload.barcode) and !isEmpty(payload.scan_timestamp) and (payload.scan_timestamp as DateTime {format: &quot;yyyy-MM-dd'T'HH:mm:ssXXX&quot;} default null) != null]">
 				<ee:transform doc:name="Transform Message">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
@@ -156,6 +146,33 @@ output application/json
 				<raise-error doc:name="Raise error" doc:id="5d0973db-a68b-434f-95f4-77681c98b989" type="PRODUCT:NOT_VALID" description="Barcode or timestamp are invalid, please check the request." />
 			</otherwise>
 				</choice>
+		<ee:transform doc:name="Transform Message" doc:id="500b54b0-1194-49ef-868b-2570e31f8eb8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+import * from dw::core::Strings
+
+
+var fallbackTimestamp = now() as String { format: "yyyy-MM-dd'T'HH:mm:ss'Z'" }
+
+---
+{
+  barcode: upper(trim(payload.barcode)), // normalizează barcode-ul
+  scan_timestamp: 
+    if (!isEmpty(payload.scan_timestamp)) 
+      payload.scan_timestamp 
+    else 
+      fallbackTimestamp,
+
+  clickhouse_formatted_timestamp: 
+    if (!isEmpty(payload.scan_timestamp))
+      (payload.scan_timestamp as DateTime) as String { format: "yyyy-MM-dd HH:mm:ss" }
+    else 
+      (now() as DateTime) as String { format: "yyyy-MM-dd HH:mm:ss" }
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
 		<error-handler >
 			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7ad5ad90-7231-42c5-9240-c8c494d05f99" type="ANY">
 				<logger level="INFO" doc:name="Logger" doc:id="5b7ded02-ae42-4643-be9f-94bf79d93c82" message="#[error]"/>

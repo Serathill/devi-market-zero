@@ -1,0 +1,16 @@
+listener:
+  port: "8092"
+  read_timeout: "3000000"
+  path: "/api/v1/*"
+  console_path: "/console/*"
+  connection_idle_timeout: "1440000"
+  username: "drm-demo-create-legacy-api-wrapper"
+  password: "nvwt>MMYUMrD1h*4uHQHo8exdp"
+  
+db:
+  clickhouse:
+    url: "jdbc:clickhouse://jp4u2jcgv1.eu-central-1.aws.clickhouse.cloud:8443?ssl=true"
+    driver: "com.clickhouse.jdbc.ClickHouseDriver"
+    username: "default"
+    password: "zyNA_a3kgnTgF"
+

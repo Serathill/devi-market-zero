@@ -29,6 +29,16 @@
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
+				<configuration>
+					<classifier>mule-application</classifier>
+
+					<sharedLibraries>
+						<sharedLibrary>
+							<groupId>com.clickhouse</groupId>
+							<artifactId>clickhouse-jdbc</artifactId>
+						</sharedLibrary>
+					</sharedLibraries>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -51,6 +61,19 @@
 			<artifactId>mule-apikit-module</artifactId>
 			<version>1.11.3</version>
 			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-db-connector</artifactId>
+			<version>1.14.13</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.clickhouse</groupId>
+			<artifactId>clickhouse-jdbc</artifactId>
+			<version>0.8.2</version>
+			<classifier>shaded-all</classifier>
 		</dependency>
 	</dependencies>
 
