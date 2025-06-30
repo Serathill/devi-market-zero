@@ -3,6 +3,11 @@ import { Routes, Route } from "react-router-dom";
 import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ScanProductPage from "./pages/ScanProductPage";
+import MetaMaskConnect from "./components/MetaMaskConnect";
+
+// În JSX-ul header-ului sau navbar-ului
+<MetaMaskConnect />
+
 
 function App() {
   return (

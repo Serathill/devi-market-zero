@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import PaginationControls from '../components/PaginationControls';
+import MetaMaskConnect from '../components/MetaMaskConnect';
 
 interface Product {
   id: string;
@@ -47,7 +48,6 @@ const ProductListPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -63,10 +63,9 @@ const ProductListPage: React.FC = () => {
 
       setProducts(paginatedItems);
       setTotalPages(Math.ceil(allProducts.length / limit));
-      
     } catch {
-  setError('A apărut o eroare la încărcarea produselor.');
-} finally {
+      setError('A apărut o eroare la încărcarea produselor.');
+    } finally {
       setLoading(false);
     }
   };
@@ -78,8 +77,11 @@ const ProductListPage: React.FC = () => {
 
   return (
     <div className="container max-w-7xl mx-auto px-6 py-12 bg-white rounded-lg shadow-lg">
-      {/* Mesaj de bun venit stilizat */}
-      <section className="mb-16 text-center bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 p-12 rounded-lg text-white shadow-lg">
+      {/* Banner cu wallet */}
+      <section className="mb-16 text-center bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 p-12 rounded-lg text-white shadow-lg relative overflow-hidden">
+        <div className="absolute right-8 top-8 sm:static sm:mb-6 flex justify-center sm:justify-end">
+          <MetaMaskConnect />
+        </div>
         <h1 className="text-5xl font-extrabold mb-6 tracking-tight drop-shadow-lg">
           Bine ai venit la DeviMarket Zero
         </h1>
@@ -88,7 +90,6 @@ const ProductListPage: React.FC = () => {
         </p>
       </section>
 
-      {/* Loading spinner */}
       {loading && (
         <div className="flex justify-center my-12">
           <svg
@@ -115,21 +116,18 @@ const ProductListPage: React.FC = () => {
         </div>
       )}
 
-      {/* Mesaj de eroare */}
       {error && (
         <p className="text-center text-red-600 font-semibold text-lg mb-8">
           {error}
         </p>
       )}
 
-      {/* Lista produse */}
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-12">
         {products.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}
       </div>
 
-      {/* Paginare */}
       <PaginationControls
         currentPage={currentPage}
         totalPages={totalPages}
