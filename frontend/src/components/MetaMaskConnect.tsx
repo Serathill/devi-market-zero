@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-// DECLARAȚIE GLOBALĂ CORECTĂ (fără any!)
+
 declare global {
   interface Window {
     ethereum?: {
@@ -16,7 +16,7 @@ const MetaMaskConnect: React.FC = () => {
   const [account, setAccount] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // On mount, try to get connected account (e.g., after refresh)
+
   useEffect(() => {
     if (window.ethereum) {
       window.ethereum
@@ -50,7 +50,7 @@ const MetaMaskConnect: React.FC = () => {
       const accounts = accountsRaw as string[];
       setAccount(accounts[0]);
     } catch (err) {
-      // err este de tipul "unknown", tratezi corect fără any
+      
       if (typeof err === "object" && err !== null && "code" in err) {
         
         if ((err as { code?: number }).code === 4001) {
