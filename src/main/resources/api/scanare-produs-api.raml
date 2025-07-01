@@ -1,7 +1,240 @@
 #%RAML 1.0
-title: Scanare produs API
+title: DeviMarket Frontend & Scanner API
 version: v1
-baseUri: /api/scanner
+baseUri: http://{host}:{port}/api/marketplace
+
+types:
+  ProductSummary:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier of the product (UUID).
+        example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+      name:
+        type: string
+        description: Product name.
+        example: "Premium Coffee Beans"
+      price:
+        type: number
+        format: float
+        description: Product price.
+        example: 125.99
+      currency:
+        type: string
+        description: Currency code (e.g., RON, EUR, USD).
+        example: "RON"
+      image_url:
+        type: string
+        description: URL to the main product image.
+        example: "https://example.com/images/coffee.jpg"
+      category:
+        type: string
+        description: Main product category.
+        example: "Beverages"
+  
+  ProductDetail:
+    type: ProductSummary
+    properties:
+      description:
+        type: string
+        description: Full product description.
+        example: "High-quality Arabica coffee beans from Ethiopia."
+      sub_category:
+        type: string
+        description: Product sub-category.
+        example: "Coffee"
+      brand:
+        type: string
+        description: Product brand.
+        example: "DeviPremium Coffee"
+      stock_quantity:
+        type: integer
+        description: Current stock quantity.
+        example: 150
+      attributes:
+        type: object # For arbitrary key-value pairs
+        description: Key-value map for specific product attributes.
+        properties: {}
+        minProperties: 0
+        example: {"Roast Type": "Medium", "Acidity": "Low"}
+      tags:
+        type: array
+        description: List of associated tags.
+        items: string
+        minItems: 0
+        example: ["organic", "arabica", "specialty"]
+      source_etl:
+        type: string
+        description: Identifier of the ETL source that last modified the product.
+        example: "MULE_DUMMYJSON_V1.0"
+      is_active:
+        type: boolean
+        description: Flag indicating if the product is active and visible (true = 1, false = 0).
+        example: true
+      created_at:
+        type: datetime # ISO 8601 string
+        description: Timestamp when the product record was created (UTC).
+        example: "2024-05-24T10:00:00Z"
+      updated_at:
+        type: datetime # ISO 8601 string
+        description: Timestamp when the product record was last updated (UTC).
+        example: "2024-05-24T12:30:45Z"
+      external_product_id:
+        type: string
+        description: ID of the product from the external source system (if applicable).
+        required: false
+        example: "DUMMYJSON_PROD_42"
+
+  PaginationMetadata:
+    type: object
+    properties:
+      currentPage:
+        type: integer
+        description: The current page number (1-based index).
+        example: 1
+      pageSize:
+        type: integer
+        description: The number of items per page.
+        example: 12
+      totalPages:
+        type: integer
+        description: The total number of available pages.
+        example: 5
+      totalCount:
+        type: integer
+        description: The total number of items across all pages.
+        example: 58
+
+  PaginatedProductsResponse:
+    type: object
+    properties:
+      metadata: PaginationMetadata
+      data: ProductSummary[] # Array of product summaries
+      
+  ProductScanInput: # NOU: Tip de input pentru scaner
+    type: object
+    properties:
+      barcode:
+        type: string
+        minLength: 12 
+        maxLength: 14 
+        pattern: "^[0-9]+$" 
+        example: "0123456789012"
+      scan_timestamp:
+        type: datetime # ISO 8601 string
+        example: "2024-05-24T14:30:00Z"
+
+  ProductScanResponse: # NOU: Tip de răspuns pentru scaner
+    type: object
+    properties:
+      status:
+        type: string
+        enum: ["success", "error"]
+      operation:
+        type: string
+        enum: ["created", "updated"]
+        required: false
+      productId:
+        type: string
+        required: false
+      barcode:
+        type: string
+        required: false
+      message:
+        type: string
+        required: false
+      details:
+        type: object
+        required: false
+        properties: {}
+
+  ErrorResponse: # Tip general de eroare
+    type: object
+    properties:
+      timestamp:
+        type: datetime 
+        description: Timestamp of the error occurrence.
+        example: "2024-05-24T15:00:00Z"
+      status:
+        type: integer
+        description: HTTP status code of the error.
+        example: 500
+      error:
+        type: string
+        description: Short error type (e.g., "Internal Server Error", "Bad Request").
+        example: "Internal Server Error"
+      message:
+        type: string
+        description: Detailed error message.
+        example: "An unexpected error occurred while processing your request."
+      path:
+        type: string
+        description: The request path that caused the error.
+        example: "/api/marketplace/products"
+
+/products:
+  get:
+    displayName: List Products
+    description: Retrieve a paginated list of active products.
+    queryParameters:
+      page:
+        type: integer
+        required: false
+        default: 1
+        description: Page number for pagination (1-based).
+        minimum: 1
+      limit:
+        type: integer
+        required: false
+        default: 12
+        description: Number of products per page.
+        minimum: 1
+        maximum: 50 
+    responses:
+      200:
+        body:
+          application/json:
+            type: PaginatedProductsResponse
+      400:
+        description: Bad Request - Invalid query parameters.
+        body:
+          application/json:
+            type: ErrorResponse
+      500:
+        description: Internal Server Error - An unexpected error occurred.
+        body:
+          application/json:
+            type: ErrorResponse
+  /{productId}:
+    uriParameters:
+      productId:
+        type: string
+        description: The UUID of the product to retrieve.
+        pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$" 
+    get:
+      displayName: Get Product Details
+      description: Retrieve the full details of a single active product by its UUID.
+      responses:
+        200:
+          body:
+            application/json:
+              type: ProductDetail
+        404:
+          description: Not Found - Product with the specified ID was not found or is inactive.
+          body:
+            application/json:
+              type: ErrorResponse
+        400:
+          description: Bad Request - Invalid product ID format.
+          body:
+            application/json:
+              type: ErrorResponse
+        500:
+          description: Internal Server Error - An unexpected error occurred.
+          body:
+            application/json:
+              type: ErrorResponse
 
 /product_scan:
   post:

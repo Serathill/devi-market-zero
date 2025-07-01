@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="product-transferFlow" doc:id="a1bd9174-1681-445c-a36c-454d0624a2e0" >
+		<scheduler doc:name="Scheduler" doc:id="3a1ddf16-cf4f-4255-8aec-b3e630205d14" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="1" timeUnit="HOURS"/>
+			</scheduling-strategy>
+		</scheduler>
+		<db:select doc:name="Select" doc:id="23c4a9bb-166b-4798-96b2-6b0722b9069f" config-ref="Database_Config">
+			<db:sql ><![CDATA[SELECT * FROM clickhouse_db_franceza.products_fr WHERE is_active=1 AND is_transfered=0]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="7134c76f-1895-4a69-9dd3-2f69d5ce4ce5" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map (product) -> {
+  product_id: product.id,
+  product_title: product.name,
+  description_text: product.description,
+  unit_price: product.price,
+  currency_code: product.currency,
+  available_stock: product.stock_quantity,
+  french_category: product.category,
+
+ 
+  barcode: product.barcode,
+  sub_category: product.sub_category,
+  brand: product.brand,
+  image_url: product.image_url,
+  attributes: product.attributes,
+  tags: product.tags,
+  source_etl: product.source_etl,
+  is_active: product.is_active,
+  created_at: product.created_at,
+  updated_at: product.updated_at,
+  external_product_id: product.external_product_id
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<!-- [STUDIO:"Insert"]<db:insert doc:name="Insert" doc:id="0a0e571c-740c-4f2a-846c-a03a32524363" /> [STUDIO] -->
+		<!-- [STUDIO:"Update"]<db:update doc:name="Update" doc:id="8551d7a6-7be7-4b9a-adb9-10031c4ee380" config-ref="Database_Config">
+			<db:sql ><![CDATA[UPDATE products_fr SET is_transfered = 1 WHERE product_id IN (values from transform)
+&#93;&#93;></db:sql>
+		</db:update> [STUDIO] -->
+	</flow>
+</mule>

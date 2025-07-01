@@ -72,8 +72,7 @@
 		<dependency>
 			<groupId>com.clickhouse</groupId>
 			<artifactId>clickhouse-jdbc</artifactId>
-			<version>0.8.2</version>
-			<classifier>shaded-all</classifier>
+			<version>0.7.1</version>
 		</dependency>
 	</dependencies>
 
