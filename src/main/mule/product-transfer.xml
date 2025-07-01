@@ -43,10 +43,20 @@ payload map (product) -> {
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<!-- [STUDIO:"Insert"]<db:insert doc:name="Insert" doc:id="0a0e571c-740c-4f2a-846c-a03a32524363" /> [STUDIO] -->
-		<!-- [STUDIO:"Update"]<db:update doc:name="Update" doc:id="8551d7a6-7be7-4b9a-adb9-10031c4ee380" config-ref="Database_Config">
-			<db:sql ><![CDATA[UPDATE products_fr SET is_transfered = 1 WHERE product_id IN (values from transform)
-&#93;&#93;></db:sql>
-		</db:update> [STUDIO] -->
+		<db:insert doc:name="Insert" doc:id="0a0e571c-740c-4f2a-846c-a03a32524363" config-ref="Database_Config">
+			<db:sql ><![CDATA[INSERT INTO devimarket_db.products ( id, barcode, name, description, price, currency, category, sub_category, brand,stock_quantity,image_url,attributes,tags, source_etl, is_active,created_at,updated_at,external_product_id
+) VALUES ( :id, :barcode, :name,:description,  :price,:currency,:category, :sub_category, :brand, :stock_quantity, :image_url,:attributes,:tags, :source_etl, :is_active,  :created_at,:updated_at,:external_product_id)
+]]></db:sql>
+		</db:insert>
+		<db:update doc:name="Update" doc:id="8551d7a6-7be7-4b9a-adb9-10031c4ee380" config-ref="Database_Config">
+			<db:sql ><![CDATA[UPDATE products_fr SET is_transfered = 1 WHERE product_id IN (:productIds)
+]]></db:sql>
+			<db:input-parameters ><![CDATA[#[%dw 2.0
+output application/json
+---
+{
+  productIds: payload map (item) -> item.product_id
+}]]]></db:input-parameters>
+		</db:update>
 	</flow>
 </mule>

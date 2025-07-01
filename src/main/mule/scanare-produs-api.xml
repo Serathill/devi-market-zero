@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd  http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
     <apikit:config name="scanare-produs-api-config" api="scanare-produs-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <tls:context name="TLS_Context" doc:name="TLS Context" doc:id="bd53a6dd-14d5-4e95-a9f6-c78a46a06c1e">
-        <tls:key-store type="jks" path="certificates/scanner-keystore.jks" keyPassword="team1devidevs" password="team1devidevs" />
-    </tls:context>
     <http:listener-config name="HTTPS_Listener_config" doc:name="HTTPS Listener">
-        <http:listener-connection host="0.0.0.0" port="8082" protocol="HTTPS">
-            <tls:context>
-                <tls:key-store path="certificates/scanner-keystore.jks" password="team1devidevs" type="jks" keyPassword="team1devidevs" alias="team1" />
-            </tls:context>
+        <http:listener-connection host="0.0.0.0" port="8081">
         </http:listener-connection>
     </http:listener-config>
     <db:config name="Database_Config" doc:name="Database Config" doc:id="c69fe64d-b2d5-40bc-b75a-a97e741f46af">
