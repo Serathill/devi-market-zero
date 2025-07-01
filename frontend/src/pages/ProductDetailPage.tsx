@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 
 type Product = {
   id: string;
@@ -17,27 +17,6 @@ type Product = {
   tags: string[];
 };
 
-const mockProduct: Product = {
-  id: "123",
-  name: "Mock Product",
-  description: "Acesta este un laptop performant pentru utilizatori exigenți, cu procesor rapid, stocare SSD și design elegant.",
-  price: 4500,
-  currency: "RON",
-  category: "Electronice",
-  subCategory: "Laptopuri",
-  brand: "Dell",
-  stock_quantity: 12,
-  image_url: "https://via.placeholder.com/450x300?text=Mock+Product",
-  attributes: {
-    Procesor: "Intel i7",
-    RAM: "16GB",
-    SSD: "512GB",
-  },
-  tags: ["laptop", "dell", "premium"],
-};
-
-const iconClass = "inline-block mr-2 opacity-80";
-
 const ProductDetailPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
   const [product, setProduct] = useState<Product | null>(null);
@@ -50,18 +29,12 @@ const ProductDetailPage: React.FC = () => {
 
     const fetchData = async () => {
       try {
-        if (productId === "123") {
-          setTimeout(() => {
-            setProduct(mockProduct);
-            setLoading(false);
-          }, 600);
-          return;
-        }
-        // const response = await axios.get(`/api/marketplace/products/${productId}`);
-        // setProduct(response.data);
+        const response = await axios.get(
+          `https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/products/${productId}`
+        );
+        setProduct(response.data);
+      } catch {
         setError("Produsul nu a fost găsit.");
-      } catch  {
-        setError("Nu s-au putut încărca detaliile produsului.");
       } finally {
         setLoading(false);
       }
@@ -121,10 +94,10 @@ const ProductDetailPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-x-6 gap-y-3 mb-5">
-              <p><span className={iconClass}>📂</span><b>Categoria:</b> {product.category}</p>
-              <p><span className={iconClass}>🏷️</span><b>Sub-categorie:</b> {product.subCategory}</p>
-              <p><span className={iconClass}>🏢</span><b>Brand:</b> {product.brand}</p>
-              <p><span className={iconClass}>📦</span><b>Stoc:</b> {product.stock_quantity} buc</p>
+              <p><span className="inline-block mr-2 opacity-80">📂</span><b>Categoria:</b> {product.category}</p>
+              <p><span className="inline-block mr-2 opacity-80">🏷️</span><b>Sub-categorie:</b> {product.subCategory}</p>
+              <p><span className="inline-block mr-2 opacity-80">🏢</span><b>Brand:</b> {product.brand}</p>
+              <p><span className="inline-block mr-2 opacity-80">📦</span><b>Stoc:</b> {product.stock_quantity} buc</p>
             </div>
 
             {/* Atribute */}

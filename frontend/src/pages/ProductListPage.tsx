@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import PaginationControls from '../components/PaginationControls';
 import MetaMaskConnect from '../components/MetaMaskConnect';
@@ -8,72 +9,44 @@ interface Product {
   name: string;
   price: number;
   currency: string;
-  image?: string;
+  image_url?: string;
 }
 
-const allProducts: Product[] = [
-  { id: '123', name: 'Laptop Dell XPS 13', price: 4500, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Dell+XPS+13' },
-  { id: '2', name: 'Telefon iPhone 14', price: 5200, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=iPhone+14' },
-  { id: '3', name: 'Căști Bose QC35', price: 1200, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Bose+QC35' },
-  { id: '4', name: 'Smartwatch Samsung Galaxy', price: 900, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Samsung+Watch' },
-  { id: '5', name: 'Monitor LG UltraFine', price: 1700, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=LG+UltraFine' },
-  { id: '6', name: 'Tabletă iPad Pro', price: 3500, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=iPad+Pro' },
-  { id: '7', name: 'Laptop ASUS ZenBook', price: 4000, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=ASUS+ZenBook' },
-  { id: '8', name: 'Telefon Google Pixel 6', price: 3000, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Pixel+6' },
-  { id: '9', name: 'Cameră GoPro Hero 9', price: 1400, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=GoPro+Hero+9' },
-  { id: '10', name: 'Boxe JBL Charge 5', price: 600, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=JBL+Charge+5' },
-  { id: '11', name: 'Mouse Logitech MX Master 3', price: 450, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Logitech+MX+Master+3' },
-  { id: '12', name: 'Tastatură Mechanical Corsair', price: 700, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Corsair+Keyboard' },
-  { id: '13', name: 'SSD Samsung 1TB', price: 800, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Samsung+SSD' },
-  { id: '14', name: 'Căști Sony WH-1000XM4', price: 1300, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Sony+WH1000XM4' },
-  { id: '15', name: 'Monitor BenQ 27"', price: 1500, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=BenQ+27inch' },
-  { id: '16', name: 'Laptop HP Spectre x360', price: 4800, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=HP+Spectre+x360' },
-  { id: '17', name: 'Telefon OnePlus 9', price: 3200, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=OnePlus+9' },
-  { id: '18', name: 'Tabletă Samsung Galaxy Tab S7', price: 2900, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Galaxy+Tab+S7' },
-  { id: '19', name: 'Router Netgear Nighthawk', price: 850, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Netgear+Nighthawk' },
-  { id: '20', name: 'Boxă inteligentă Amazon Echo', price: 400, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Amazon+Echo' },
-  { id: '21', name: 'Imprimantă HP LaserJet', price: 900, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=HP+LaserJet' },
-  { id: '22', name: 'Webcam Logitech C920', price: 350, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Logitech+C920' },
-  { id: '23', name: 'Hard Disk WD 2TB', price: 500, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=WD+2TB' },
-  { id: '24', name: 'Placă video NVIDIA RTX 3060', price: 2500, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=RTX+3060' },
-  { id: '25', name: 'Placă de bază ASUS', price: 800, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=ASUS+Motherboard' },
-  { id: '26', name: 'Sursă Corsair 650W', price: 400, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Corsair+650W' },
-  { id: '27', name: 'Cooler Noctua NH-D15', price: 450, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Noctua+NH-D15' },
-  { id: '28', name: 'Carcasă NZXT H510', price: 600, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=NZXT+H510' },
-  { id: '29', name: 'Monitor Philips 24"', price: 800, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=Philips+24inch' },
-  { id: '30', name: 'Mousepad SteelSeries', price: 120, currency: 'RON', image: 'https://via.placeholder.com/300x200?text=SteelSeries+Mousepad' },
-];
+const API_URL = "https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/products";
+const LIMIT = 12;
 
 const ProductListPage: React.FC = () => {
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const fetchProducts = async (page: number = 1, limit: number = 12) => {
-    setLoading(true);
-    setError('');
-    try {
-      await new Promise((res) => setTimeout(res, 500)); // simulare delay
-
-      const start = (page - 1) * limit;
-      const end = start + limit;
-      const paginatedItems = allProducts.slice(start, end);
-
-      setProducts(paginatedItems);
-      setTotalPages(Math.ceil(allProducts.length / limit));
-    } catch {
-      setError('A apărut o eroare la încărcarea produselor.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Fetch toate produsele o singură dată
   useEffect(() => {
-    document.title = 'DeviMarket Zero';
-    fetchProducts(currentPage);
-  }, [currentPage]);
+    const fetchAllProducts = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const response = await axios.get(API_URL);
+        setAllProducts(response.data); // API returnează direct arrayul
+        setTotalPages(Math.ceil(response.data.length / LIMIT));
+      } catch {
+        setError('A apărut o eroare la încărcarea produselor.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAllProducts();
+  }, []);
+
+  // Când se schimbă pagina, refă lista de produse pentru pagina respectivă
+  useEffect(() => {
+    const start = (currentPage - 1) * LIMIT;
+    const end = start + LIMIT;
+    setProducts(allProducts.slice(start, end));
+  }, [allProducts, currentPage]);
 
   return (
     <div className="container max-w-7xl mx-auto px-6 py-12 bg-white rounded-lg shadow-lg">
@@ -124,7 +97,14 @@ const ProductListPage: React.FC = () => {
 
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-12">
         {products.map((product) => (
-          <ProductCard key={product.id} {...product} />
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            price={product.price}
+            currency={product.currency}
+            image_url={product.image_url}
+          />
         ))}
       </div>
 
