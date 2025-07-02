@@ -49,19 +49,15 @@ const ProductListPage: React.FC = () => {
   }, [allProducts, currentPage]);
 
   return (
-    <div className="container max-w-7xl mx-auto px-6 py-12 bg-white rounded-lg shadow-lg">
-      {/* Banner cu wallet */}
-      <section className="mb-16 text-center bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 p-12 rounded-lg text-white shadow-lg relative overflow-hidden">
-        <div className="absolute right-8 top-8 sm:static sm:mb-6 flex justify-center sm:justify-end">
-          <MetaMaskConnect />
+    <div className="container max-w-screen-2xl mx-auto px-4 pt-12 pb-0">
+      {/* Header vizual modern */}
+      <div className="flex flex-col items-center mb-10">
+        <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full p-4 shadow-lg mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h18M3 12h18M3 17h18" /></svg>
         </div>
-        <h1 className="text-5xl font-extrabold mb-6 tracking-tight drop-shadow-lg">
-          Bine ai venit la DeviMarket Zero
-        </h1>
-        <p className="max-w-4xl mx-auto text-xl leading-relaxed font-light drop-shadow-md">
-          Explorează cele mai bune produse din marketplace-ul nostru, cu oferte speciale și selecții atent alese doar pentru tine.
-        </p>
-      </section>
+        <h1 className="text-4xl font-extrabold text-indigo-800 drop-shadow mb-2">Produse</h1>
+        <p className="text-gray-600 text-lg text-center max-w-2xl">Descoperă selecția noastră variată de produse, atent alese pentru tine. Bucură-te de oferte speciale și calitate garantată!</p>
+      </div>
 
       {loading && (
         <div className="flex justify-center my-12">
@@ -96,16 +92,24 @@ const ProductListPage: React.FC = () => {
       )}
 
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-12">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            name={product.name}
-            price={product.price}
-            currency={product.currency}
-            image_url={product.image_url}
-          />
-        ))}
+        {products.length > 0 ? (
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              currency={product.currency}
+              image_url={product.image_url}
+            />
+          ))
+        ) : (
+          !loading && !error && (
+            <div className="col-span-full text-center text-gray-500 text-xl py-12">
+              Nu există produse disponibile.
+            </div>
+          )
+        )}
       </div>
 
       <PaginationControls

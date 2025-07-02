@@ -58,76 +58,74 @@ const ProductDetailPage: React.FC = () => {
   if (!product) return null;
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 py-12 px-2">
-      <div className="max-w-3xl w-full bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl p-8 mx-auto border border-purple-200 relative">
-        {/* Buton back */}
+    <section className="min-h-screen w-full flex flex-col items-center justify-center bg-white py-0 px-0">
+      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-start pt-16 pb-20 px-4">
+        {/* Stânga: Imagine produs */}
+        <div className="w-full md:w-1/3 flex flex-col items-center">
+          <img
+            src={product.image_url}
+            alt={product.name}
+            className="rounded-2xl shadow-2xl w-full max-w-md max-h-[420px] object-contain bg-white mb-6"
+          />
+          {/* Thumbnails mock (opțional, doar unul pentru demo) */}
+          <div className="flex gap-2 mt-2">
+            <img src={product.image_url} alt="thumb" className="w-16 h-16 object-contain rounded-lg border-2 border-indigo-200" />
+          </div>
+        </div>
+        {/* Centru: Detalii produs */}
+        <div className="w-full md:w-2/3 lg:w-1/2 flex flex-col gap-6">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-indigo-900 mb-2 drop-shadow-lg">
+            {product.name}
+          </h1>
+          <p className="text-gray-700 mb-2 text-xl font-light max-w-2xl">{product.description}</p>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-lg">
+            <p className="flex items-center"><span className="inline-block mr-2 opacity-80">📂</span><b>Categoria:</b> {product.category}</p>
+            <p className="flex items-center"><span className="inline-block mr-2 opacity-80">🏷️</span><b>Sub-categorie:</b> {product.subCategory}</p>
+            <p className="flex items-center"><span className="inline-block mr-2 opacity-80">🏢</span><b>Brand:</b> {product.brand}</p>
+            <p className="flex items-center"><span className="inline-block mr-2 opacity-80">📦</span><b>Stoc:</b> {product.stock_quantity} buc</p>
+          </div>
+          {/* Atribute */}
+          <div className="mb-2">
+            <h2 className="font-bold text-indigo-800 mb-1 text-lg">Specificații</h2>
+            <div className="flex flex-wrap gap-3">
+              {Object.entries(product.attributes).map(([key, value]) => (
+                value && (
+                  <span key={key} className="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-xl text-base font-medium shadow">
+                    {key}: {value}
+                  </span>
+                )
+              ))}
+            </div>
+          </div>
+          {/* Taguri */}
+          <div className="flex flex-wrap gap-3 mt-2">
+            {product.tags.map((tag) => (
+              <span key={tag} className="bg-pink-200 text-pink-700 px-4 py-2 rounded-xl text-base font-medium shadow">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </div>
+        {/* Dreapta: Card preț și acțiuni */}
+        <div className="w-full md:w-1/4 lg:w-1/5 bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center gap-6 sticky top-28 self-start border border-indigo-100">
+          <div className="flex flex-col items-center mb-2">
+            <span className="text-3xl font-extrabold text-pink-600 drop-shadow mb-2">
+              {product.price} {product.currency}
+            </span>
+            <span className={`px-4 py-2 rounded-full text-lg font-semibold shadow ${product.stock_quantity > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-700'}`}>
+              {product.stock_quantity > 0 ? "În stoc" : "Indisponibil"}
+            </span>
+          </div>
+        </div>
+      </div>
+      {/* Buton back sus */}
+      <div className="fixed left-8 top-8 z-20">
         <Link
           to="/products"
-          className="absolute -top-4 left-4 bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold px-4 py-2 rounded-xl shadow-lg hover:scale-105 hover:from-pink-500 hover:to-indigo-500 transition-all"
+          className="bg-gradient-to-r from-indigo-600 to-pink-500 text-white font-semibold px-6 py-3 rounded-2xl shadow-xl hover:scale-105 hover:from-pink-500 hover:to-indigo-600 transition-all text-lg"
         >
           ← Înapoi la produse
         </Link>
-
-        {/* Imagine produs */}
-        <div className="flex flex-col md:flex-row items-center gap-8 mt-8">
-          <div className="flex-shrink-0 w-full md:w-[380px]">
-            <img
-              src={product.image_url}
-              alt={product.name}
-              className="rounded-2xl shadow-xl w-full transition-transform hover:scale-105 hover:shadow-2xl"
-            />
-          </div>
-
-          {/* Info produs */}
-          <div className="flex-1">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-indigo-900 mb-2 drop-shadow-sm">
-              {product.name}
-            </h1>
-            <p className="text-gray-700 mb-3 text-base">{product.description}</p>
-            <div className="flex items-center mb-6">
-              <span className="text-2xl font-bold text-pink-600 mr-4 drop-shadow">
-                {product.price} {product.currency}
-              </span>
-              <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
-                {product.stock_quantity > 0 ? "În stoc" : "Indisponibil"}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-x-6 gap-y-3 mb-5">
-              <p><span className="inline-block mr-2 opacity-80">📂</span><b>Categoria:</b> {product.category}</p>
-              <p><span className="inline-block mr-2 opacity-80">🏷️</span><b>Sub-categorie:</b> {product.subCategory}</p>
-              <p><span className="inline-block mr-2 opacity-80">🏢</span><b>Brand:</b> {product.brand}</p>
-              <p><span className="inline-block mr-2 opacity-80">📦</span><b>Stoc:</b> {product.stock_quantity} buc</p>
-            </div>
-
-            {/* Atribute */}
-            <div className="mb-4">
-              <h2 className="font-semibold text-indigo-800 mb-1">Specificații</h2>
-              <div className="flex flex-wrap gap-2">
-                {Object.entries(product.attributes).map(([key, value]) => (
-                  <span key={key} className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-xl text-xs font-medium shadow">
-                    {key}: {value}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Taguri */}
-            <div>
-              <h2 className="font-semibold text-indigo-800 mb-1">Taguri</h2>
-              <div className="flex flex-wrap gap-2">
-                {product.tags.map(tag => (
-                  <span
-                    key={tag}
-                    className="bg-pink-100 text-pink-700 px-2 py-1 rounded-full text-xs font-semibold"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
