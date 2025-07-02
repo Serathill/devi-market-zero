@@ -14,7 +14,9 @@ import type { Product } from "../types/product";
  */
 const HomePage: React.FC = () => {
   const [search, setSearch] = useState("");
-  const { data: allProducts, loading, error } = useFetch(getProducts);
+  const { data: allProducts, loading, error } = useFetch(
+    (signal) => getProducts(signal)
+  );
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searched, setSearched] = useState(false);
 

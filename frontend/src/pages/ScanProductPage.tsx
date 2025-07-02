@@ -19,8 +19,8 @@ const ScanProductPage: React.FC = () => {
     scan_timestamp: new Date().toISOString(),
   });
 
-  const scanApiCall = useCallback(() => {
-    return postProductScan(payload);
+  const scanApiCall = useCallback((signal: AbortSignal) => {
+    return postProductScan(payload, signal);
   }, [payload]);
 
   const { data: response, loading, error, execute } = useFetch<ProductScanResponse>(scanApiCall, false);

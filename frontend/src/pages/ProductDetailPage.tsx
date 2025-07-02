@@ -14,16 +14,15 @@ import { getProductById } from "../services/productService";
 const ProductDetailPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
 
-  const fetchProduct = useCallback(() => {
+  const fetchProduct = useCallback((signal: AbortSignal) => {
     if (!productId) {
-      // This should ideally not happen if the routing is set up correctly.
-      // Return a promise that rejects to be caught by useFetch.
+      // This should not happen if routes are correct, but it's a safe guard.
       return Promise.reject(new Error("Product ID is missing."));
     }
-    return getProductById(productId);
+    return getProductById(productId, signal);
   }, [productId]);
 
-  const { data: product, loading, error } = useFetch(fetchProduct);
+  const { data: product, loading, error } = useFetch(fetchProduct, !!productId);
 
   if (loading)
     return (

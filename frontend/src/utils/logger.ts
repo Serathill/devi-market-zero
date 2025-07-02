@@ -5,36 +5,7 @@
  * By centralizing the logger, we can easily extend it to send logs
  * to an external service (e.g., Sentry, LogRocket) without refactoring
  * every call site.
- * 
- * This logger now sends logs to a backend service that stores them in files
- * in the logs directory, organized by date.
  */
-
-/**
- * Sends a log to the backend logging service
- * 
- * @param {string} level - The log level (info, warn, error)
- * @param {string} message - The message to log
- * @param {object} [context] - Optional context data
- */
-const sendLogToServer = async (level: string, message: string, context?: object): Promise<void> => {
-  try {
-    await fetch('http://localhost:3002/api/logs', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        level,
-        message,
-        context,
-      }),
-    });
-  } catch (error) {
-    // Fallback to console if server logging fails
-    console.error('Failed to send log to server:', error);
-  }
-};
 
 const logger = {
   /**
@@ -54,9 +25,6 @@ const logger = {
         context || ''
       );
     }
-    
-    // Always send to server for file logging
-    sendLogToServer('info', message, context);
   },
 
   /**
@@ -77,9 +45,6 @@ const logger = {
         context || ''
       );
     }
-    
-    // Always send to server for file logging
-    sendLogToServer('warn', message, context);
   },
 
   /**
@@ -97,26 +62,6 @@ const logger = {
       context || '',
       error
     );
-    
-    // Extract error message for server logging
-    let errorMessage = 'Unknown error';
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    } else if (typeof error === 'string') {
-      errorMessage = error;
-    } else {
-      try {
-        errorMessage = JSON.stringify(error);
-      } catch (e) {
-        errorMessage = 'Unstringifiable error';
-      }
-    }
-    
-    // Send to server for file logging
-    sendLogToServer('error', errorMessage, {
-      ...context,
-      stack: error instanceof Error ? error.stack : undefined
-    });
   },
 };
 

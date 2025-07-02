@@ -15,9 +15,10 @@ const SCAN_API_ENDPOINT = "/scanner/product_scan/product_scan";
  * Sends product scan data to the API.
  *
  * @param {ProductScanPayload} payload - The data to be sent.
+ * @param {AbortSignal} signal - The AbortSignal to cancel the request.
  * @returns {Promise<ProductScanResponse>} A promise that resolves to the scan response.
  */
-export const postProductScan = async (payload: ProductScanPayload): Promise<ProductScanResponse> => {
+export const postProductScan = async (payload: ProductScanPayload, signal: AbortSignal): Promise<ProductScanResponse> => {
   const startTime = new Date();
   logger.info('API Call: Sending product scan data', { 
     endpoint: SCAN_API_ENDPOINT,
@@ -28,7 +29,7 @@ export const postProductScan = async (payload: ProductScanPayload): Promise<Prod
   });
   
   try {
-    const response = await apiClient.post<ProductScanResponse>(SCAN_API_ENDPOINT, payload);
+    const response = await apiClient.post<ProductScanResponse>(SCAN_API_ENDPOINT, payload, { signal });
     const endTime = new Date();
     const duration = endTime.getTime() - startTime.getTime();
     

@@ -2,10 +2,11 @@ import axios from 'axios';
 
 /**
  * The base URL for the API.
- * Using a relative URL to work with the Vite proxy configuration.
- * This avoids CORS issues when making requests to the backend.
+ * It is configured to use a relative path, which will be resolved by the
+ * Vite development proxy or the production server's reverse proxy.
+ * This avoids CORS issues and keeps the code environment-agnostic.
  */
-const API_BASE_URL = '/api'; // Using relative URL to work with Vite proxy
+const API_BASE_URL = '/api';
 
 /**
  * A pre-configured instance of axios for making API requests.
@@ -17,8 +18,33 @@ const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
   },
 });
+
+// Add a response interceptor to handle errors
+apiClient.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    console.error('API Error:', error);
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error('No response received:', error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error('Request error:', error.message);
+    }
+    return Promise.reject(error);
+  }
+);
 
 // You can also add interceptors for handling requests or responses globally
 // For example, to add an auth token to every request:

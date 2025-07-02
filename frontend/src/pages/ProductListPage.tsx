@@ -16,7 +16,9 @@ import { PRODUCT_PAGE_LIMIT } from '../constants';
  * @returns {React.ReactElement} The product list page component.
  */
 const ProductListPage: React.FC = () => {
-  const { data: allProducts, loading, error } = useFetch(getProducts);
+  const { data: allProducts, loading, error } = useFetch(
+    (signal) => getProducts(signal)
+  );
 
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);

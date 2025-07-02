@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import logger from '../utils/logger';
+import axios from 'axios';
 
 /**
  * Interface for the state managed by the `useFetch` hook.
@@ -12,53 +13,72 @@ interface FetchState<T> {
 }
 
 /**
- * A custom hook to handle asynchronous data fetching.
- * It manages the loading, error, and data states of an async operation.
+ * A custom hook to handle asynchronous data fetching with cancellation.
+ * It manages loading, error, and data states, and uses an AbortController
+ * to cancel fetches when the component unmounts.
  *
  * @template T The expected type of the data to be fetched.
- * @param {() => Promise<T>} asyncFunction - The asynchronous function to execute.
- * @param {boolean} [immediate=true] - Whether to execute the function immediately on mount.
- * @returns {{ data: T | null, loading: boolean, error: Error | null, execute: () => Promise<void> }}
- * The state of the fetch operation (`data`, `loading`, `error`) and a function to manually trigger it.
+ * @param {(signal: AbortSignal) => Promise<T>} asyncFunction - The async function, which now receives an AbortSignal.
+ * @param {boolean} [immediate=true] - Whether to execute immediately.
+ * @returns {{ data: T | null, loading: boolean, error: Error | null, execute: () => void }}
  */
-function useFetch<T>(asyncFunction: () => Promise<T>, immediate = true) {
+function useFetch<T>(
+  asyncFunction: (signal: AbortSignal) => Promise<T>,
+  immediate = true
+) {
   const [state, setState] = useState<FetchState<T>>({
     data: null,
     loading: immediate,
     error: null,
   });
 
-  const execute = useCallback(async () => {
-    setState(prevState => ({ ...prevState, loading: true, error: null }));
-    logger.info('Starting fetch operation', { 
-      immediate,
-      functionName: asyncFunction.name || 'anonymous' 
-    });
-    
-    try {
-      const responseData = await asyncFunction();
-      logger.info('Fetch operation completed successfully', { 
+  const execute = useCallback(
+    async (signal: AbortSignal) => {
+      setState((prevState) => ({ ...prevState, loading: true, error: null }));
+      logger.info('Starting fetch operation', {
         functionName: asyncFunction.name || 'anonymous',
-        hasData: !!responseData
       });
-      setState(prevState => ({ ...prevState, data: responseData, loading: false }));
-    } catch (err) {
-      const error = err instanceof Error ? err : new Error('An unknown error occurred.');
-      logger.error(err, { 
-        context: 'useFetch',
-        functionName: asyncFunction.name || 'anonymous'
-      });
-      setState(prevState => ({ ...prevState, error, loading: false }));
-    }
-  }, [asyncFunction, immediate]);
+
+      try {
+        const responseData = await asyncFunction(signal);
+        // Only update state if the request was not aborted
+        if (!signal.aborted) {
+          logger.info('Fetch operation completed successfully');
+          setState({ data: responseData, loading: false, error: null });
+        }
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          logger.warn('Fetch operation was cancelled by cleanup.', {
+            functionName: asyncFunction.name || 'anonymous',
+          });
+        } else if (!signal.aborted) {
+          const error = err instanceof Error ? err : new Error('An unknown error occurred.');
+          logger.error(error, { context: 'useFetch' });
+          setState({ data: null, error, loading: false });
+        }
+      }
+    },
+    [asyncFunction]
+  );
 
   useEffect(() => {
     if (immediate) {
-      execute();
+      const controller = new AbortController();
+      execute(controller.signal);
+
+      // Cleanup function to abort the request if the component unmounts
+      return () => {
+        controller.abort();
+      };
     }
   }, [execute, immediate]);
 
-  return { ...state, execute };
+  const manualExecute = () => {
+    const controller = new AbortController();
+    execute(controller.signal);
+  };
+
+  return { ...state, execute: manualExecute };
 }
 
 export default useFetch; 

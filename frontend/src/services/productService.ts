@@ -8,9 +8,10 @@ import logger from '../utils/logger';
 
 /**
  * Fetches all products from the API.
+ * @param {AbortSignal} signal - The AbortSignal to cancel the request.
  * @returns {Promise<Product[]>} A promise that resolves to an array of products.
  */
-export const getProducts = async (): Promise<Product[]> => {
+export const getProducts = async (signal: AbortSignal): Promise<Product[]> => {
   const startTime = new Date();
   logger.info('API Call: Fetching all products', { 
     endpoint: '/products',
@@ -19,7 +20,7 @@ export const getProducts = async (): Promise<Product[]> => {
   });
   
   try {
-    const response = await apiClient.get<Product[]>('/products');
+    const response = await apiClient.get<Product[]>('/products', { signal });
     const endTime = new Date();
     const duration = endTime.getTime() - startTime.getTime();
     
@@ -67,9 +68,10 @@ export const getProducts = async (): Promise<Product[]> => {
 /**
  * Fetches a single product by its ID from the API.
  * @param {string} id - The ID of the product to fetch.
+ * @param {AbortSignal} signal - The AbortSignal to cancel the request.
  * @returns {Promise<Product>} A promise that resolves to the product object.
  */
-export const getProductById = async (id: string): Promise<Product> => {
+export const getProductById = async (id: string, signal: AbortSignal): Promise<Product> => {
   const startTime = new Date();
   logger.info('API Call: Fetching product by ID', { 
     endpoint: `/products/${id}`,
@@ -79,7 +81,7 @@ export const getProductById = async (id: string): Promise<Product> => {
   });
   
   try {
-    const response = await apiClient.get<Product>(`/products/${id}`);
+    const response = await apiClient.get<Product>(`/products/${id}`, { signal });
     const endTime = new Date();
     const duration = endTime.getTime() - startTime.getTime();
     
