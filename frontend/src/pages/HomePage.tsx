@@ -1,50 +1,36 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import ProductCard from "../components/ProductCard";
+import useFetch from "../hooks/useFetch";
+import { getProducts } from "../services/productService";
+import type { Product } from "../types/product";
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  currency: string;
-  image_url?: string;
-  brand: string;
-  category: string;
-  subCategory: string;
-}
-
+/**
+ * Renders the home page of the application.
+ *
+ * This page features a search bar to filter products. It fetches all products
+ * on mount and then performs a client-side search based on user input.
+ *
+ * @returns {React.ReactElement} The home page component.
+ */
 const HomePage: React.FC = () => {
   const [search, setSearch] = useState("");
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const { data: allProducts, loading, error } = useFetch(getProducts);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [searched, setSearched] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setError("");
-    axios.get("https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/products")
-      .then((res) => {
-        setAllProducts(res.data);
-      })
-      .catch(() => setError("A apărut o eroare la încărcarea produselor."))
-      .finally(() => setLoading(false));
-  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setSearched(true);
-    if (!search.trim()) {
+    if (!search.trim() || !allProducts) {
       setFilteredProducts([]);
       return;
     }
     const term = search.trim().toLowerCase();
     const results = allProducts.filter((product) =>
       product.name.toLowerCase().includes(term) ||
-      product.brand.toLowerCase().includes(term) ||
-      product.category.toLowerCase().includes(term) ||
-      product.subCategory.toLowerCase().includes(term)
+      (product.brand && product.brand.toLowerCase().includes(term)) ||
+      (product.category && product.category.toLowerCase().includes(term)) ||
+      (product.subCategory && product.subCategory.toLowerCase().includes(term))
     );
     setFilteredProducts(results);
   };
@@ -52,7 +38,7 @@ const HomePage: React.FC = () => {
   return (
     <section className="min-h-[70vh] flex flex-col items-center justify-center bg-gray-100 py-16 px-4">
       <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 mb-8 drop-shadow-lg text-center">
-        Bine ai venit la Acasa
+        Bun venit la DeviMarket
       </h1>
       <p className="text-xl md:text-2xl text-gray-700 mb-10 text-center max-w-2xl">
         Caută rapid produsele dorite sau explorează ofertele noastre speciale!
@@ -72,7 +58,7 @@ const HomePage: React.FC = () => {
           Caută
         </button>
       </form>
-      {/* Rezultate căutare */}
+      {/* Search Results */}
       <div className="w-full max-w-5xl mx-auto">
         {loading && (
           <div className="flex justify-center my-12">
@@ -101,7 +87,7 @@ const HomePage: React.FC = () => {
         )}
         {error && (
           <p className="text-center text-red-600 font-semibold text-lg mb-8">
-            {error}
+            A apărut o eroare la încărcarea produselor.
           </p>
         )}
         {searched && !loading && !error && filteredProducts.length > 0 && (
@@ -119,9 +105,9 @@ const HomePage: React.FC = () => {
             Nu există produse care să corespundă căutării.
           </div>
         )}
-        {!loading && !error && allProducts.length === 0 && (
+        {!searched && !loading && !error && (!allProducts || allProducts.length === 0) && (
           <div className="text-center text-gray-500 text-xl py-12">
-            Nu există produse disponibile.
+            Nu există produse disponibile pentru a căuta.
           </div>
         )}
       </div>

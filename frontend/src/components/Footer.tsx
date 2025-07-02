@@ -1,18 +1,39 @@
 import React from "react";
 
+/**
+ * The main footer component for the application.
+ *
+ * It displays company information such as working hours and copyright details.
+ *
+ * @returns {React.ReactElement} The footer component.
+ */
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 text-white py-6 px-4 shadow-inner w-full">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="text-center md:text-left">
-          <div className="font-semibold">Program:</div>
-          <div>Luni - Vineri: 09:00 - 18:00</div>
-          <div>Sâmbătă: 10:00 - 14:00</div>
-          <div>Duminică: Închis</div>
+    <footer className="bg-gray-800 text-white py-8 px-4 w-full mt-auto">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+        {/* About */}
+        <div>
+          <h3 className="text-lg font-bold mb-2 text-pink-400">DeviMarket Zero</h3>
+          <p className="text-gray-400 text-sm">
+            O platformă demonstrativă pentru un magazin online modern,
+            construită cu tehnologii de ultimă generație.
+          </p>
         </div>
-        <div className="text-center">
-          <span className="block font-bold text-lg">&copy; {new Date().getFullYear()} DeviMarket Zero</span>
-          <span className="block text-xs opacity-80">Toate drepturile rezervate. Trademark &trade;.</span>
+        
+        {/* Contact/Schedule */}
+        <div>
+          <h3 className="text-lg font-bold mb-2 text-pink-400">Contact & Program</h3>
+          <div className="text-gray-300 text-sm">
+            <div>Luni - Vineri: 09:00 - 18:00</div>
+            <div>Sâmbătă: 10:00 - 14:00</div>
+            <div>Duminică: Închis</div>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="md:text-right">
+          <p className="text-gray-300">&copy; {new Date().getFullYear()} DeviMarket Zero</p>
+          <p className="text-xs text-gray-500">Toate drepturile rezervate.</p>
         </div>
       </div>
     </footer>

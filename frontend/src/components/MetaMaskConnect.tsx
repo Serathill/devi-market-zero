@@ -1,94 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useWeb3 } from "../contexts/Web3Context";
 
-
-declare global {
-  interface Window {
-    ethereum?: {
-      isMetaMask?: boolean;
-      request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
-      on?: (event: string, handler: (...args: unknown[]) => void) => void;
-      removeListener?: (event: string, handler: (...args: unknown[]) => void) => void;
-    };
-  }
-}
-
+/**
+ * A component to handle MetaMask wallet connection.
+ *
+ * It uses the Web3Context to manage connection state and actions,
+ * displaying appropriate UI based on connection status.
+ *
+ * @returns {React.ReactElement} The MetaMask connection component.
+ */
 const MetaMaskConnect: React.FC = () => {
-  const [account, setAccount] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { account, connect, isConnecting, error, isMetaMaskInstalled } = useWeb3();
 
-
-  useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum
-        .request({ method: "eth_accounts" })
-        .then((accountsRaw) => {
-          const accounts = accountsRaw as string[];
-          if (accounts.length > 0) setAccount(accounts[0]);
-        });
-
-      // Listen for account changes
-      window.ethereum.on?.("accountsChanged", (accountsRaw: unknown) => {
-        const accounts = accountsRaw as string[];
-        if (accounts.length > 0) {
-          setAccount(accounts[0]);
-          setError(null);
-        } else {
-          setAccount(null);
-        }
-      });
-    }
-  }, []);
-
-  const handleConnect = async () => {
-    setError(null);
-    if (!window.ethereum) {
-      setError("MetaMask is not installed. Please install MetaMask browser extension!");
-      return;
-    }
-    try {
-      const accountsRaw = await window.ethereum.request({ method: "eth_requestAccounts" });
-      const accounts = accountsRaw as string[];
-      setAccount(accounts[0]);
-    } catch (err) {
-      
-      if (typeof err === "object" && err !== null && "code" in err) {
-        
-        if ((err as { code?: number }).code === 4001) {
-          setError("Connection cancelled by user.");
-        } else {
-          setError("Could not connect to MetaMask.");
-        }
-      } else {
-        setError("Could not connect to MetaMask.");
-      }
-      console.error(err);
-    }
+  const formatAddress = (address: string): string => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
   };
 
-  return (
-    <div className="flex flex-col items-center space-y-2">
-      {!window.ethereum && (
-        <span className="text-red-500 text-sm">
-          MetaMask is not installed. Please install MetaMask browser extension!
-        </span>
-      )}
+  const NotInstalled = () => (
+    <div className="text-red-500 text-sm font-semibold p-2 bg-red-100 border border-red-300 rounded-lg">
+      MetaMask nu este instalat!
+    </div>
+  );
 
-      {window.ethereum && !account && (
+  return (
+    <div className="flex flex-col items-center justify-center space-y-2 p-2">
+      {!isMetaMaskInstalled && <NotInstalled />}
+
+      {isMetaMaskInstalled && !account && (
         <button
-          onClick={handleConnect}
-          className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded shadow transition"
+          onClick={connect}
+          disabled={isConnecting}
+          className={`
+            bg-gradient-to-r from-orange-500 to-yellow-500 text-white 
+            px-5 py-2.5 rounded-lg shadow-lg 
+            ${isConnecting ? 'opacity-70 cursor-not-allowed' : 'hover:scale-105 transition-transform'} 
+            font-bold
+          `}
+          aria-label="Connect MetaMask wallet"
         >
-          Connect Wallet
+          {isConnecting ? (
+            <span className="flex items-center">
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Se conectează...
+            </span>
+          ) : (
+            "Conectare Portofel"
+          )}
         </button>
       )}
 
-      {window.ethereum && account && (
-        <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded">
-          Connected: <span className="font-mono">{account.slice(0, 6)}...{account.slice(-4)}</span>
+      {isMetaMaskInstalled && account && (
+        <div className="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-base border border-green-200">
+          Conectat: <span className="font-mono font-bold">{formatAddress(account)}</span>
         </div>
       )}
 
-      {error && <div className="text-red-500 text-xs">{error}</div>}
+      {error && <div className="text-red-500 text-sm mt-2" role="alert">{error}</div>}
     </div>
   );
 };

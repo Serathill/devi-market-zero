@@ -1,54 +1,90 @@
-# React + TypeScript + Vite
+# DeviMarket Zero Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend-ul pentru aplicația "DeviMarket Zero" - o platformă de marketplace descentralizat, bazată pe blockchain.
 
-Currently, two official plugins are available:
+## Caracteristici
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Interfață modernă și reactivă folosind React, Tailwind CSS, și TypeScript
+- Conectare la portofel MetaMask
+- Listare produse și detalii
+- Scanare produse pentru verificarea autenticității
+- Centralizare a datelor și stării aplicației prin React Context
+- Optimizări de performanță și accessibilitate
 
-## Expanding the ESLint configuration
+## Tehnologii Utilizate
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19
+- TypeScript
+- Tailwind CSS
+- React Router 7
+- Axios pentru comunicarea cu API-ul
+- Vitest & React Testing Library pentru testare
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Structura Proiectului
+
+```
+src/
+  ├── assets/        # Resurse statice (imagini, fonturi)
+  ├── components/    # Componente reutilizabile UI
+  ├── contexts/      # Context providers React
+  ├── hooks/         # Hook-uri personalizate
+  ├── pages/         # Componentele pentru rutele principale
+  ├── services/      # Comunicare cu API și servicii externe
+  ├── test/          # Configurare și utilitare pentru testare
+  ├── types/         # Definiții de tipuri TypeScript
+  └── utils/         # Utilitare și funcții helper
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Funcționalități Importante
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Web3Context
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Gestionează starea conexiunii portofelului MetaMask, oferind un API uniform pentru toate componentele aplicației.
+
+### Utilitare de Performanță
+
+Instrumente pentru monitorizarea și optimizarea performanței:
+- Măsurarea timpului de randare a componentelor
+- Urmărirea re-randărilor și a dependențelor care le-au declanșat
+- Măsurarea timpului de execuție a funcțiilor
+
+### Componente Accesibile
+
+Toate componentele sunt create respectând standardele de accesibilitate, cu un accent deosebit pe:
+- Semantica HTML corectă
+- Atribute ARIA corespunzătoare
+- Navigare prin tastatură
+- Contrast de culoare adecvat
+
+## Instalare și Rulare
+
+```bash
+# Instalare dependențe
+npm install
+
+# Rulare în modul dezvoltare
+npm run dev
+
+# Rulare teste
+npm test
+
+# Construire pentru producție
+npm run build
 ```
+
+## Documentație
+
+Pentru mai multe detalii, consultați documentația din directorul `documentation/`:
+
+- [Reguli de Codare](./devi-market-zero/documentation/rules.md)
+- [Changelog și Raport de Conformitate](./documentation/CHANGELOG_AND_COMPLIANCE_REPORT.md)
+- [Optimizări de Performanță](./documentation/PERFORMANCE_OPTIMIZATIONS.md)
+- [Ghid de Accesibilitate](./documentation/ACCESSIBILITY.md)
+
+## Licență
+
+Proprietar
+
+## Contribuții
+
+Vă rugăm să citiți [Regulile de Codare](./devi-market-zero/documentation/rules.md) înainte de a contribui la acest proiect.

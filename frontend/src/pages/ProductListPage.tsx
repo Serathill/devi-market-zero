@@ -1,56 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import PaginationControls from '../components/PaginationControls';
-import MetaMaskConnect from '../components/MetaMaskConnect';
+import useFetch from '../hooks/useFetch';
+import { getProducts } from '../services/productService';
+import type { Product } from '../types/product';
+import { PRODUCT_PAGE_LIMIT } from '../constants';
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  currency: string;
-  image_url?: string;
-}
-
-const API_URL = "https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/products";
-const LIMIT = 12;
-
+/**
+ * Renders a page that displays a list of products with pagination.
+ *
+ * This page fetches all products from the API, then handles pagination
+ * on the client-side. It displays loading and error states during the
+ * data fetching process.
+ *
+ * @returns {React.ReactElement} The product list page component.
+ */
 const ProductListPage: React.FC = () => {
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const { data: allProducts, loading, error } = useFetch(getProducts);
+
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  // Fetch toate produsele o singură dată
+  // Calculate total pages when allProducts is fetched
   useEffect(() => {
-    const fetchAllProducts = async () => {
-      setLoading(true);
-      setError('');
-      try {
-        const response = await axios.get(API_URL);
-        setAllProducts(response.data); // API returnează direct arrayul
-        setTotalPages(Math.ceil(response.data.length / LIMIT));
-      } catch {
-        setError('A apărut o eroare la încărcarea produselor.');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchAllProducts();
-  }, []);
+    if (allProducts) {
+      setTotalPages(Math.ceil(allProducts.length / PRODUCT_PAGE_LIMIT));
+    }
+  }, [allProducts]);
 
-  // Când se schimbă pagina, refă lista de produse pentru pagina respectivă
+  // When the page changes, create the product list for the current page
   useEffect(() => {
-    const start = (currentPage - 1) * LIMIT;
-    const end = start + LIMIT;
-    setProducts(allProducts.slice(start, end));
+    if (allProducts) {
+      const start = (currentPage - 1) * PRODUCT_PAGE_LIMIT;
+      const end = start + PRODUCT_PAGE_LIMIT;
+      setProducts(allProducts.slice(start, end));
+    }
   }, [allProducts, currentPage]);
 
   return (
     <div className="container max-w-screen-2xl mx-auto px-4 pt-12 pb-0">
-      {/* Header vizual modern */}
+      {/* Modern visual header */}
       <div className="flex flex-col items-center mb-10">
         <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full p-4 shadow-lg mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h18M3 12h18M3 17h18" /></svg>
@@ -87,7 +77,7 @@ const ProductListPage: React.FC = () => {
 
       {error && (
         <p className="text-center text-red-600 font-semibold text-lg mb-8">
-          {error}
+          A apărut o eroare la încărcarea produselor. Vă rugăm să încercați din nou mai târziu.
         </p>
       )}
 

@@ -1,48 +1,39 @@
 // src/pages/ScanProductPage.tsx
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useCallback } from "react";
+import useFetch from "../hooks/useFetch";
+import { postProductScan } from "../services/scanService";
+import type { ProductScanPayload, ProductScanResponse } from "../types/scan";
 
+/**
+ * Renders a page for scanning a product by entering its barcode.
+ *
+ * This component provides a form to submit a barcode and timestamp.
+ * It uses a fetch hook to handle the API call and displays the
+ * loading state and server response or error.
+ *
+ * @returns {React.ReactElement} The scan product page component.
+ */
 const ScanProductPage: React.FC = () => {
-  const [barcode, setBarcode] = useState("");
-  const [timestamp, setTimestamp] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const [response, setResponse] = useState<any>(null);
+  const [payload, setPayload] = useState<ProductScanPayload>({
+    barcode: "",
+    scan_timestamp: new Date().toISOString(),
+  });
 
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const scanApiCall = useCallback(() => {
+    return postProductScan(payload);
+  }, [payload]);
 
-  // opțional: generează timestamp automat
-  React.useEffect(() => {
-    setTimestamp(new Date().toISOString());
-  }, []);
+  const { data: response, loading, error, execute } = useFetch<ProductScanResponse>(scanApiCall, false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
-    setResponse(null);
-    setLoading(true);
+    execute();
+  };
 
-    try {
-      const res = await axios.post(
-  "https://192.168.56.1:8092/api/scanner/product_scan/product_scan",
-  {
-    barcode,
-    scan_timestamp: timestamp,
-  }
-);
-
-
-      setResponse(res.data);
-    } catch (err: unknown) {
-  if (err instanceof Error) {
-    setError(err.message);
-  } else {
-    setError("A apărut o eroare la trimiterea datelor.");
-  }
-}
- finally {
-      setLoading(false);
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const finalValue = name === 'scan_timestamp' ? new Date(value).toISOString() : value;
+    setPayload(prev => ({ ...prev, [name]: finalValue }));
   };
 
   return (
@@ -50,24 +41,26 @@ const [response, setResponse] = useState<any>(null);
       <h1 className="text-2xl font-bold mb-6 text-center">Scanează produs</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block mb-1 font-semibold">Cod de bare (barcode):</label>
+          <label htmlFor="barcode" className="block mb-1 font-semibold">Cod de bare (barcode):</label>
           <input
+            id="barcode"
+            name="barcode"
             type="text"
-            value={barcode}
-            onChange={(e) => setBarcode(e.target.value)}
+            value={payload.barcode}
+            onChange={handleInputChange}
             required
             className="w-full border rounded px-3 py-2"
             placeholder="Ex: 1234567890123"
           />
         </div>
         <div>
-          <label className="block mb-1 font-semibold">Data/ora scanare:</label>
+          <label htmlFor="scan_timestamp" className="block mb-1 font-semibold">Data/ora scanare:</label>
           <input
+            id="scan_timestamp"
+            name="scan_timestamp"
             type="datetime-local"
-            value={timestamp.slice(0, 16)}
-            onChange={(e) =>
-              setTimestamp(new Date(e.target.value).toISOString())
-            }
+            value={payload.scan_timestamp.slice(0, 16)}
+            onChange={handleInputChange}
             required
             className="w-full border rounded px-3 py-2"
           />
@@ -83,7 +76,7 @@ const [response, setResponse] = useState<any>(null);
 
       {error && (
         <div className="mt-4 text-red-600 text-center font-semibold">
-          {error}
+          {error.message || "A apărut o eroare la trimiterea datelor."}
         </div>
       )}
 
