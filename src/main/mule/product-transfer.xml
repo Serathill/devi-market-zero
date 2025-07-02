@@ -14,49 +14,54 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<db:select doc:name="Select" doc:id="23c4a9bb-166b-4798-96b2-6b0722b9069f" config-ref="Database_Config">
 			<db:sql ><![CDATA[SELECT * FROM clickhouse_db_franceza.products_fr WHERE is_active=1 AND is_transfered=0]]></db:sql>
 		</db:select>
+		<logger level="INFO" doc:name="Logger" doc:id="8b0ec15d-cbcd-49fb-9fee-f2d340fb0700" message="#[payload]"/>
 		<ee:transform doc:name="Transform Message" doc:id="7134c76f-1895-4a69-9dd3-2f69d5ce4ce5" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-payload map (product) -> {
-  product_id: product.id,
-  product_title: product.name,
-  description_text: product.description,
-  unit_price: product.price,
-  currency_code: product.currency,
-  available_stock: product.stock_quantity,
-  french_category: product.category,
 
- 
-  barcode: product.barcode,
-  sub_category: product.sub_category,
-  brand: product.brand,
-  image_url: product.image_url,
-  attributes: product.attributes,
-  tags: product.tags,
-  source_etl: product.source_etl,
-  is_active: product.is_active,
-  created_at: product.created_at,
-  updated_at: product.updated_at,
-  external_product_id: product.external_product_id
+payload map (product_fr) -> {
+    id: product_fr.product_id,
+    barcode: uuid(), 
+    name: product_fr.product_title,
+    description: product_fr.description_text,
+    price: product_fr.unit_price,
+    currency: product_fr.currency_code,
+    category: product_fr.french_category,
+    
+    sub_category: null,
+    brand: null,
+    stock_quantity: product_fr.available_stock,
+    image_url: null,
+    source_etl: "FR_TRANSFER_PROCESS", 
+    attributes: null,
+    tags: null,
+    is_active: product_fr.is_active,
+    external_product_id: null
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<db:insert doc:name="Insert" doc:id="0a0e571c-740c-4f2a-846c-a03a32524363" config-ref="Database_Config">
-			<db:sql ><![CDATA[INSERT INTO devimarket_db.products ( id, barcode, name, description, price, currency, category, sub_category, brand,stock_quantity,image_url,attributes,tags, source_etl, is_active,created_at,updated_at,external_product_id
-) VALUES ( :id, :barcode, :name,:description,  :price,:currency,:category, :sub_category, :brand, :stock_quantity, :image_url,:attributes,:tags, :source_etl, :is_active,  :created_at,:updated_at,:external_product_id)
+		<logger level="INFO" doc:name="Logger" doc:id="0082e259-ca48-4842-ac84-06cea8edfd1e" message="#[payload]"/>
+		<foreach doc:name="For Each" doc:id="64ceff6a-63f2-4c72-b271-7336cb5ac3d4" collection="#[payload]">
+			<logger level="INFO" doc:name="Logger" doc:id="94a43de6-5728-4752-b85a-0ebcce99d2af" message="#[payload]"/>
+			<set-variable value="#[payload.id]" doc:name="Set Variable" doc:id="f5192867-ba18-4a48-a8c2-4304329e1e19" variableName="PRODUCT_ID"/>
+			<logger level="INFO" doc:name="Logger" doc:id="f7e5dfce-e759-428c-b652-daf50bcb1a56" message="#[%dw 2.0&#10;output application/json&#10;---&#10;&quot;INSERT INTO devimarket_db.products ( id, barcode, name, description,  price, currency, category, sub_category, brand, stock_quantity, image_url, attributes, tags, source_etl,is_active,created_at, updated_at,external_product_id,) VALUES ('&quot;++ payload.id as String ++&quot;', '9876543210987', 'Șampon Natural Mesteacăn', 'Șampon cu extract de mesteacăn pentru păr normal', 24.90, 'EUR', 'Cosmetice', 'Șampoane', 'NaturaVerde', 120, 'https://example.com/images/sampon.jpg', {'tip_par': 'normal', 'volum': '500ml'}, ['natural', 'pentru-adulti'],'mulesoft_import',1,now(),now(),'EXT987654',);&quot;]" />
+			<db:insert doc:name="Insert" doc:id="0a0e571c-740c-4f2a-846c-a03a32524363" config-ref="Database_Config">
+			<db:sql><![CDATA[INSERT INTO devimarket_db.products (id, barcode, name, description, price, currency, category, sub_category, brand, stock_quantity, image_url, attributes, tags, source_etl, is_active, created_at, updated_at, external_product_id
+) VALUES (:id, :barcode, :name, :description,  :price, :currency, :category, :sub_category, :brand, :stock_quantity, :image_url, :attributes,:tags, :source_etl, :is_active,  now(),now(),:external_product_id)
 ]]></db:sql>
+			<db:input-parameters><![CDATA[#[payload]]]></db:input-parameters>
 		</db:insert>
-		<db:update doc:name="Update" doc:id="8551d7a6-7be7-4b9a-adb9-10031c4ee380" config-ref="Database_Config">
-			<db:sql ><![CDATA[UPDATE products_fr SET is_transfered = 1 WHERE product_id IN (:productIds)
-]]></db:sql>
-			<db:input-parameters ><![CDATA[#[%dw 2.0
-output application/json
----
-{
-  productIds: payload map (item) -> item.product_id
+			<logger level="INFO" doc:name="Logger" doc:id="ea15b967-3841-41a9-8e88-c62aeae52762" message="#[payload]"/>
+			<db:update doc:name="Update" doc:id="8551d7a6-7be7-4b9a-adb9-10031c4ee380" config-ref="Database_Config">
+			<db:sql><![CDATA[UPDATE clickhouse_db_franceza.products_fr SET is_transfered = 1 WHERE product_id =:product_id]]></db:sql>
+			<db:input-parameters><![CDATA[#[{
+    product_id: vars.PRODUCT_ID
 }]]]></db:input-parameters>
 		</db:update>
+			<logger level="INFO" doc:name="Logger" doc:id="3593e3ad-baff-4427-b8dd-016ff7610f7b" />
+		</foreach>
+		<logger level="INFO" doc:name="Logger" doc:id="2f7fd2eb-e75d-49d9-b84b-f0fb268608a8" message="flowEnded"/>
 	</flow>
 </mule>

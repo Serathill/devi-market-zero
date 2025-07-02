@@ -114,7 +114,7 @@ output application/json
     </flow>
     <flow name="post:\product_scan:application\json:scanare-produs-api-config">
         <set-variable value="#[payload]" doc:name="Set Variable" doc:id="ef042891-e289-4a07-9cce-83628a034c75" variableName="RAW_JSON" />
-        <choice doc:name="Choice" doc:id="4b858e8e-c30e-4ce7-bb2f-a4e86897c91e">
+		<choice doc:name="Choice" doc:id="4b858e8e-c30e-4ce7-bb2f-a4e86897c91e">
             <when expression="#[!isEmpty(payload.barcode) and !isEmpty(payload.scan_timestamp) and (payload.scan_timestamp as DateTime {format: &quot;yyyy-MM-dd'T'HH:mm:ssXXX&quot;} default null) != null]">
                 <ee:transform doc:name="Transform Message">
                     <ee:message>
