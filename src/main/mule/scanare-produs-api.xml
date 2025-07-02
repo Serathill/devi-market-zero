@@ -169,8 +169,9 @@ var fallbackTimestamp = now() as String { format: "yyyy-MM-dd'T'HH:mm:ss'Z'" }
 }]]]></db:input-parameters>
         </db:select>
         <choice doc:name="Choice" doc:id="fb8bc993-d948-460b-bfb4-67be3a18c049">
-            <when expression="#[sizeOf(vars.SELECT_VALUE) == 0]">
-                <db:insert doc:name="Insert" doc:id="5371b09a-793a-4897-adcc-615140fb57f1" config-ref="Database_Config">
+			<when expression="#[sizeOf(vars.SELECT_VALUE) == 0]" >
+				<try doc:name="Try" doc:id="10d06beb-eff9-498d-993b-7d034f8473eb" >
+					<db:insert doc:name="Insert" doc:id="5371b09a-793a-4897-adcc-615140fb57f1" config-ref="Database_Config">
                     <db:sql><![CDATA[INSERT INTO devimarket_db.product_scan(barcode, timestamp) VALUES (:barcode, :clickhouse_formatted_timestamp)]]></db:sql>
                     <db:input-parameters><![CDATA[#[{
   "barcode": payload.barcode,
@@ -178,7 +179,26 @@ var fallbackTimestamp = now() as String { format: "yyyy-MM-dd'T'HH:mm:ss'Z'" }
   
 }]]]></db:input-parameters>
                 </db:insert>
-                <ee:transform doc:name="Transform Message" doc:id="2ea392c9-8b55-406e-89ed-51e2e788c722">
+					<error-handler>
+						<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="f5f5d809-845d-44c9-88af-4a85fa692644" >
+							<logger level="ERROR" doc:name="Logger" doc:id="3f42e311-ee90-4906-8f10-3e15eae9d28a" message="#[error.description]"/>
+							<ee:transform doc:name="Transform Message" doc:id="d1da5e42-b001-4270-95b2-6bfa5d17ecda" >
+								<ee:message >
+									<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "insert failed",
+  barcode: vars.RAW_JSON.barcode,
+  scan_timestamp: vars.RAW_JSON.scan_timestamp,
+  error: error.description
+}]]></ee:set-payload>
+								</ee:message>
+							</ee:transform>
+						</on-error-propagate>
+					</error-handler>
+				</try>
+				<ee:transform doc:name="Transform Message" doc:id="2ea392c9-8b55-406e-89ed-51e2e788c722">
                     <ee:message>
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -191,9 +211,10 @@ output application/json
 }]]></ee:set-payload>
                     </ee:message>
                 </ee:transform>
-            </when>
-            <otherwise>
-                <ee:transform doc:name="Transform Message" doc:id="5fb4279b-d340-4695-ae70-69cc73fc031f">
+			</when>
+			<otherwise>
+                <logger level="ERROR" doc:name="Logger" doc:id="005a0395-e1fe-47b0-9ac5-2db6f7ecef00" message="error.description"/>
+				<ee:transform doc:name="Transform Message" doc:id="5fb4279b-d340-4695-ae70-69cc73fc031f">
                     <ee:message>
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -208,7 +229,7 @@ output application/json
                 </ee:transform>
             </otherwise>
         </choice>
-        <error-handler>
+		<error-handler>
             <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7ad5ad90-7231-42c5-9240-c8c494d05f99" type="ANY">
                 <logger level="INFO" doc:name="Logger" doc:id="5b7ded02-ae42-4643-be9f-94bf79d93c82" message="#[error]" />
                 <ee:transform doc:name="Transform Message" doc:id="8cbecbd2-6496-491b-83ca-990a5ed76273">
