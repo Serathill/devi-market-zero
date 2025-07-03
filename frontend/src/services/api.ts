@@ -1,63 +1,51 @@
 import axios from 'axios';
 
 /**
- * The base URL for the API.
- * It is configured to use a relative path, which will be resolved by the
- * Vite development proxy or the production server's reverse proxy.
- * This avoids CORS issues and keeps the code environment-agnostic.
- */
-const API_BASE_URL = '/api';
-
-/**
- * A pre-configured instance of axios for making API requests.
- *
- * It includes the base URL and any other default settings
- * that should be applied to all requests.
+ * Client API configurat pentru a face cereri către serverul real
  */
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
+  timeout: 60000, // 60 secunde timeout pentru a permite încărcarea tuturor produselor
 });
 
-// Add a response interceptor to handle errors
-apiClient.interceptors.response.use(
-  response => {
-    return response;
+// Add a request interceptor to debug outgoing requests
+apiClient.interceptors.request.use(
+  config => {
+    console.log(`Making API request: ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`, config);
+    // Add cors mode to allow cross-origin requests
+    config.withCredentials = false;
+    return config;
   },
   error => {
-    console.error('API Error:', error);
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.error('Response data:', error.response.data);
-      console.error('Response status:', error.response.status);
-      console.error('Response headers:', error.response.headers);
-    } else if (error.request) {
-      // The request was made but no response was received
-      console.error('No response received:', error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error('Request error:', error.message);
-    }
+    console.error('API Request Error:', error);
     return Promise.reject(error);
   }
 );
 
-// You can also add interceptors for handling requests or responses globally
-// For example, to add an auth token to every request:
-/*
-apiClient.interceptors.request.use(config => {
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+// Adăugăm interceptori pentru a gestiona erorile și a face log
+apiClient.interceptors.response.use(
+  response => {
+    console.log(`API request successful: ${response.config.method?.toUpperCase()} ${response.config.url}`, 
+      `Data received: ${response.data ? (Array.isArray(response.data) ? response.data.length + ' items' : 'Object') : 'No data'}`);
+    return response;
+  },
+  error => {
+    if (axios.isCancel(error)) {
+      console.log('Request canceled:', error.message);
+    } else {
+      console.error('API Error:', error.message);
+      if (error.response) {
+        console.error(`Status: ${error.response.status}`, error.response.data);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+      }
+    }
+    return Promise.reject(error);
   }
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
-*/
+);
 
 export default apiClient; 

@@ -1,16 +1,22 @@
 /**
- * Logging server for DeviMarket Zero
+ * Logging server for DeviMarket Zero with Mock API
  * 
  * This server receives logs from the frontend application and writes them to files
- * in the logs directory, organized by date.
+ * in the logs directory, organized by date. It also provides mock API endpoints.
  */
 
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
+import express from 'express';
+import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 const app = express();
-const PORT = 3002;
+const PORT = 3001; // Changed to match vite config
+
+// Get current file directory (ES modules equivalent of __dirname)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Create logs directory if it doesn't exist
 const logsDir = path.join(__dirname, 'logs');
@@ -59,8 +65,74 @@ app.post('/api/logs', (req, res) => {
   });
 });
 
+// Mock products data
+const mockProducts = [
+  {
+    id: '1',
+    name: 'Laptop Gaming',
+    description: 'Laptop de gaming puternic pentru gameri profesionisti',
+    price: 4999.99,
+    currency: 'RON',
+    image_url: 'https://via.placeholder.com/300x200?text=Laptop',
+  },
+  {
+    id: '2',
+    name: 'Smartphone',
+    description: 'Smartphone cu camera de ultima generatie',
+    price: 2499.99,
+    currency: 'RON',
+    image_url: 'https://via.placeholder.com/300x200?text=Smartphone',
+  },
+  {
+    id: '3',
+    name: 'Monitor LED',
+    description: 'Monitor LED de 27 inch cu refresh rate de 144Hz',
+    price: 1299.99,
+    currency: 'RON',
+    image_url: 'https://via.placeholder.com/300x200?text=Monitor',
+  },
+  {
+    id: '4',
+    name: 'Tastatura mecanica',
+    description: 'Tastatura mecanica RGB pentru gaming',
+    price: 399.99,
+    currency: 'RON',
+    image_url: 'https://via.placeholder.com/300x200?text=Tastatura',
+  },
+  {
+    id: '5',
+    name: 'Mouse gaming',
+    description: 'Mouse gaming cu senzor optic de mare precizie',
+    price: 249.99,
+    currency: 'RON',
+    image_url: 'https://via.placeholder.com/300x200?text=Mouse',
+  }
+];
+
+// API endpoints for products
+app.get('/api/products', (req, res) => {
+  // Add a small delay to simulate network latency
+  setTimeout(() => {
+    res.json(mockProducts);
+  }, 500);
+});
+
+app.get('/api/products/:id', (req, res) => {
+  const product = mockProducts.find(p => p.id === req.params.id);
+  
+  if (product) {
+    // Add a small delay to simulate network latency
+    setTimeout(() => {
+      res.json(product);
+    }, 300);
+  } else {
+    res.status(404).json({ error: 'Product not found' });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
-  console.log(`Logging server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
+  console.log(`Mock API available at http://localhost:${PORT}/api/products`);
   console.log(`Logs will be stored in ${path.resolve(logsDir)}`);
 }); 

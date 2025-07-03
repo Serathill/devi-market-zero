@@ -1,8 +1,8 @@
 // src/pages/ScanProductPage.tsx
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import useFetch from "../hooks/useFetch";
-import { postProductScan } from "../services/scanService";
-import type { ProductScanPayload, ProductScanResponse } from "../types/scan";
+import { getProducts } from "../services/productService";
+import ProductCard from "../components/ProductCard";
 
 /**
  * Renders a page for scanning a product by entering its barcode.
@@ -14,76 +14,82 @@ import type { ProductScanPayload, ProductScanResponse } from "../types/scan";
  * @returns {React.ReactElement} The scan product page component.
  */
 const ScanProductPage: React.FC = () => {
-  const [payload, setPayload] = useState<ProductScanPayload>({
-    barcode: "",
-    scan_timestamp: new Date().toISOString(),
-  });
+  const [barcode, setBarcode] = useState("");
+  const [searched, setSearched] = useState(false);
 
-  const scanApiCall = useCallback((signal: AbortSignal) => {
-    return postProductScan(payload, signal);
-  }, [payload]);
+  const fetchProducts = useCallback((signal: AbortSignal) => getProducts(signal), []);
+  const { data: allProducts, loading, error } = useFetch(fetchProducts);
 
-  const { data: response, loading, error, execute } = useFetch<ProductScanResponse>(scanApiCall, false);
+  const foundProduct = useMemo(() => {
+    if (!barcode || !allProducts) return null;
+    return allProducts.find(p => p.barcodes?.includes(barcode)) || null;
+  }, [allProducts, barcode]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    execute();
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const finalValue = name === 'scan_timestamp' ? new Date(value).toISOString() : value;
-    setPayload(prev => ({ ...prev, [name]: finalValue }));
+    setSearched(true);
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-6 text-center">Scanează produs</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="barcode" className="block mb-1 font-semibold">Cod de bare (barcode):</label>
-          <input
-            id="barcode"
-            name="barcode"
-            type="text"
-            value={payload.barcode}
-            onChange={handleInputChange}
-            required
-            className="w-full border rounded px-3 py-2"
-            placeholder="Ex: 1234567890123"
-          />
-        </div>
-        <div>
-          <label htmlFor="scan_timestamp" className="block mb-1 font-semibold">Data/ora scanare:</label>
-          <input
-            id="scan_timestamp"
-            name="scan_timestamp"
-            type="datetime-local"
-            value={payload.scan_timestamp.slice(0, 16)}
-            onChange={handleInputChange}
-            required
-            className="w-full border rounded px-3 py-2"
-          />
-        </div>
+    <div className="container mx-auto px-4 py-12 max-w-3xl">
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-extrabold text-indigo-800 drop-shadow mb-2">
+          Caută Produs după Codul de Bare
+        </h1>
+        <p className="text-gray-600 text-lg">
+          Introduceți codul de bare pentru a găsi rapid un produs.
+        </p>
+      </div>
+
+      <form onSubmit={handleSearch} className="flex items-center gap-2 bg-white/80 rounded-2xl shadow-lg p-4 mx-auto mb-12">
+        <input
+          type="text"
+          value={barcode}
+          onChange={(e) => {
+            setBarcode(e.target.value);
+            setSearched(false);
+          }}
+          placeholder="Introduceți codul de bare..."
+          className="flex-1 px-4 py-3 rounded-xl border border-purple-200 focus:outline-none focus:ring-2 focus:ring-pink-400 text-lg bg-white"
+          aria-label="Cod de bare"
+        />
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="bg-gradient-to-r from-indigo-600 to-pink-500 text-white px-6 py-3 rounded-xl font-bold shadow hover:scale-105 transition-all text-lg"
           disabled={loading}
         >
-          {loading ? "Se trimite..." : "Trimite"}
+          {loading ? "Încarc..." : "Caută"}
         </button>
       </form>
 
-      {error && (
-        <div className="mt-4 text-red-600 text-center font-semibold">
-          {error.message || "A apărut o eroare la trimiterea datelor."}
+      {loading && (
+        <div className="text-center text-gray-500">
+          Se încarcă lista de produse...
         </div>
       )}
 
-      {response && (
-        <div className="mt-6 bg-gray-100 p-4 rounded">
-          <h2 className="font-semibold mb-2">Răspuns server:</h2>
-          <pre className="text-sm">{JSON.stringify(response, null, 2)}</pre>
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center max-w-2xl mx-auto">
+          <p className="text-red-600 font-semibold text-lg mb-4">
+            A apărut o eroare la încărcarea produselor: {error.message}
+          </p>
+        </div>
+      )}
+
+      {searched && !loading && (
+        <div className="mt-8">
+          {foundProduct ? (
+            <div>
+              <h2 className="text-2xl font-bold text-center text-indigo-700 mb-6">Produs găsit</h2>
+              <div className="max-w-xs mx-auto">
+                <ProductCard {...foundProduct} />
+              </div>
+            </div>
+          ) : (
+            <div className="text-center text-gray-500 text-xl py-12 bg-white rounded-lg shadow-sm">
+              Nu a fost găsit niciun produs cu acest cod de bare.
+            </div>
+          )}
         </div>
       )}
     </div>

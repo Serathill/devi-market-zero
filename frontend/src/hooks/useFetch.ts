@@ -1,82 +1,128 @@
 import { useState, useEffect, useCallback } from 'react';
-import logger from '../utils/logger';
 import axios from 'axios';
+import logger from '../utils/logger';
 
 /**
- * Interface for the state managed by the `useFetch` hook.
- * @template T - The type of the data being fetched.
+ * Type definition for the useFetch state.
  */
-interface FetchState<T> {
+type UseFetchState<T> = {
   data: T | null;
-  loading: boolean;
   error: Error | null;
+  loading: boolean;
+};
+
+/**
+ * Helper function to measure async performance
+ */
+async function measureAsyncPerformance<T>(fn: () => Promise<T>) {
+  const startTime = performance.now();
+  const result = await fn();
+  const endTime = performance.now();
+  const duration = endTime - startTime;
+  return { result, duration };
 }
 
 /**
- * A custom hook to handle asynchronous data fetching with cancellation.
- * It manages loading, error, and data states, and uses an AbortController
- * to cancel fetches when the component unmounts.
- *
- * @template T The expected type of the data to be fetched.
- * @param {(signal: AbortSignal) => Promise<T>} asyncFunction - The async function, which now receives an AbortSignal.
- * @param {boolean} [immediate=true] - Whether to execute immediately.
- * @returns {{ data: T | null, loading: boolean, error: Error | null, execute: () => void }}
+ * Custom hook for fetching data with loading and error states.
+ * It uses the measureAsyncPerformance utility for performance tracking.
+ * 
+ * @template T The type of data being fetched.
+ * @param {function} asyncFunction The async function that fetches the data.
+ * @param {boolean} immediate Whether to call the function immediately. Default is true.
+ * @returns {Object} An object containing the data, error, loading state, and an execute function.
  */
 function useFetch<T>(
   asyncFunction: (signal: AbortSignal) => Promise<T>,
   immediate = true
 ) {
-  const [state, setState] = useState<FetchState<T>>({
+  const [state, setState] = useState<UseFetchState<T>>({
     data: null,
-    loading: immediate,
     error: null,
+    loading: immediate,
   });
 
   const execute = useCallback(
     async (signal: AbortSignal) => {
       setState((prevState) => ({ ...prevState, loading: true, error: null }));
-      logger.info('Starting fetch operation', {
-        functionName: asyncFunction.name || 'anonymous',
-      });
 
       try {
-        const responseData = await asyncFunction(signal);
-        // Only update state if the request was not aborted
-        if (!signal.aborted) {
-          logger.info('Fetch operation completed successfully');
-          setState({ data: responseData, loading: false, error: null });
+        // Măsoară performanța operațiunii asincrone
+        const { result, duration } = await measureAsyncPerformance(() => 
+          asyncFunction(signal)
+        );
+
+        // Nu actualizăm starea dacă cererea a fost întreruptă
+        if (signal.aborted) {
+          logger.info('Request aborted during execution');
+          return;
         }
+
+        logger.info('Fetch operation complete', { 
+          durationMs: duration,
+          functionName: asyncFunction.name || 'anonymous',
+        });
+
+        setState({ data: result, error: null, loading: false });
       } catch (err) {
+        // Nu actualizăm starea dacă cererea a fost întreruptă sau anulată
+        if (signal.aborted) {
+          logger.info('Request aborted due to component unmount or manual cancellation');
+          return;
+        }
+        
         if (axios.isCancel(err)) {
           logger.warn('Fetch operation was cancelled by cleanup.', {
             functionName: asyncFunction.name || 'anonymous',
           });
-        } else if (!signal.aborted) {
-          const error = err instanceof Error ? err : new Error('An unknown error occurred.');
-          logger.error(error, { context: 'useFetch' });
-          setState({ data: null, error, loading: false });
+          // Nu setăm starea de eroare pentru cererile anulate
+          return;
+        } 
+
+        // Generăm un mesaj de eroare ușor de înțeles
+        let errorMessage = 'A apărut o eroare la încărcarea datelor.';
+        const error = err as Error;
+        
+        if (error.message && error.message.includes('Network Error') || 
+            error.message.includes('timed out') || 
+            error.message.includes('ECONNREFUSED')) {
+          errorMessage = 'Nu s-a putut conecta la server. Vă rugăm să verificați conexiunea la internet sau contactați administratorul.';
         }
+
+        const enhancedError = new Error(errorMessage);
+        
+        logger.error('Fetch operation failed', { 
+          context: 'useFetch',
+          originalError: error.message,
+          enhancedError: errorMessage
+        });
+        
+        setState({ data: null, error: enhancedError, loading: false });
       }
     },
     [asyncFunction]
   );
 
   useEffect(() => {
-    if (immediate) {
-      const controller = new AbortController();
-      execute(controller.signal);
-
-      // Cleanup function to abort the request if the component unmounts
-      return () => {
-        controller.abort();
-      };
+    if (!immediate) {
+      return;
     }
-  }, [execute, immediate]);
-
-  const manualExecute = () => {
+    
     const controller = new AbortController();
     execute(controller.signal);
-  };
+
+    // Cleanup function to abort the request if the component unmounts
+    return () => {
+      controller.abort();
+    };
+  }, [execute, immediate]);
+
+  const manualExecute = useCallback(() => {
+    const controller = new AbortController();
+    execute(controller.signal);
+    
+    // Return a function to allow manual cancellation
+    return () => controller.abort();
+  }, [execute]);
 
   return { ...state, execute: manualExecute };
 }

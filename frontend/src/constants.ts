@@ -14,7 +14,7 @@ export const PRODUCT_PAGE_LIMIT = 12;
  * Navigation items for the main header.
  */
 export const HEADER_NAV_ITEMS = [
-  { label: "Home", to: "/" },
+  { label: "Acasă", to: "/" },
   { label: "Produse", to: "/products" },
   { label: "Scan", to: "/scan" },
   { label: "Despre noi", to: "/about" },

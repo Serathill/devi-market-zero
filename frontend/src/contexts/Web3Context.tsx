@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import logger from '../utils/logger';
 
@@ -12,6 +12,7 @@ interface Web3ContextState {
   connect: () => Promise<void>;
   disconnect: () => void;
   isMetaMaskInstalled: boolean;
+  retryConnect: () => Promise<void>;
 }
 
 /**
@@ -51,7 +52,11 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   const [account, setAccount] = useState<string | null>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const isMetaMaskInstalled = typeof window !== 'undefined' && !!window.ethereum;
+  const [connectionAttempts, setConnectionAttempts] = useState(0);
+  
+  // Check if MetaMask is installed with more reliability
+  const isMetaMaskInstalled = typeof window !== 'undefined' && 
+    (!!window.ethereum?.isMetaMask || !!window.ethereum);
 
   // Handle account changes from MetaMask
   useEffect(() => {
@@ -61,38 +66,68 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     }
 
     const handleAccountsChanged = (accounts: unknown) => {
-      const accountList = accounts as string[];
-      if (accountList.length > 0) {
-        logger.info('MetaMask account changed', { account: accountList[0] });
-        setAccount(accountList[0]);
-        setError(null);
-      } else {
-        logger.info('MetaMask disconnected - no accounts available');
-        setAccount(null);
+      try {
+        const accountList = accounts as string[];
+        if (accountList && accountList.length > 0) {
+          logger.info('MetaMask account changed', { account: accountList[0] });
+          setAccount(accountList[0]);
+          setError(null);
+        } else {
+          logger.info('MetaMask disconnected - no accounts available');
+          setAccount(null);
+        }
+      } catch (err) {
+        logger.error('Error handling account change', { error: err });
       }
     };
 
-    // Check for existing connection
-    window.ethereum?.request({ method: 'eth_accounts' })
-      .then(handleAccountsChanged)
-      .catch((err: unknown) => {
-        logger.error(err, { context: 'eth_accounts request' });
-      });
+    // Check for existing connection with retry mechanism
+    const checkExistingConnection = async (retryCount = 0) => {
+      try {
+        if (!window.ethereum) {
+          throw new Error('Ethereum object not available');
+        }
+        
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        handleAccountsChanged(accounts);
+      } catch (err) {
+        logger.error(err, { context: 'eth_accounts request', retryCount });
+        
+        // Retry logic - wait a bit and try again (up to 3 times)
+        if (retryCount < 3) {
+          setTimeout(() => {
+            checkExistingConnection(retryCount + 1);
+          }, 1000 * (retryCount + 1));
+        }
+      }
+    };
+    
+    checkExistingConnection();
 
-    // Subscribe to account changes
-    window.ethereum?.on?.('accountsChanged', handleAccountsChanged);
-
-    // Subscribe to chain changes
-    window.ethereum?.on?.('chainChanged', () => {
-      logger.info('MetaMask chain changed, reloading page');
-      window.location.reload();
-    });
+    // Subscribe to account changes - with more error handling
+    if (window.ethereum?.on) {
+      try {
+        window.ethereum.on('accountsChanged', handleAccountsChanged);
+        
+        // Subscribe to chain changes
+        window.ethereum.on('chainChanged', () => {
+          logger.info('MetaMask chain changed, reloading page');
+          window.location.reload();
+        });
+      } catch (err) {
+        logger.error('Error setting up event listeners', { error: err });
+      }
+    }
 
     // Cleanup listeners on unmount
     return () => {
       logger.info('Cleaning up MetaMask event listeners');
       if (window.ethereum?.removeListener) {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+        try {
+          window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+        } catch (err) {
+          logger.error('Error removing event listeners', { error: err });
+        }
       }
     };
   }, [isMetaMaskInstalled]);
@@ -113,23 +148,32 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     
     try {
       logger.info('Requesting MetaMask connection');
-      const accounts = await window.ethereum?.request({ 
+      
+      if (!window.ethereum) {
+        throw new Error('Ethereum object not available');
+      }
+      
+      const accounts = await window.ethereum.request({ 
         method: 'eth_requestAccounts' 
       }) as string[];
       
       if (accounts && accounts.length > 0) {
         logger.info('MetaMask connected successfully', { account: accounts[0] });
         setAccount(accounts[0]);
+        setConnectionAttempts(0); // Reset attempts on success
       } else {
         throw new Error('No accounts found');
       }
     } catch (err) {
       logger.error(err, { context: 'MetaMask connection' });
+      setConnectionAttempts(prev => prev + 1);
       
       // Handle user rejection
       const error = err as { code?: number, message?: string };
       if (error.code === 4001) {
         setError('Connection rejected by user');
+      } else if (error.code === -32002) {
+        setError('Connection request already pending. Please check MetaMask extension.');
       } else {
         setError(error.message || 'Failed to connect to MetaMask');
       }
@@ -137,6 +181,28 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
       setIsConnecting(false);
     }
   };
+
+  /**
+   * Retry connection with exponential backoff
+   */
+  const retryConnect = useCallback(async (): Promise<void> => {
+    setError(null);
+    
+    // Only retry if we have had previous failures
+    if (connectionAttempts > 0) {
+      logger.info(`Retrying MetaMask connection (attempt ${connectionAttempts})`);
+      
+      // Wait with exponential backoff before retrying
+      const backoffTime = Math.min(1000 * (2 ** connectionAttempts), 10000);
+      
+      setTimeout(() => {
+        connect();
+      }, backoffTime);
+    } else {
+      // If no previous attempts, just connect directly
+      connect();
+    }
+  }, [connectionAttempts]);
 
   /**
    * Disconnect from MetaMask (for UI purposes only).
@@ -155,7 +221,8 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     error,
     connect,
     disconnect,
-    isMetaMaskInstalled
+    isMetaMaskInstalled,
+    retryConnect
   };
 
   return (
