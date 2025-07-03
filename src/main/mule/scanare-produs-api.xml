@@ -251,14 +251,11 @@ output application/json
 output application/json
 ---
 {
-    payload: {
+	    barcode: vars.RAW_JSON.barcode,
         status: "error",
         message: "An internal server error occurred. Please contact support.",
         details: "Error type: " ++ (error.errorType.identifier default "Unknown")
-    },
-    attributes: {
-        statusCode: 500 
-    }
+    
 }]]></ee:set-payload>
 							</ee:message>
 						</ee:transform>
