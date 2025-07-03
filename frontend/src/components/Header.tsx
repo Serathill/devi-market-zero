@@ -2,6 +2,7 @@ import React, { memo, useState, useCallback, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import MetaMaskConnect from "./MetaMaskConnect";
 import { HEADER_NAV_ITEMS } from "../constants";
+import { useCart } from "../contexts/CartContext";
 
 /**
  * Header component displaying navigation and branding.
@@ -12,6 +13,7 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const { totalItems } = useCart();
 
   // In development, measure render time
   useEffect(() => {
@@ -101,8 +103,23 @@ const Header: React.FC = () => {
           </svg>
         </button>
         
-        <div className="flex items-center ml-8">
+        <div className="flex items-center ml-8 space-x-4">
           <MetaMaskConnect />
+          
+          <Link 
+            to="/cart" 
+            className="relative flex items-center justify-center p-2 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+            aria-label="Coș de cumpărături"
+          >
+            <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                {totalItems > 99 ? '99+' : totalItems}
+              </span>
+            )}
+          </Link>
         </div>
       </div>
 

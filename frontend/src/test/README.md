@@ -1,112 +1,47 @@
-# Test
+# Testing
 
-Acest director conține configurația și utilitarele necesare pentru testele unitare și de integrare ale aplicației.
+This directory contains configuration and setup files for the project's testing environment. The testing framework used is [Vitest](https://vitest.dev/), a modern, fast, and feature-rich test runner built on top of Vite.
 
-## Tehnologii de Testare
+## Key Files
 
-- **Vitest**: Framework de testare principal
-- **React Testing Library**: Librărie pentru testarea componentelor React
-- **jsdom**: Mediu DOM pentru rularea testelor în Node.js
-- **@testing-library/user-event**: Utilitare pentru simularea interacțiunilor utilizatorului
+- **`setup.ts`**: This file is used to configure or set up the testing environment before any tests are run. It's the perfect place to:
+  - Extend Vitest's `expect` with custom matchers (e.g., from `@testing-library/jest-dom`).
+  - Set up global mocks or polyfills.
+  - Clean up the DOM after each test to ensure test isolation.
 
-## Structura Testelor
+## Running Tests
 
-Testele sunt organizate folosind metoda de co-locație - fiecare fișier de test este plasat lângă fișierul pe care îl testează, cu extensia `.test.ts` sau `.test.tsx`:
+Tests are co-located with the source code they are testing (e.g., `ComponentName.test.tsx` lives alongside `ComponentName.tsx`).
 
-```
-src/
-  ├── components/
-  │   ├── FormInput.tsx
-  │   └── FormInput.test.tsx
-  ├── contexts/
-  │   ├── Web3Context.tsx
-  │   └── Web3Context.test.tsx
-  ├── hooks/
-  │   ├── useFetch.ts
-  │   └── useFetch.test.ts
-  └── utils/
-      ├── performance.ts
-      └── performance.test.ts
-```
+You can run tests in several ways:
 
-## Convenții de Testare
+- **Run all tests:**
 
-- Folosiți `describe` pentru a grupa teste conexe
-- Folosiți `it` sau `test` pentru a defini cazuri de test individuale
-- Folosiți `expect` cu potriviți (matchers) pentru asertări
-- Preferați funcții asincrone când testați operații asincrone
-- Utilizați `vi.fn()` pentru mock-uri de funcții
-- Izolați testele folosind `beforeEach` și `afterEach`
+  ```bash
+  npm test
+  ```
 
-## Exemple
+- **Run tests for a specific directory:**
 
-### Testarea unui Component
+  ```bash
+  npm test src/components
+  ```
 
-```tsx
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import FormInput from './FormInput';
+- **Run tests for a single file:**
 
-describe('FormInput', () => {
-  it('should render with label and input', () => {
-    render(<FormInput id="test" label="Test Label" />);
-    expect(screen.getByLabelText('Test Label')).toBeInTheDocument();
-  });
-});
-```
+  ```bash
+  npm test src/components/Header.test.tsx
+  ```
 
-### Testarea unui Hook
+- **Run in watch mode:**
+  ```bash
+  npm test -- --watch
+  ```
 
-```tsx
-import { renderHook, act } from '@testing-library/react';
-import { useFetch } from './useFetch';
+## Testing Philosophy
 
-describe('useFetch', () => {
-  it('should fetch data successfully', async () => {
-    const mockData = { id: 1, name: 'Test' };
-    global.fetch = vi.fn().mockResolvedValue({
-      json: vi.fn().mockResolvedValue(mockData),
-      ok: true
-    });
+- **Unit Tests**: Test individual components, hooks, or utility functions in isolation.
+- **Integration Tests**: Test how multiple components work together.
+- **End-to-End (E2E) Tests**: Not configured in this project, but would test the full application flow from a user's perspective.
 
-    const { result } = renderHook(() => useFetch('/api/test'));
-
-    // Initial state
-    expect(result.current.loading).toBe(true);
-
-    // Wait for fetch to complete
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
-    });
-
-    expect(result.current.data).toEqual(mockData);
-    expect(result.current.loading).toBe(false);
-  });
-});
-```
-
-## Rularea Testelor
-
-```bash
-# Rularea tuturor testelor
-npm test
-
-# Rularea testelor cu watch mode
-npm test -- --watch
-
-# Rularea testelor pentru un anumit fișier
-npm test -- src/components/FormInput.test.tsx
-
-# Rularea testelor pentru un anumit pattern
-npm test -- components
-```
-
-## Acoperire cu Teste (Coverage)
-
-Pentru a genera un raport de acoperire cu teste:
-
-```bash
-npm test -- --coverage
-```
-
-Raportul va fi generat în directorul `coverage/`. 
+The project primarily uses `@testing-library/react` to write tests that resemble how users interact with the application, focusing on behavior rather than implementation details.

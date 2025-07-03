@@ -16,6 +16,13 @@ export const PRODUCT_PAGE_LIMIT = 12;
 export const HEADER_NAV_ITEMS = [
   { label: "Acasă", to: "/" },
   { label: "Produse", to: "/products" },
-  { label: "Scan", to: "/scan" },
+  { label: "Scanează produs", to: "/scan" },
   { label: "Despre noi", to: "/about" },
-]; 
+];
+
+/**
+ * Exchange rates for currency conversion
+ */
+export const EXCHANGE_RATES = {
+  EUR_TO_RON: 4.97 // Cursul valutar aproximativ EUR → RON
+}; 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProducts } from '../contexts/ProductContext';
+import { useCart } from '../contexts/CartContext';
 import type { Product } from '../types/product';
 
 /**
@@ -13,13 +14,27 @@ import type { Product } from '../types/product';
 const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { products, loading, error, getProductById } = useProducts();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | undefined>(undefined);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     if (id && !loading) {
       setProduct(getProductById(id));
     }
   }, [id, products, loading, getProductById]);
+
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product, 1);
+      setAddedToCart(true);
+      
+      // Resetăm starea după 3 secunde
+      setTimeout(() => {
+        setAddedToCart(false);
+      }, 3000);
+    }
+  };
 
   if (loading) {
     return (
@@ -131,7 +146,7 @@ const ProductDetailPage: React.FC = () => {
               </div>
             )}
             
-            <div className="mt-6">
+            <div className="mt-6 flex flex-col space-y-4">
               <div className="text-sm text-gray-500 flex items-center">
                 <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -142,6 +157,32 @@ const ProductDetailPage: React.FC = () => {
                   <span className="text-red-600">Stoc epuizat</span>
                 )}
               </div>
+              
+              <button 
+                onClick={handleAddToCart}
+                disabled={addedToCart}
+                className={`mt-4 px-6 py-3 rounded-lg text-white font-semibold flex items-center justify-center transition-all ${
+                  addedToCart 
+                    ? 'bg-green-500 hover:bg-green-600' 
+                    : 'bg-indigo-600 hover:bg-indigo-700'
+                }`}
+              >
+                {addedToCart ? (
+                  <>
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Adăugat în coș
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    Adaugă în coș
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ import React from "react";
 const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-800 text-white py-8 px-4 w-full mt-auto">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
         {/* About */}
         <div>
           <h3 className="text-lg font-bold mb-2 text-pink-400">DeviMarket Zero</h3>
@@ -20,9 +20,18 @@ const Footer: React.FC = () => {
           </p>
         </div>
         
-        {/* Contact/Schedule */}
+        {/* Contact */}
         <div>
-          <h3 className="text-lg font-bold mb-2 text-pink-400">Contact & Program</h3>
+          <h3 className="text-lg font-bold mb-2 text-pink-400">Contact</h3>
+          <div className="text-gray-300 text-sm">
+            <div>Telefon: <a href="tel:+40721000000" className="hover:text-pink-400">+40 721 000 000</a></div>
+            <div>Email: <a href="mailto:contact@devimarket.ro" className="hover:text-pink-400">contact@devimarket.ro</a></div>
+          </div>
+        </div>
+
+        {/* Program */}
+        <div>
+          <h3 className="text-lg font-bold mb-2 text-pink-400">Program</h3>
           <div className="text-gray-300 text-sm">
             <div>Luni - Vineri: 09:00 - 18:00</div>
             <div>Sâmbătă: 10:00 - 14:00</div>
