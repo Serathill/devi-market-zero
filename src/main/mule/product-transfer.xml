@@ -15,7 +15,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<db:select doc:name="Select" doc:id="23c4a9bb-166b-4798-96b2-6b0722b9069f" config-ref="Database_Config">
 			<db:sql ><![CDATA[SELECT * FROM clickhouse_db_franceza.products_fr WHERE is_active=1 AND is_transfered=0]]></db:sql>
 		</db:select>
-		<!-- [STUDIO:"Logger"]<logger level="INFO" doc:name="Logger" doc:id="8b0ec15d-cbcd-49fb-9fee-f2d340fb0700" message="#[payload&#93;"/> [STUDIO] -->
+		<logger level="INFO" doc:name="Logger" doc:id="8b0ec15d-cbcd-49fb-9fee-f2d340fb0700" message="#[sizeOf(payload)]"/>
 		<ee:transform doc:name="Transform Message" doc:id="7134c76f-1895-4a69-9dd3-2f69d5ce4ce5" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -64,5 +64,10 @@ payload map (product_fr) -> {
 			<logger level="INFO" doc:name="Logger" doc:id="3593e3ad-baff-4427-b8dd-016ff7610f7b" />
 		</foreach>
 		<logger level="INFO" doc:name="Logger" doc:id="2f7fd2eb-e75d-49d9-b84b-f0fb268608a8" message="flowEnded"/>
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="f9c99ad7-dfbb-4238-89ce-92f3386a03d6" type="ANY">
+				<logger level="INFO" doc:name="Logger" doc:id="c08f8bb5-1023-4308-9d92-e1e6cd4b2480" message="#[error]"/>
+			</on-error-propagate>
+		</error-handler>
 	</flow>
 </mule>
