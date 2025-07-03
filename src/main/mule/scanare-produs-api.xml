@@ -132,7 +132,8 @@ output application/json
                 </ee:transform>
             </when>
             <otherwise>
-                <raise-error doc:name="Raise error" doc:id="5d0973db-a68b-434f-95f4-77681c98b989" type="PRODUCT:NOT_VALID" description="Barcode or timestamp are invalid, please check the request." />
+                <set-variable value="400" doc:name="Set Variable" doc:id="697c0d7b-6268-4a17-b4e7-ad8a5349373a" variableName="httpStatus" />
+				<raise-error doc:name="Raise error" doc:id="5d0973db-a68b-434f-95f4-77681c98b989" type="PRODUCT:NOT_VALID" description="Barcode or timestamp are invalid, please check the request." />
             </otherwise>
         </choice>
         <ee:transform doc:name="Transform Message" doc:id="500b54b0-1194-49ef-868b-2570e31f8eb8">
@@ -168,11 +169,9 @@ var fallbackTimestamp = now() as String { format: "yyyy-MM-dd'T'HH:mm:ss'Z'" }
   
 }]]]></db:input-parameters>
         </db:select>
-        <set-variable value="#[payload]" doc:name="Set Variable" doc:id="95ffdc46-20a4-4fd9-affe-0a22bd8ee306" variableName="existingProduct"/>
 		<choice doc:name="Choice" doc:id="fb8bc993-d948-460b-bfb4-67be3a18c049">
 			<when expression="#[sizeOf(vars.SELECT_VALUE) == 0]" >
 				<try doc:name="Try" doc:id="10d06beb-eff9-498d-993b-7d034f8473eb" >
-					<set-variable value="#[uuid()]" doc:name="Set Variable" doc:id="a274be32-aeef-4c8d-becb-402273fb5810" variableName="newProductId"/>
 					<db:insert doc:name="Insert" doc:id="5371b09a-793a-4897-adcc-615140fb57f1" config-ref="Database_Config">
                     <db:sql><![CDATA[INSERT INTO devimarket_db.product_scan(barcode, timestamp) VALUES (:barcode, :clickhouse_formatted_timestamp)]]></db:sql>
                     <db:input-parameters><![CDATA[#[{
@@ -182,7 +181,7 @@ var fallbackTimestamp = now() as String { format: "yyyy-MM-dd'T'HH:mm:ss'Z'" }
 }]]]></db:input-parameters>
                 </db:insert>
 					<error-handler>
-						<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="f5f5d809-845d-44c9-88af-4a85fa692644" >
+						<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="f5f5d809-845d-44c9-88af-4a85fa692644" type="ANY">
 							<logger level="ERROR" doc:name="Logger" doc:id="3f42e311-ee90-4906-8f10-3e15eae9d28a" message="#[error.description]"/>
 							<ee:transform doc:name="Transform Message" doc:id="d1da5e42-b001-4270-95b2-6bfa5d17ecda" >
 								<ee:message >
@@ -190,6 +189,8 @@ var fallbackTimestamp = now() as String { format: "yyyy-MM-dd'T'HH:mm:ss'Z'" }
 output application/json
 ---
 {
+	
+	
   status: "insert failed",
   barcode: vars.RAW_JSON.barcode,
   scan_timestamp: vars.RAW_JSON.scan_timestamp,
@@ -197,6 +198,7 @@ output application/json
 }]]></ee:set-payload>
 								</ee:message>
 							</ee:transform>
+							<set-variable value="500" doc:name="Set Variable" doc:id="258b946c-74de-4511-b598-c20fab1e4b62" variableName="httpStatus" />
 						</on-error-propagate>
 					</error-handler>
 				</try>
@@ -207,18 +209,17 @@ output application/json
 ---
 
 {
-    payload: {
+   
         status: "success",
         operation: "created",
-        productId: vars.newProductId, 
-        barcode: vars.RAW_JSON.barcode
-    },
-    attributes: {
-        statusCode: 201 
-    }
+        barcode: vars.RAW_JSON.barcode,
+        error: error.description 
+    
+    
 }]]></ee:set-payload>
                     </ee:message>
                 </ee:transform>
+				<set-variable value="201" doc:name="Set Variable" doc:id="57dd1592-3d32-48b1-8338-a7580531c4c0" variableName="httpStatus" />
 			</when>
 			<otherwise>
                 <logger level="ERROR" doc:name="Logger" doc:id="005a0395-e1fe-47b0-9ac5-2db6f7ecef00" message="error.description"/>
@@ -228,48 +229,25 @@ output application/json
 output application/json
 ---
 {
-    payload: {
+  
         status: "success",
         operation: "updated",
-        
-        barcode: vars.RAW_JSON.barcode
-    },
-    attributes: {
-        statusCode: 200
-    }
+        barcode: vars.RAW_JSON.barcode,
+        error: error.description
+    
+   
 }]]></ee:set-payload>
                     </ee:message>
                 </ee:transform>
+				<set-variable value="200" doc:name="Set Variable" doc:id="3b66396b-a0c9-418f-959e-cd36863b55c2" variableName="httpStatus" />
             </otherwise>
         </choice>
 		<error-handler>
             <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7ad5ad90-7231-42c5-9240-c8c494d05f99" type="ANY">
-                <choice doc:name="Choice" doc:id="35d84709-2893-4d2c-8eb8-6899f3c3efe4" >
-					<when expression="#[error.errorType.identifier == 'PRODUCT:NOT_VALID']">
-						<logger level="WARN" doc:name="Logger" doc:id="5b7ded02-ae42-4643-be9f-94bf79d93c82" message="#[error.description]" />
-						<ee:transform doc:name="Transform Message" doc:id="8cbecbd2-6496-491b-83ca-990a5ed76273">
-                    <ee:message>
-                        <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-    payload: {
-        status: "error",
-        message: "Invalid request: " ++ (error.description default "Payload does not match the required format."),
-        path: "/api/scanner/product_scan"
-    },
-    attributes: {
-        statusCode: 400
-    }
-}]]></ee:set-payload>
-                    </ee:message>
-                </ee:transform>
-					</when>
-					<otherwise >
-						<logger level="ERROR" doc:name="Logger" doc:id="f0608545-735b-459a-92f4-f6ae967fc70d" message="#[error.description]"/>
-						<ee:transform doc:name="Transform Message" doc:id="956a8782-74ef-4c7c-a8fb-47caa2471c31" >
-							<ee:message >
-								<ee:set-payload ><![CDATA[%dw 2.0
+				<logger level="ERROR" doc:name="Logger" doc:id="f0608545-735b-459a-92f4-f6ae967fc70d" message="#[error.description]" />
+				<ee:transform doc:name="Transform Message" doc:id="956a8782-74ef-4c7c-a8fb-47caa2471c31">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
@@ -284,8 +262,6 @@ output application/json
 }]]></ee:set-payload>
 							</ee:message>
 						</ee:transform>
-					</otherwise>
-				</choice>
             </on-error-propagate>
         </error-handler>
     </flow>
