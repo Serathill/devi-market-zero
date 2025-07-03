@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProductById } from '../services/productService';
-import useFetch from '../hooks/useFetch';
+import { useProducts } from '../contexts/ProductContext';
+import type { Product } from '../types/product';
 
 /**
  * Rendează pagina de detalii pentru un produs.
@@ -12,15 +12,14 @@ import useFetch from '../hooks/useFetch';
  */
 const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const { products, loading, error, getProductById } = useProducts();
+  const [product, setProduct] = useState<Product | undefined>(undefined);
 
-  const fetchProduct = useCallback((signal: AbortSignal) => {
-    if (!id) {
-      throw new Error("ID produs invalid");
+  useEffect(() => {
+    if (id && !loading) {
+      setProduct(getProductById(id));
     }
-    return getProductById(id, signal);
-  }, [id]);
-
-  const { data: product, loading, error } = useFetch(fetchProduct);
+  }, [id, products, loading, getProductById]);
 
   if (loading) {
     return (
@@ -49,7 +48,24 @@ const ProductDetailPage: React.FC = () => {
     );
   }
 
-  if (error || !product) {
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 inline-block">
+          <svg className="w-12 h-12 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <h2 className="text-xl font-bold text-gray-800 mb-2">Eroare la încărcare</h2>
+          <p className="text-gray-600">
+            {error.message}
+          </p>
+        </div>
+      </div>
+    );
+  }
+  
+  if (!product) {
+    // Cazul în care încărcarea s-a terminat, nu există eroare, dar produsul nu a fost găsit
     return (
       <div className="container mx-auto px-4 py-8 text-center">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6 inline-block">
@@ -58,7 +74,7 @@ const ProductDetailPage: React.FC = () => {
           </svg>
           <h2 className="text-xl font-bold text-gray-800 mb-2">Produsul nu a fost găsit</h2>
           <p className="text-gray-600">
-            {error?.message || 'ID produs invalid'}
+            ID-ul produsului este invalid sau produsul nu mai există.
           </p>
         </div>
       </div>

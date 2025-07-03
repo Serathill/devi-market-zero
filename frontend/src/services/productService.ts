@@ -316,40 +316,47 @@ export const getProducts = async (signal?: AbortSignal): Promise<Product[]> => {
   }
 
   const startTime = new Date();
-  logger.info('API Call: Fetching all products with pagination', {
-    endpoint: '/products',
-    method: 'GET',
+  logger.info('API Call: Fetching and aggregating all products...', {
     timestamp: startTime.toISOString()
   });
 
   try {
-    // Presupunem că API-ul returnează un obiect cu o cheie "products"
-    // Vom încerca mai întâi să obținem datele în acest format.
-    const response = await apiClient.get<{ products: ApiProduct[] }>('/products', { signal });
+    const response = await apiClient.get<ApiProduct[]>('/products', { signal });
     
-    // Verificăm dacă datele sunt în formatul așteptat
-    const apiProducts = Array.isArray(response.data.products) 
-      ? response.data.products 
-      : (Array.isArray(response.data) ? response.data : []);
+    const apiProducts = Array.isArray(response.data) ? response.data : [];
 
     if (apiProducts.length === 0) {
       logger.warn('API returned no products. Falling back to local data.');
       return LOCAL_PRODUCTS;
     }
 
-    const uniqueProducts = new Map<string, ApiProduct>();
+    // Agregăm produsele după ID și colectăm toate codurile de bare
+    const aggregatedProducts = new Map<string, ApiProduct>();
+
     for (const product of apiProducts) {
-      if (product && product.id && !uniqueProducts.has(product.id)) {
-        uniqueProducts.set(product.id, product);
+      if (!product || !product.id) continue;
+
+      if (aggregatedProducts.has(product.id)) {
+        const existingProduct = aggregatedProducts.get(product.id)!;
+        if (product.barcode && !existingProduct.barcodes?.includes(product.barcode)) {
+          existingProduct.barcodes = [...(existingProduct.barcodes || []), product.barcode];
+        }
+      } else {
+        // Produs nou, îl adăugăm în map
+        const newProduct = { ...product };
+        newProduct.barcodes = [];
+        if (newProduct.barcode) {
+          newProduct.barcodes.push(newProduct.barcode);
+        }
+        aggregatedProducts.set(product.id, newProduct);
       }
     }
 
-    const products = Array.from(uniqueProducts.values()).map(mapApiProductToProduct);
+    const products = Array.from(aggregatedProducts.values()).map(mapApiProductToProduct);
     
     const endTime = new Date();
-    logger.info('API Response: Successfully fetched and processed all products', {
+    logger.info('API Response: Successfully fetched and aggregated all products', {
       duration: `${endTime.getTime() - startTime.getTime()}ms`,
-      totalFetched: apiProducts.length,
       totalUnique: products.length,
     });
 

@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Web3Provider } from "./contexts/Web3Context";
+import { ProductProvider } from "./contexts/ProductContext";
 import ErrorBoundary from './components/ErrorBoundary';
 
 // Lazily load page components for code splitting
@@ -25,26 +26,28 @@ function App() {
   return (
     <ErrorBoundary>
       <Web3Provider>
-        <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
-          <Header />
-          <main className="flex-1">
-            <Suspense fallback={
-              <div className="flex items-center justify-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
-              </div>
-            }>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/products" element={<ProductListPage />} />
-                <Route path="/products/:productId" element={<ProductDetailPage />} />
-                <Route path="/scan" element={<ScanProductPage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </Suspense>
-          </main>
-          <Footer />
-        </div>
+        <ProductProvider>
+          <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
+            <Header />
+            <main className="flex-1">
+              <Suspense fallback={
+                <div className="flex items-center justify-center h-64">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+                </div>
+              }>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/products" element={<ProductListPage />} />
+                  <Route path="/products/:id" element={<ProductDetailPage />} />
+                  <Route path="/scan" element={<ScanProductPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </Suspense>
+            </main>
+            <Footer />
+          </div>
+        </ProductProvider>
       </Web3Provider>
     </ErrorBoundary>
   );
