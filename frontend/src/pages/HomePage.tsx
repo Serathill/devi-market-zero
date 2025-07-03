@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 mb-8 drop-shadow-lg">
-            Bun venit la DeviMarket
+            Bun venit la DeviMarket Zero
           </h1>
           <p className="text-xl md:text-2xl text-gray-700 mb-10 max-w-2xl mx-auto">
             Caută rapid produsele dorite sau explorează ofertele noastre speciale!

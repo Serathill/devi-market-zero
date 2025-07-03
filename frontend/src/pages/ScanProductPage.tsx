@@ -22,7 +22,23 @@ const ScanProductPage: React.FC = () => {
 
   const foundProduct = useMemo(() => {
     if (!barcode || !allProducts) return null;
-    return allProducts.find(p => p.barcodes?.includes(barcode)) || null;
+    
+    // Trim barcode pentru a elimina orice spațiu
+    const searchTerm = barcode.trim();
+    
+    return allProducts.find(product => {
+      // Verifică ID-ul produsului (poate fi barcode)
+      if (product.id && String(product.id) === searchTerm) {
+        return true;
+      }
+      
+      // Verifică în array-ul de barcode-uri
+      if (product.barcodes && Array.isArray(product.barcodes)) {
+        return product.barcodes.some(code => code === searchTerm);
+      }
+      
+      return false;
+    }) || null;
   }, [allProducts, barcode]);
 
   const handleSearch = (e: React.FormEvent) => {

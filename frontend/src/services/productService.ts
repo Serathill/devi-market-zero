@@ -1,5 +1,4 @@
 import apiClient from './api';
-import axios from 'axios';
 import type { Product } from '../types/product';
 import logger from '../utils/logger';
 
@@ -30,6 +29,17 @@ interface ApiProduct {
   external_product_id?: string;
 }
 
+// Tipul pentru răspunsul de la API cu paginare
+interface ApiResponse {
+  metadata: {
+    currentPage: string;
+    pageSize: string;
+    totalPages: number;
+    totalCount: number;
+  };
+  data: ApiProduct[];
+}
+
 // Local data pentru backup în caz că API-ul eșuează
 const LOCAL_PRODUCTS: Product[] = [
   {
@@ -48,7 +58,8 @@ const LOCAL_PRODUCTS: Product[] = [
       'Placă video NVIDIA RTX 3070',
       '16GB RAM DDR4',
       '1TB SSD NVMe'
-    ]
+    ],
+    barcodes: ['795205d1-c70a-4df6-95ed-32b10476e4e5']
   },
   {
     id: 2,
@@ -280,11 +291,26 @@ const mapApiProductToProduct = (apiProduct: ApiProduct): Product => {
   }
   
   // Normalizează barcodes
-  let barcodes: string[] = [];
+  const barcodes: string[] = [];
+  
+  // Adăugăm barcode-ul principal dacă există
+  if (typeof apiProduct.barcode === 'string' && apiProduct.barcode.trim() !== '') {
+    barcodes.push(apiProduct.barcode);
+  }
+  
+  // Adăugăm și barcodes din array dacă există
   if (Array.isArray(apiProduct.barcodes)) {
-    barcodes = apiProduct.barcodes;
-  } else if (typeof apiProduct.barcode === 'string') {
-    barcodes = [apiProduct.barcode];
+    apiProduct.barcodes.forEach(code => {
+      if (code && !barcodes.includes(code)) {
+        barcodes.push(code);
+      }
+    });
+  }
+  
+  // Adăugăm ID-ul ca barcode posibil
+  const idString = String(apiProduct.id);
+  if (!barcodes.includes(idString)) {
+    barcodes.push(idString);
   }
 
   return {
@@ -321,9 +347,11 @@ export const getProducts = async (signal?: AbortSignal): Promise<Product[]> => {
   });
 
   try {
-    const response = await apiClient.get<ApiProduct[]>('/products', { signal });
+    // Adaptare pentru noua structură de date
+    const response = await apiClient.get<ApiResponse>('/products?limit=50&page=1', { signal });
     
-    const apiProducts = Array.isArray(response.data) ? response.data : [];
+    // Extragem produsele din noua structură
+    const apiProducts = response.data?.data || [];
 
     if (apiProducts.length === 0) {
       logger.warn('API returned no products. Falling back to local data.');
@@ -337,17 +365,45 @@ export const getProducts = async (signal?: AbortSignal): Promise<Product[]> => {
       if (!product || !product.id) continue;
 
       if (aggregatedProducts.has(product.id)) {
+        // Există deja un produs cu acest ID, îl actualizăm
         const existingProduct = aggregatedProducts.get(product.id)!;
-        if (product.barcode && !existingProduct.barcodes?.includes(product.barcode)) {
-          existingProduct.barcodes = [...(existingProduct.barcodes || []), product.barcode];
+        
+        // Agregare barcode
+        if (product.barcode && typeof product.barcode === 'string' && product.barcode.trim() !== '') {
+          if (!existingProduct.barcodes) {
+            existingProduct.barcodes = [];
+          }
+          if (!existingProduct.barcodes.includes(product.barcode)) {
+            existingProduct.barcodes.push(product.barcode);
+          }
+        }
+        
+        // Agregare array de barcodes
+        if (product.barcodes && Array.isArray(product.barcodes) && product.barcodes.length > 0) {
+          if (!existingProduct.barcodes) {
+            existingProduct.barcodes = [];
+          }
+          
+          product.barcodes.forEach(code => {
+            if (code && !existingProduct.barcodes?.includes(code)) {
+              existingProduct.barcodes?.push(code);
+            }
+          });
         }
       } else {
-        // Produs nou, îl adăugăm în map
+        // Produs nou, îl adăugăm în map cu barcode-uri inițializate
         const newProduct = { ...product };
-        newProduct.barcodes = [];
-        if (newProduct.barcode) {
+        
+        // Ne asigurăm că avem un array de barcodes
+        if (!newProduct.barcodes) {
+          newProduct.barcodes = [];
+        }
+        
+        // Adăugăm barcode-ul principal dacă există
+        if (newProduct.barcode && typeof newProduct.barcode === 'string' && !newProduct.barcodes.includes(newProduct.barcode)) {
           newProduct.barcodes.push(newProduct.barcode);
         }
+        
         aggregatedProducts.set(product.id, newProduct);
       }
     }
@@ -405,11 +461,4 @@ export const getProductById = async (id: string, signal?: AbortSignal): Promise<
 
     throw new Error(`Produsul cu ID ${id} nu a fost găsit nici în API, nici în datele locale.`);
   }
-};
-
-/**
- * Helper to compare product IDs, which can be string or number.
- */
-const compareProductIds = (productId: string | number, searchId: string): boolean => {
-  return String(productId) === searchId;
 }; 

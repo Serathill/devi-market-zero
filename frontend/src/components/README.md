@@ -12,12 +12,13 @@ This directory contains reusable UI components that can be used across the appli
 
 ## Available Components
 
-- **Header.tsx**: The application's main navigation header
-- **Footer.tsx**: The application's footer component
-- **MetaMaskConnect.tsx**: A component for connecting to MetaMask wallet
-- **PaginationControls.tsx**: Controls for paginating through lists of data
-- **ProductCard.tsx**: Card component for displaying product information
-- **FormInput.tsx**: Accessible form input component with label, error, and help text support
+- **ErrorBoundary.tsx**: A component that catches JavaScript errors anywhere in its child component tree and displays a fallback UI.
+- **Header.tsx**: The application's main navigation header.
+- **Footer.tsx**: The application's footer component.
+- **MetaMaskConnect.tsx**: A component for connecting to a MetaMask wallet.
+- **PaginationControls.tsx**: Controls for paginating through lists of data.
+- **ProductCard.tsx**: Card component for displaying product information.
+- **FormInput.tsx**: An accessible form input component with integrated label, error, and help text support.
 
 ## Accessibility
 
@@ -39,4 +40,4 @@ Run component tests with:
 
 ```bash
 npm test src/components
-``` 
+```
