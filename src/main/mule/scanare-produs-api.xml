@@ -168,9 +168,11 @@ var fallbackTimestamp = now() as String { format: "yyyy-MM-dd'T'HH:mm:ss'Z'" }
   
 }]]]></db:input-parameters>
         </db:select>
-        <choice doc:name="Choice" doc:id="fb8bc993-d948-460b-bfb4-67be3a18c049">
+        <set-variable value="#[payload]" doc:name="Set Variable" doc:id="95ffdc46-20a4-4fd9-affe-0a22bd8ee306" variableName="existingProduct"/>
+		<choice doc:name="Choice" doc:id="fb8bc993-d948-460b-bfb4-67be3a18c049">
 			<when expression="#[sizeOf(vars.SELECT_VALUE) == 0]" >
 				<try doc:name="Try" doc:id="10d06beb-eff9-498d-993b-7d034f8473eb" >
+					<set-variable value="#[uuid()]" doc:name="Set Variable" doc:id="a274be32-aeef-4c8d-becb-402273fb5810" variableName="newProductId"/>
 					<db:insert doc:name="Insert" doc:id="5371b09a-793a-4897-adcc-615140fb57f1" config-ref="Database_Config">
                     <db:sql><![CDATA[INSERT INTO devimarket_db.product_scan(barcode, timestamp) VALUES (:barcode, :clickhouse_formatted_timestamp)]]></db:sql>
                     <db:input-parameters><![CDATA[#[{
@@ -203,11 +205,17 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
+
 {
-  status: "Product inserted succesfully.",
-  barcode: vars.RAW_JSON.barcode,
-  scan_timestamp: vars.RAW_JSON.scan_timestamp,
-  error: null
+    payload: {
+        status: "success",
+        operation: "created",
+        productId: vars.newProductId, 
+        barcode: vars.RAW_JSON.barcode
+    },
+    attributes: {
+        statusCode: 201 
+    }
 }]]></ee:set-payload>
                     </ee:message>
                 </ee:transform>
@@ -220,10 +228,15 @@ output application/json
 output application/json
 ---
 {
-  status: "The product already exits.",
-  barcode: vars.RAW_JSON.barcode,
-  scan_timestamp: vars.RAW_JSON.scan_timestamp,
-  error: null
+    payload: {
+        status: "success",
+        operation: "updated",
+        
+        barcode: vars.RAW_JSON.barcode
+    },
+    attributes: {
+        statusCode: 200
+    }
 }]]></ee:set-payload>
                     </ee:message>
                 </ee:transform>
@@ -231,36 +244,117 @@ output application/json
         </choice>
 		<error-handler>
             <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7ad5ad90-7231-42c5-9240-c8c494d05f99" type="ANY">
-                <logger level="INFO" doc:name="Logger" doc:id="5b7ded02-ae42-4643-be9f-94bf79d93c82" message="#[error]" />
-                <ee:transform doc:name="Transform Message" doc:id="8cbecbd2-6496-491b-83ca-990a5ed76273">
+                <choice doc:name="Choice" doc:id="35d84709-2893-4d2c-8eb8-6899f3c3efe4" >
+					<when expression="#[error.errorType.identifier == 'PRODUCT:NOT_VALID']">
+						<logger level="WARN" doc:name="Logger" doc:id="5b7ded02-ae42-4643-be9f-94bf79d93c82" message="#[error.description]" />
+						<ee:transform doc:name="Transform Message" doc:id="8cbecbd2-6496-491b-83ca-990a5ed76273">
                     <ee:message>
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
-  status: "failed",
-  barcode: vars.RAW_JSON.barcode,
-  scan_timestamp: vars.RAW_JSON.scan_timestamp,
-  error: error.detailedDescription
+    payload: {
+        status: "error",
+        message: "Invalid request: " ++ (error.description default "Payload does not match the required format."),
+        path: "/api/scanner/product_scan"
+    },
+    attributes: {
+        statusCode: 400
+    }
 }]]></ee:set-payload>
                     </ee:message>
                 </ee:transform>
+					</when>
+					<otherwise >
+						<logger level="ERROR" doc:name="Logger" doc:id="f0608545-735b-459a-92f4-f6ae967fc70d" message="#[error.description]"/>
+						<ee:transform doc:name="Transform Message" doc:id="956a8782-74ef-4c7c-a8fb-47caa2471c31" >
+							<ee:message >
+								<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+    payload: {
+        status: "error",
+        message: "An internal server error occurred. Please contact support.",
+        details: "Error type: " ++ (error.errorType.identifier default "Unknown")
+    },
+    attributes: {
+        statusCode: 500 
+    }
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+					</otherwise>
+				</choice>
             </on-error-propagate>
         </error-handler>
     </flow>
     <flow name="get:\products:scanare-produs-api-config">
-        <logger level="INFO" message="get:\products:scanare-produs-api-config" />
-		<db:select doc:name="Select" doc:id="0f553732-a82d-440b-be8c-9803c9a3814a" config-ref="Database_Config">
-			<db:sql ><![CDATA[SELECT * FROM devimarket_db.products where is_active=1]]></db:sql>
-		</db:select>
-		<ee:transform doc:name="Transform Message" doc:id="7202ebaa-ec1c-4935-b22a-2cf14be5aab4" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+		<set-variable value="#[attributes.queryParams.limit default 50 as Number]" doc:name="Set Variable" doc:id="cd4908cd-2858-4640-ba48-249d3551b105" variableName="LIMIT"/>
+		<set-variable value="#[attributes.queryParams.page default 1 as Number]" doc:name="Set Variable" doc:id="ab7b0bd2-811f-41ae-a3fa-4d36849701f8" variableName="PAGE"/>
+		<choice doc:name="Choice" doc:id="1607ee35-0cd2-4b78-8431-2aaefb690a76" >
+			<when expression="#[vars.PAGE &lt; 1 or vars.LIMIT &lt; 1 or vars.LIMIT &gt; 50]">
+				<set-variable value="400" doc:name="Set Variable" doc:id="5b6bb615-f5d1-405d-9e14-f4187a3044bd" variableName="httpStatus"/>
+				<raise-error doc:name="Raise error" doc:id="709e053e-0bc9-414b-afa7-39516ef939ae" type="QUERY_PARAMS:INVALID" description="Invalid page or limit query parameters"/>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="71928bae-9b07-45f3-99bd-3c1d014a3626">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+var offset = (vars.PAGE - 1) * vars.LIMIT
+---
+{
+  sqlWhere: "WHERE is_active = 1",
+  sqlOrder: "ORDER BY name ASC",
+  sqlLimitOffset: "LIMIT " ++ vars.LIMIT as String ++ " OFFSET " ++ offset as String,
+  pagination: {
+    page: vars.PAGE,
+    limit: vars.LIMIT,
+    offset: offset
+  }
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" message="#[payload]" />
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;---&#10;"SELECT * FROM devimarket_db.products " ++ payload.sqlWhere as String ++" " ++ payload.sqlOrder as String ++ " " ++ payload.sqlLimitOffset as String ++ ""]' doc:name="Set Variable" doc:id="f214d8cc-810b-4560-b4c4-b1d0c9e9a606" variableName="sqlQuery"/>
+				<db:select doc:name="Select" doc:id="8daf067b-fe48-4e8f-8786-c6ff3bb8c23c" config-ref="Database_Config">
+					<db:sql ><![CDATA[#[vars.sqlQuery as String] ]]></db:sql>
+					<db:input-parameters ><![CDATA[#[payload]]]></db:input-parameters>
+				</db:select>
+				<ee:transform doc:name="Transform Message" doc:id="7202ebaa-ec1c-4935-b22a-2cf14be5aab4">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+				<set-variable value="#[payload]" doc:name="Set Variable" doc:id="8fb9c96a-dbf2-4d1f-9c3e-c28c229fdabe" variableName="Products"/>
+				<db:select doc:name="Select" doc:id="3454018a-dee6-47b8-bbfc-590afa216b54" config-ref="Database_Config">
+					<db:sql ><![CDATA[SELECT COUNT(*) AS total FROM devimarket_db.products
+]]></db:sql>
+					<db:input-parameters ><![CDATA[#[vars.sqlWhere]]]></db:input-parameters>
+				</db:select>
+				<set-variable value="#[payload[0].total]" doc:name="Set Variable" doc:id="26fce8fb-5407-434b-a534-9babcdfad209" variableName="TotalCount"/>
+				<ee:transform doc:name="Transform Message" doc:id="fbe4ffd4-1b95-400d-b1b0-d1969d4ac533" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  metadata: {
+    currentPage: vars.PAGE,
+    pageSize: vars.LIMIT,
+    totalPages: ceil((vars.totalCount as Number) / vars.LIMIT),
+    totalCount: vars.totalCount
+  },
+  data: vars.Products
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
     </flow>
     <flow name="get:\products\(productId):scanare-produs-api-config">
         <ee:transform doc:name="Transform Message">
