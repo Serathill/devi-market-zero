@@ -1,6 +1,4 @@
 # main.py
-# RPi Pico - Sends scanned JSON data directly over USB Serial.
-# Team_9 - Real-Time Version
 
 import machine
 import time
