@@ -1,4 +1,4 @@
-# main.py
+# main.py in Thonny!!!!!
 
 import machine
 import time
