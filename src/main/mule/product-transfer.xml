@@ -31,15 +31,15 @@ payload map (product_fr) -> {
     currency: product_fr.currency_code,
     category: product_fr.french_category,
     
-    sub_category: null,
-    brand: null,
+    sub_category: product_fr.sub_category,
+    brand: product_fr.brand,
     stock_quantity: product_fr.available_stock,
-    image_url: null,
+    image_url: product_fr.image_url,
     source_etl: "FR_TRANSFER_PROCESS", 
-    attributes: null,
-    tags: null,
+    attributes: product_fr.attributes,
+    tags: product_fr.tags,
     is_active: product_fr.is_active,
-    external_product_id: null
+    external_product_id: product_fr.external_product_id
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
