@@ -1,6 +1,4 @@
 # sender.py
-# PC Script - Listens to a COM port for JSON data from the Pico and sends it to an API.
-# Team_9 - Real-Time Version
 
 import serial
 import requests
@@ -8,9 +6,9 @@ import json
 import time
 
 # --- CONFIGURARE ---
-# !!! IMPORTANT: Schimbați 'COM3' cu portul COM corect al Pico-ului vostru !!!
+
 PICO_COM_PORT = 'COM8' 
-BAUD_RATE = 115200 # Standard baud rate for Pico's USB serial
+BAUD_RATE = 115200
 
 API_URL = "https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/product_scan"
 API_HEADERS = {'Content-Type': 'application/json'}
