@@ -1,0 +1,13 @@
+# Stage 1: Serve a pre-built React application with NGINX
+FROM nginx:alpine
+
+# We will NOT copy React build files here in the Dockerfile directly.
+# Instead, we will rely on Docker Compose to mount the 'dist' directory from the host.
+
+# Expose port 80 to indicate that the container listens on this port for HTTP traffic.
+# Portul 443 va fi gestionat de configuratia montata via nginx.conf.
+EXPOSE 80
+EXPOSE 443
+
+# The default NGINX command will start the server in the foreground.
+CMD ["nginx", "-g", "daemon off;"]
