@@ -37,7 +37,7 @@ payload map (product_fr) -> {
     image_url: product_fr.image_url,
     source_etl: "FR_TRANSFER_PROCESS", 
     attributes: product_fr.attributes,
-    tags: product_fr.tags,
+    tags: null,
     is_active: product_fr.is_active,
     external_product_id: product_fr.external_product_id
 }]]></ee:set-payload>
@@ -45,6 +45,7 @@ payload map (product_fr) -> {
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="0082e259-ca48-4842-ac84-06cea8edfd1e" message="#[payload]"/>
 		<foreach doc:name="For Each" doc:id="64ceff6a-63f2-4c72-b271-7336cb5ac3d4" collection="#[payload]">
+			<set-payload value="#[%dw 2.0&#10;output application/json&#10;var attrsString = &quot;{&quot; ++&#10;  (&#10;    payload.attributes &#10;      pluck ((val, key) -&gt; &quot;'&quot; ++ key ++ &quot;': '&quot; ++ val ++ &quot;'&quot;)&#10;      joinBy &quot;, &quot;&#10;  )&#10;  ++ &quot;}&quot;&#10;---&#10;payload - &quot;attributes&quot; ++ { attributes: attrsString }]" doc:name="Set Payload" doc:id="beb7741d-ef0b-4b40-aa1b-ff02ba30975e" />
 			<logger level="INFO" doc:name="Logger" doc:id="94a43de6-5728-4752-b85a-0ebcce99d2af" message="#[payload]"/>
 			<set-variable value="#[payload.id]" doc:name="Set Variable" doc:id="f5192867-ba18-4a48-a8c2-4304329e1e19" variableName="PRODUCT_ID"/>
 			<logger level="INFO" doc:name="Logger" doc:id="f7e5dfce-e759-428c-b652-daf50bcb1a56" message="#[%dw 2.0&#10;output application/json&#10;---&#10;&quot;INSERT INTO devimarket_db.products ( id, barcode, name, description,  price, currency, category, sub_category, brand, stock_quantity, image_url, attributes, tags, source_etl,is_active,created_at, updated_at,external_product_id,) VALUES ('&quot;++ payload.id as String ++&quot;', '9876543210987', 'Șampon Natural Mesteacăn', 'Șampon cu extract de mesteacăn pentru păr normal', 24.90, 'EUR', 'Cosmetice', 'Șampoane', 'NaturaVerde', 120, 'https://example.com/images/sampon.jpg', {'tip_par': 'normal', 'volum': '500ml'}, ['natural', 'pentru-adulti'],'mulesoft_import',1,now(),now(),'EXT987654',);&quot;]" />
