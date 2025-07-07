@@ -6,7 +6,7 @@ Această documentație descrie pașii pentru configurarea unei conexiuni JDBC î
 
 ---
 
-##  1. Adăugarea dependenței JDBC în `pom.xml`
+## 1. Adăugarea dependențe
 
 Pentru a utiliza ClickHouse cu **Database Connector** din MuleSoft, am adăugat următoarea dependență în fișierul `pom.xml`:
 
