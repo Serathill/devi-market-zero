@@ -188,3 +188,94 @@ Componente Reutilizabile
 Deși proiectul nu definește sub-fluxuri (private flows) separate pentru reutilizare, conceptul de reutilizare este implementat prin configurațiile globale menționate mai sus.
 Componenta Reutilizabilă Principală: Cea mai importantă componentă reutilizabilă este Database_Config. Fără aceasta, fiecare din cele șase conectori de bază de date (db:select, db:insert, db:update) din aplicația noastră ar fi trebuit să aibă URL-ul, driverul și credențialele definite individual.
 Reutilizare Implicită: APIkit Router este, prin natura sa, o componentă reutilizabilă care aplică aceleași reguli de validare și rutare pentru toate endpoint-urile definite în RAML, fără a fi nevoie să scrii cod de validare manual pentru fiecare.
+
+## 4.Instrucțiuni pentru Rularea și Testarea Aplicațiilor MuleSoft DeviMarket Zero
+Pasul 1: Importarea Proiectului în Anypoint Studio
+<br><br>
+Vom importa proiectele MuleSoft în workspace-ul din Anypoint Studio.
+Deschide Anypoint Studio.
+Mergi la meniul File -> Import....
+În fereastra care apare, extinde folderul Mule și selectează Anypoint Studio Project from File System. Apasă Next.
+În câmpul Project Root, apasă butonul Browse... și navighează la folderul de pe calculatorul tău care conține proiectul MuleSoft (ex: .../devi-market-zero). Anypoint Studio ar trebui să detecteze automat proiectele.
+Asigură-te că proiectele (scanare-produs-api și product-transfer) sunt bifate în lista de mai jos.
+Apasă Finish. Proiectele vor fi acum vizibile în panoul Package Explorer din stânga.
+<br><br>
+Pasul 2: Rularea Aplicațiilor Local
+Vom rula cele două aplicații principale. 
+A. Rularea Aplicației de Scanare și Listare (scanare-produs-api)
+Aceasta este aplicația principală care expune API-urile pentru Frontend și pentru scanner.
+În panoul Package Explorer, găsește proiectul scanare-produs-api.
+Dă click dreapta pe proiect.
+Din meniul contextual, selectează Run As -> Mule Application.
+Fii atent la panoul Console (de obicei în partea de jos a ecranului). Anypoint Studio va începe să construiască și să pornească aplicația. Acest proces poate dura între 30 de secunde și câteva minute la prima rulare.
+Confirmarea Succesului: Rularea s-a încheiat cu succes atunci când vezi în consolă un mesaj verde care conține textul:
+*************************************************************************************************
+* Application "scanare-produs-api" - STARTED *
+*************************************************************************************************
+În acest moment, API-urile tale sunt active și ascultă pe portul 8081.
+<br><br>
+B. Rularea Aplicației de Transfer (product-transfer)
+Aceasta este aplicația care rulează în fundal și migrează datele.
+Urmează exact aceiași pași ca mai sus, dar de data aceasta dă click dreapta pe proiectul product-transfer.
+Selectează Run As -> Mule Application.
+Urmărește consola pentru a vedea cum pornește. Deoarece acest flux este declanșat de un Scheduler, vei vedea în log-uri că se execută automat la fiecare oră (conform configurației). Pentru testare imediată, poți schimba temporar scheduler-ul să ruleze mai des (ex: la fiecare minut).
+<br><br>
+Pasul 3: Testarea Funcționalității (Folosind Postman)
+După ce aplicația scanare-produs-api rulează, poți testa API-urile folosind un client API precum Postman.
+<br><br>
+Test 1: Listarea Produselor (Endpoint GET /products)
+Acest test verifică dacă API-ul poate prelua date din ClickHouse și le poate returna corect.
+Deschide Postman.
+Creează o cerere nouă de tip GET.
+Introdu URL-ul: http://localhost:8081/api/products
+Poți adăuga și parametri de paginare în tab-ul Params:
+key: page, value: 1
+key: limit, value: 50
+Apasă Send.
+Rezultat Așteptat: În secțiunea de răspuns (Response), ar trebui să primești un status 200 OK și un corp JSON structurat astfel:
+Generated json
+{
+    "metadata": {
+        "currentPage": 1,
+        "pageSize": 50,
+        "totalPages": ...,
+        "totalCount": ...
+    },
+    "data": [
+        { "id": "...", "name": "...", ... },
+        { "id": "...", "name": "...", ... }
+    ]
+}
+Use code with caution.
+Json
+
+<br><br>
+
+Test 2: Scanarea unui Produs (Endpoint POST /product_scan)
+Acest test verifică logica de inserare a unei noi scanări.
+În Postman, creează o cerere nouă de tip POST.
+Introdu URL-ul: http://localhost:8081/api/product_scan
+Mergi la tab-ul Body, selectează raw și alege JSON din meniul dropdown.
+În câmpul de text, introdu un JSON valid, similar cu cel trimis de RPi Pico:
+Generated json
+{
+  "barcode": "  123456789 ",
+  "scan_timestamp": "2025-07-07T14:23:45Z"
+}
+
+Use code with caution.
+Json
+Apasă Send.
+Rezultat Așteptat (pentru un produs nou):
+Un status 201 Created.
+Un corp JSON de forma:
+Generated json
+{
+    "status": "success",
+    "operation": "created",
+    "barcode": " 123456789",
+    ...
+}
+Use code with caution.
+Json
+Verificare Suplimentară: Rulează din nou Testul 1 (GET /products) pentru a vedea dacă noul produs apare în listă sau verifică direct în baza de date ClickHouse.
