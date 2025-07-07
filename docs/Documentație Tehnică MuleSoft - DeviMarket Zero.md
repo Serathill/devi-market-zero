@@ -40,8 +40,9 @@ Acest flux implementează un proces de migrare de date complet automatizat, conc
   Fluxul de Scanare Produs (post:/product_scan:application\json:scanare-produs-api-config)
 Transformarea DataWeave din acest flux joacă un rol important în normalizarea și pregătirea datelor pentru a garanta integritatea și compatibilitatea cu baza de date. În primul rând, aplică operațiuni de "curățare a datelor" asupra codului de bare, eliminând spațiile goale și convertind textul în majuscule, o practică esențială pentru a preveni înregistrările duplicate și pentru a asigura o formă standardizată și unică. În al doilea rând, transformarea gestionează data și ora scanării. Aceasta convertește formatul timestamp standard (ISO 8601) primit de la dispozitivul extern în formatul specific cerut de coloana DateTime din ClickHouse, prevenind astfel erorile de scriere în baza de date.
 <img width="958" alt="image" src="https://github.com/user-attachments/assets/03155f6a-2d76-407a-9135-40b045fe343f" />
+<br><br>
 <img width="958" alt="image" src="https://github.com/user-attachments/assets/a522d406-9902-4645-bdf4-8bcb9ed846c8" />
-
+<br><br>
 
 
   Fluxul de Transfer Automat (product-transferFlow)
@@ -58,4 +59,82 @@ Acest flux conține două transformări DataWeave esențiale care lucrează împ
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/fb85e973-c3a3-4220-afae-1f97d0964c4a" />
 <img width="957" alt="image" src="https://github.com/user-attachments/assets/429c506e-a6c7-4a60-bbe1-01215bb26413" />
 
+
+
+### 2.4 Configurația Conectorului de Bază de Date (Database_Config):
+
+Configurația centrală a conectorului este piesa fundamentală care permite aplicației Mule să comunice cu instanța ClickHouse. Din codul XML, se observă câteva aspecte cheie:
+
+Tipul Conexiunii: Se folosește o conexiune de tip Generic Connection, ceea ce înseamnă că MuleSoft nu are un conector nativ pre-configurat pentru ClickHouse, ci se bazează pe standardul JDBC (Java Database Connectivity).
+
+Driver JDBC: Este specificat explicit driverul necesar pentru ClickHouse (com.clickhouse.jdbc.ClickHouseDriver). Acest lucru implică faptul că fișierul .jar al driverului trebuie adăugat ca dependență în proiectul Mule.
+
+URL-ul de Conectare: jdbc:clickhouse:https://cd1snbyswh.germanywestcentral.azure.clickhouse.cloud:8443/default?ssl=true&compress=0
+
+Insight-uri:
+
+Conexiune Cloud: Proiectul se conectează la o instanță ClickHouse găzduită în cloud (pe Azure), nu la una locală (în Docker, cum era planul inițial). Aceasta este o schimbare majoră față de documentația de proiect.
+
+Securitate (SSL): Parametrul ssl=true indică faptul că se stabilește o conexiune securizată (criptată) între aplicația Mule și baza de date.
+
+Performanță: Parametrul compress=0 dezactivează compresia datelor pe conexiune. De obicei, compresia este utilă la transferul unor volume foarte mari de date, dar poate adăuga un mic overhead de procesare.
+
+Credențiale: Conexiunea este autentificată folosind un utilizator (default) și o parolă, care sunt stocate direct în configurație. Într-un mediu de producție, acestea ar trebui externalizate și securizate.
+
+Interogările Cheie (Key Queries) din Fiecare Flux
+1. Fluxul de Scanare Produs (post:\product_scan...)
+
+Acest flux execută o singură interogare de citire pentru a verifica existența și una de scriere pentru a adăuga date noi.
+
+Interogarea de Verificare (db:select):
+
+Query: SELECT 1 FROM devimarket_db.product_scan WHERE barcode = :barcode LIMIT 1
+
+Scop: Aceasta este o interogare de tip "lookup", extrem de eficientă. Nu este interesată de datele produsului, ci doar de existența lui. SELECT 1 este mai rapid decât SELECT * deoarece nu trebuie să citească nicio valoare din coloane. LIMIT 1 îi spune bazei de date să se oprească imediat ce găsește o potrivire, optimizând și mai mult căutarea.
+
+Parametrizare: Folosește un parametru denumit (:barcode), ceea ce este o bună practică de securitate pentru a preveni atacurile de tip SQL Injection.
+
+Interogarea de Inserare (db:insert):
+
+Query: INSERT INTO devimarket_db.product_scan(barcode, timestamp) VALUES (:barcode, :clickhouse_formatted_timestamp)
+
+Scop: Adaugă o nouă înregistrare în tabela de scanări. Folosește din nou parametri denumiți pentru a insera în mod sigur valorile de barcode și timestamp (pre-formatat în DataWeave) în coloanele corespunzătoare.
+
+2. Fluxul de Listare Produse (get:\products...)
+
+Acest flux demonstrează construirea dinamică a interogărilor și executarea a două SELECT-uri secvențiale pentru a construi răspunsul pentru paginare.
+
+Interogarea Dinamică pentru Date (db:select - primul):
+
+Query: #[vars.sqlQuery as String]
+
+Scop: Această interogare este construită dinamic în pașii anteriori ai fluxului, asamblând bucăți de text pentru a forma un query complet, cum ar fi: SELECT * FROM devimarket_db.products WHERE is_active = 1 ORDER BY name ASC LIMIT 50 OFFSET 0. Execută interogarea pentru a prelua "felia" exactă de produse necesară pentru pagina curentă.
+
+Interogarea pentru Numărul Total (db:select - al doilea):
+
+Query: SELECT COUNT(*) AS total FROM devimarket_db.products
+
+Scop: Este o interogare de agregare simplă, dar vitală. Calculează numărul total de produse din tabel. Acest număr este apoi folosit în DataWeave pentru a calcula totalPages și totalCount din metadatele răspunsului, permițând Frontend-ului să construiască corect controalele de paginare.
+
+3. Fluxul de Transfer Automat (product-transferFlow)
+
+Acest flux arată un model de migrare de date, cu operațiuni de citire dintr-o tabelă și scriere în alta, plus o actualizare pentru a marca progresul.
+
+Interogarea de Extragere (db:select):
+
+Query: SELECT * FROM clickhouse_db_franceza.products_fr WHERE is_active=1 AND is_transfered=0
+
+Scop: Selectează toate produsele active din tabela sursă (products_fr) care nu au fost încă marcate ca transferate. Acest filtru (is_transfered=0) este critic pentru a asigura că fluxul este idempotent și nu procesează aceleași date de mai multe ori la rulări succesive.
+
+Interogarea de Inserare (db:insert):
+
+Query: INSERT INTO devimarket_db.products (...) VALUES (:id, :barcode, ...)
+
+Scop: Inserează produsul transformat și mapat în tabela principală, devimarket_db.products. Folosește parametrizare completă pentru a mapa fiecare câmp din payload-ul DataWeave la coloana corespunzătoare din baza de date.
+
+Interogarea de Actualizare a Statusului (db:update):
+
+Query: UPDATE clickhouse_db_franceza.products_fr SET is_transfered = 1 WHERE product_id = :product_id
+
+Scop: Aceasta este "cheia" care închide bucla procesului de migrare. Imediat după ce un produs a fost inserat cu succes în tabela destinație, acest query actualizează înregistrarea corespunzătoare din tabela sursă, setând is_transfered la 1. Astfel, la următoarea rulare a Scheduler-ului, acest produs nu va mai fi selectat de interogarea de extragere.
 
