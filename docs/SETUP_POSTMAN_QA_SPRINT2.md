@@ -38,7 +38,7 @@ Pentru a începe lucrul eficient:
 
 2.  **Importă Colecțiile Existente de API (Dacă Există):**
     * **Metoda 1: Import din Fișier:**
-        * Obține fișierul de colecție Postman (`.json`) de la managerul de proiect sau de la un coleg. Acesta ar trebui să se găsească în repository-ul GitHub: `/docs/team_7_qa_postman/Postman_Collections/`.
+        * Obține fișierul de colecție Postman (`.json`) de la managerul de proiect sau de la un coleg.
         * În Postman, click pe butonul "Import" din colțul din stânga sus.
         * Selectează "Upload Files" și navighează la fișierul `.json` al colecției.
         * Selectează opțiunile de import și confirmă.
@@ -65,7 +65,7 @@ Pentru a verifica funcționalitatea de bază:
     * Introdu un URL de test (ex: un endpoint local al API-ului nostru care returnează "Hello World" sau un endpoint public, cum ar fi `https://postman-echo.com/get?foo1=bar1&foo2=bar2`).
     * Exemplu pentru proiectul nostru:
         * **Metodă:** `GET`
-        * **URL:** `{{base_url}}/api/v1/hello` (asigură-te că `base_url` este configurat în mediu)
+        * **URL:** `https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/products/6d7e8f9a-0b1c-2d3e-4f5a-7b8c9d0e1f2a` (asigură-te că `base_url` este configurat în mediu)
     * Click pe "Send". Ar trebui să vezi răspunsul în secțiunea "Response".
 
 ## 5. Scrierea Testelor de Bază
