@@ -1,0 +1,38 @@
+# SETUP_JDBC_CLICKHOUSE.md
+
+##  Scop
+
+Această documentație descrie pașii pentru configurarea unei conexiuni JDBC între MuleSoft și o bază de date **ClickHouse** aflată în cloud (Azure ClickHouse Cloud), folosind un driver custom definit ca dependență Maven.
+
+---
+
+##  1. Adăugarea dependenței JDBC în `pom.xml`
+
+Pentru a utiliza ClickHouse cu **Database Connector** din MuleSoft, am adăugat următoarea dependență în fișierul `pom.xml`:
+
+```xml
+<dependency>
+  <groupId>org.mycompany</groupId>
+  <artifactId>some-artifact</artifactId>
+  <version>1.0.0</version>
+</dependency>
+
+## 2. Crearea configurației Database Config în MuleSoft
+
+Accesează tabul Global Elements (colțul din stânga-jos).
+
+Click pe Create → Selectează Database Config.
+
+Alege Generic Connection ca tip de conexiune.
+
+Completează următoarele câmpuri:
+
+Name: ClickHouse_DB_Config
+Driver Class: com.clickhouse.jdbc.ClickHouseDriver
+URL: jdbc:clickhouse:https://cd1snbyswh.germanywestcentral.azure.clickhouse.cloud:8443/default?ssl=true&compress=0 
+User: default
+Password: (parola generată din ClickHouse)
+
+Click pe Test Connection pentru a verifica funcționalitatea.
+
+Click OK și salvează configurarea.
