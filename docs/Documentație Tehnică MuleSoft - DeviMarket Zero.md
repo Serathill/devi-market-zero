@@ -139,3 +139,11 @@ Query: UPDATE clickhouse_db_franceza.products_fr SET is_transfered = 1 WHERE pro
 
 Scop: Aceasta este "cheia" care închide bucla procesului de migrare. Imediat după ce un produs a fost inserat cu succes în tabela destinație, acest query actualizează înregistrarea corespunzătoare din tabela sursă, setând is_transfered la 1. Astfel, la următoarea rulare a Scheduler-ului, acest produs nu va mai fi selectat de interogarea de extragere.
 
+### 2.4 Configurația HTTP:
+
+-http:listener-config: Definește o configurație reutilizabilă pentru unul sau mai mulți listeneri HTTP din aplicația noastră. 
+-http:listener-connection: Acesta este nucleul configurației.
+-host="0.0.0.0": Aceasta este o setare importantă pentru un mediu de dezvoltare. Îi spune aplicației Mule să asculte cereri pe toate interfețele de rețea disponibile ale mașinii pe care rulează, nu doar pe localhost (127.0.0.1). Acest lucru face ca API-ul să fie accesibil de pe alte dispozitive din aceeași rețea, cum ar fi Raspberry Pi Pico sau calculatorul unui coleg.
+-port="8081": Aplicația va asculta conexiuni pe portul TCP 8081.
+<br><br>
+<img width="793" alt="image" src="https://github.com/user-attachments/assets/96030463-5caf-477c-bbdc-ac33a088f4f4" />
