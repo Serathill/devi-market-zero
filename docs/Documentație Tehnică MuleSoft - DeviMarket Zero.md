@@ -369,7 +369,6 @@ Testarea Product Scan:
 <br><br>
 Creează o cerere de tip POST către URL-ul Product Scan.
 <br><br>
-<br><br>
 În tab-ul Body, selectează raw și JSON.
 <br><br>
 Copiază și lipește exemplul de Body din tabel.
