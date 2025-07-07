@@ -352,6 +352,7 @@ Fișierul de Deployment: devi-market-zero-v1.6.jar
 Public Endpoint (URL de Bază): 	https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io
 <br><br>
 Orice modificare a codului sursă necesită re-împachetarea aplicației într-un nou fișier .jar și aplicarea modificărilor prin interfața Runtime Manager, ceea ce va declanșa un nou proces de deployment pentru a actualiza aplicația la cea mai recentă versiune.
+<br><br>
 6.2. Lista Completă a Endpoint-urilor API
 Următorul tabel centralizează toate endpoint-urile expuse de aplicația devi-market-zero în CloudHub. URL-ul de bază este cel public, furnizat de CloudHub la deployment.
 | Numele Endpoint-ului | Metoda HTTP | URL Complet | Parametri de Query / Exemplu Body | Descriere Scurtă |
