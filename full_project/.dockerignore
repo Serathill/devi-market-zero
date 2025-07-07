@@ -1,8 +1,0 @@
-# Ignorăm folderul de dependințe al frontend-ului
-frontend/node_modules
-
-# Alte fișiere specifice Vite/Node pe care nu le vrem în imagine
-frontend/dist
-frontend/.env*
-frontend/npm-debug.log*
-frontend/yarn-error.log*
