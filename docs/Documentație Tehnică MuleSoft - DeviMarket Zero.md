@@ -17,7 +17,7 @@ MuleSoft reprezintă platforma centrală API a proiectului DeviMarket Zero, avâ
 
 ### 2.1 Scanner API - `/api/scanner/product_scan`
 
-- **RAML:** [scanner-api.raml](link_catre_fisierul_RAML)
+- **RAML:** src/main/resources/api/scanare-produs-api.raml
   
 - **Scop:** Primirea codurilor de bare scanate de pe RPi Pico, validarea datelor, și inserarea sau actualizarea produselor în ClickHouse.
 
