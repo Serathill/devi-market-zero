@@ -27,18 +27,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
     measureRenderTime('PaginationControls');
   }, []);
 
-  if (totalPages <= 1) {
-    return null; // Don't render controls if there's only one page or less
-  }
-
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-
-  const buttonBaseStyle = "px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow";
-  const disabledStyle = "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500";
-  const enabledStyle = "bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-500 hover:text-white";
-  const activeStyle = "bg-indigo-600 text-white border-indigo-600";
-
-  // Memoize the page change handlers
+  // Memoize the page change handlers - moved before conditional return
   const handlePrevious = useCallback(() => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
@@ -56,6 +45,18 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
     (page: number) => () => onPageChange(page),
     [onPageChange]
   );
+
+  // Early return if there's only one page or less
+  if (totalPages <= 1) {
+    return null;
+  }
+
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  const buttonBaseStyle = "px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow";
+  const disabledStyle = "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500";
+  const enabledStyle = "bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-500 hover:text-white";
+  const activeStyle = "bg-indigo-600 text-white border-indigo-600";
 
   return (
     <div className="flex justify-center items-center space-x-2 my-12">

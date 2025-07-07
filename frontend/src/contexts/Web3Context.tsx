@@ -202,7 +202,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
       // If no previous attempts, just connect directly
       connect();
     }
-  }, [connectionAttempts]);
+  }, [connectionAttempts, connect]);
 
   /**
    * Disconnect from MetaMask (for UI purposes only).

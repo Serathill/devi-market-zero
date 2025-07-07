@@ -64,14 +64,15 @@ export const useTrackRenders = (
   componentName: string, 
   dependencies?: Record<string, unknown>
 ): void => {
-  // Only run in development
-  if (!import.meta.env.DEV) return;
-  
-  // Use refs to track previous values
+  // Use refs to track previous values - always declare hooks at the top level
   const renderCount = useRef(0);
   const prevDeps = useRef<Record<string, unknown>>({});
+  const isDev = import.meta.env.DEV;
   
   useEffect(() => {
+    // Skip everything if not in development
+    if (!isDev) return;
+    
     // Increment render count
     renderCount.current += 1;
     

@@ -3,6 +3,14 @@ import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Web3Provider, useWeb3 } from './Web3Context';
 
+// Define types for the ethereum object
+interface MockEthereum {
+  request: ReturnType<typeof vi.fn>;
+  on: ReturnType<typeof vi.fn>;
+  removeListener: ReturnType<typeof vi.fn>;
+  isMetaMask?: boolean;
+}
+
 // Test component that uses the Web3 context
 function TestComponent() {
   const { account, connect, error, isMetaMaskInstalled } = useWeb3();
@@ -19,7 +27,7 @@ function TestComponent() {
 
 describe('Web3Context', () => {
   // Mock ethereum object
-  const mockEthereum = {
+  const mockEthereum: MockEthereum = {
     request: vi.fn(),
     on: vi.fn(),
     removeListener: vi.fn(),
@@ -31,12 +39,14 @@ describe('Web3Context', () => {
     vi.clearAllMocks();
     
     // Setup global ethereum object mock
-    (window as any).ethereum = mockEthereum;
+    // Use type assertion to avoid conflicts with existing Window interface
+    (window as unknown as { ethereum: MockEthereum }).ethereum = mockEthereum;
   });
 
   // Cleanup after each test
   afterEach(() => {
-    delete (window as any).ethereum;
+    // Use type assertion to avoid conflicts with existing Window interface
+    delete (window as unknown as { ethereum?: MockEthereum }).ethereum;
   });
 
   it('should detect MetaMask installation correctly', () => {
@@ -50,7 +60,7 @@ describe('Web3Context', () => {
   });
 
   it('should show not installed when ethereum is not available', () => {
-    delete (window as any).ethereum;
+    delete (window as unknown as { ethereum?: MockEthereum }).ethereum;
     
     render(
       <Web3Provider>
