@@ -16,6 +16,7 @@ Pentru a utiliza ClickHouse cu **Database Connector** din MuleSoft, am adăugat 
   <artifactId>some-artifact</artifactId>
   <version>1.0.0</version>
 </dependency>
+```
 
 ---
 ## 2. Crearea configurației Database Config în MuleSoft
