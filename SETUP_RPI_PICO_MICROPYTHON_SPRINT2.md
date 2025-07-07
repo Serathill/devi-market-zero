@@ -1,10 +1,13 @@
 SETUP\_RPI\_PICO\_MICROPYTHON\_SPRINT2.md
 
-Documentatie pentru conectarea unui Raspberry Pi Pico si a unui Wemos D1 Mini (ESP8266), flash firmware, folosirea MicroPython-ului, conectarea la reteaua WiFi si trimiterea unui request GET.
+Documentatie pentru realizarea unui scanner functional folosind un Raspberry Pi Pico.
 
 ---
+### Componenete
+- Raspberry Pi Pico
+- Modul scanner coduri de bare E2100 RS232
+- Modul FPC GroundStudio (12 pini)
 
-## 1. Instalarea Firmware-ului MicroPython
 
 ###  Instalare Thonny
 
@@ -22,84 +25,161 @@ Documentatie pentru conectarea unui Raspberry Pi Pico si a unui Wemos D1 Mini (E
    - Se selectează automat firmware-ul recomandat
    - Click: `Install`
 
-###  Instalare MicroPython pe Wemos D1 Mini (ESP8266)
+###  Incarcare cod prin Thonny
 
-1. Descarcă cea mai nouă versiune de firmware pentru ESP8266 de la:
-   - [https://micropython.org/download/ESP8266\_GENERIC/](https://micropython.org/download/ESP8266_GENERIC/)
-2. Deschide Command Prompt și rulează comenzile (înlocuiește `COMX` cu portul Wemos):
+1. Conecteaza Pico la PC
+2. Selectează: `MicroPython (Raspberry Pi Pico)`
+3. Incarca codul:
+ ```# main.py
 
-```bash
-python -m esptool --port COMX erase_flash
-python -m esptool --port COMX write_flash --flash_size=detect -fm dio 0x00000 esp8266.bin
-```
-
-3. În Thonny:
-   - Mergi la `Tools → Options → Interpreter`
-   - Selectează: `MicroPython (ESP8266)`
-   - Selectează portul corespunzător
-   - Click `OK`
-
----
-
-## 2. Fișiere proiect în Thonny
-
-### `config.py`
-
-```python
-# WiFi credentials
-WIFI_SSID = "x"
-WIFI_PASSWORD = "y"
-```
-
-### `main.py`
-
-```python
-import network
-import urequests
+import machine
 import time
-from config import WIFI_SSID, WIFI_PASSWORD
+import json
+import sys
 
-def connect():
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
-    if not wlan.isconnected():
-        print("Connecting to network...")
-        wlan.connect(WIFI_SSID, WIFI_PASSWORD)
-        timeout = 10
-        while not wlan.isconnected() and timeout > 0:
-            time.sleep(1)
-            timeout -= 1
-    if wlan.isconnected():
-        print("Connected! IP:", wlan.ifconfig()[0])
-        return True
-    else:
-        print("Failed to connect.")
-        return False
+# --- 1. Configuration ---
+LED_PIN = 16
+BUZZER_PIN = 7
+UART_ID = 0
+UART_TX_PIN = 0
+UART_RX_PIN = 1
+BAUDRATE = 9600
 
-if connect():
-    print("Sending GET request...")
-    response = urequests.get("http://jsonplaceholder.typicode.com/posts/1")
-    print("Status code:", response.status_code)
-    print("Response body:\n", response.text)
-    response.close()
+# --- 2. Initialization ---
+led = machine.Pin(LED_PIN, machine.Pin.OUT)
+buzzer = machine.Pin(BUZZER_PIN, machine.Pin.OUT)
+uart = machine.UART(UART_ID, baudrate=BAUDRATE, tx=machine.Pin(UART_TX_PIN), rx=machine.Pin(UART_RX_PIN))
+
+# --- 3. Helper Functions ---
+def buzz(duration=0.1):
+    buzzer.on()
+    time.sleep(duration)
+    buzzer.off()
+
+def create_iso_timestamp():
+    """Creates a timestamp in ISO 8601 format with 'Z' for UTC."""
+    now = time.localtime()
+    return "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(now[0], now[1], now[2], now[3], now[4], now[5])
+
+def process_and_send_over_serial(barcode):
+    """Creates the JSON payload and prints it to the USB serial output."""
+    print(f"\n[PICO] Barcode captured: {barcode}")
+    
+    try:
+        timestamp = create_iso_timestamp()
+        payload = {
+            "barcode": barcode,
+            "scan_timestamp": timestamp
+        }
+        json_payload_string = json.dumps(payload)
+        
+        # --- THIS IS THE KEY CHANGE ---
+        # Print the final JSON. The PC script will listen for this.
+        print(json_payload_string)
+        # ---------------------------
+        
+        print(f"[PICO] Sent to PC over serial.")
+
+    except Exception as e:
+        print(f"[PICO-ERROR] Could not process scan: {e}")
+
+# --- 4. Main Application Logic ---
+def main():
+    print("[PICO] Serial communication mode initialized.")
+    led.on()
+    buzzer.off()
+    print("[PICO] System Ready. Awaiting barcode scan...")
+    
+    while True:
+        if uart.any():
+            led.off()
+            buzz(0.15)
+            raw_data = uart.read()
+            if raw_data:
+                barcode = raw_data.decode('utf-8').strip()
+                if barcode:
+                   process_and_send_over_serial(barcode)
+            led.on()
+        
+        time.sleep(0.05)
+
+# --- 5. Start the Program ---
+if __name__ == "__main__":
+    main()
 ```
+Cod "main.py", realizarea scanari unui cod de bare, stingerea unui led cand scanner-ul este activ, realizarea unui sunet cand codul este scanat cu succes, si pastrarea acestuia pe pico.
 
----
+### Trimiterea codurilor catre baza de date
 
-##  Rulare proiect
+In VS Code:
+```
+import serial
+import requests
+import json
+import time
 
-1. Creează fișierele `main.py` și `config.py` în Thonny
-2. Salvează-le pe dispozitivul Wemos (ESP8266)
-3. Rulează `main.py`
-4. Verifică rezultatul în consola **REPL** din Thonny
+# --- CONFIGURARE ---
 
----
+PICO_COM_PORT = 'COM8' 
+BAUD_RATE = 115200
 
-## Depanare (Troubleshooting)
+API_URL = "https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/product_scan"
+API_HEADERS = {'Content-Type': 'application/json'}
 
-- Verifică dacă ai setat corect SSID și parola WiFi
-- Verifică dacă portul este selectat corect în Thonny
-- Dacă apar caractere ciudate în REPL, reinstalează firmware-ul
-- Dacă `urequests` nu este găsit, copiază manual fișierul `urequests.py` pe placă
+def send_to_api(json_data):
+    """Tries to send a single JSON payload to the API."""
+    try:
+        # The data is already a string, so we first load it into a dict
+        # to ensure it's valid JSON, then send it.
+        payload = json.loads(json_data)
+        
+        print(f"\n[PC] Received valid JSON. Sending to API...")
+        print(f"  > Payload: {payload}")
+        
+        response = requests.post(API_URL, json=payload, headers=API_HEADERS)
+        
+        if 200 <= response.status_code < 300:
+            print(f"  > SUCCESS! Status: {response.status_code}")
+        else:
+            print(f"  > API ERROR! Status: {response.status_code}, Response: {response.text}")
+            # In a real app, you might save failed requests to a file here.
+            
+    except json.JSONDecodeError:
+        print(f"[PC-ERROR] Received data is not valid JSON: {json_data}")
+    except requests.exceptions.RequestException as e:
+        print(f"[PC-ERROR] Network error, could not send to API: {e}")
 
----
+def listen_to_pico():
+    """Main function to listen to the serial port."""
+    print(f"Attempting to connect to Pico on {PICO_COM_PORT}...")
+    
+    while True: # Loop forever to try and reconnect if Pico is disconnected
+        try:
+            # The 'with' statement handles opening and closing the port
+            with serial.Serial(PICO_COM_PORT, BAUD_RATE, timeout=1) as ser:
+                print(f"Successfully connected to Pico on {PICO_COM_PORT}. Listening for data...")
+                
+                while True: # Loop to read data continuously
+                    # Read one line from the serial port, decode it, and strip whitespace
+                    line = ser.readline().decode('utf-8').strip()
+                    
+                    if line:
+                        # We are looking for lines that start with '{' because
+                        # our Pico script prints the JSON payload.
+                        if line.startswith('{') and line.endswith('}'):
+                            send_to_api(line)
+                        else:
+                            # Print other messages from the Pico for debugging
+                            print(f"[PICO-DEBUG] {line}")
+
+        except serial.SerialException:
+            print(f"Connection failed or lost on {PICO_COM_PORT}. Retrying in 5 seconds...")
+            time.sleep(5)
+
+# --- Start the Listener ---
+if __name__ == "__main__":
+    listen_to_pico()
+ ```
+
+ Rularea acestui cod(sender.py) cat timp scanner-ul este conectat si functional, trimiterea datelor automat catre baza de date.
+
