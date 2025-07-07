@@ -338,12 +338,19 @@ Acest capitol documentează procesul de deployment al aplicației MuleSoft în m
 <br><br>
 6.1. Deployment-ul Aplicației în Anypoint CloudHub
 Aplicația devi-market-zero, care încapsulează logica pentru scanare, listare și transfer de produse, a fost publicată cu succes în Anypoint CloudHub. Acest mediu gestionat de MuleSoft elimină necesitatea de a administra servere locale și asigură că API-urile noastre sunt disponibile constant pentru a fi consumate de aplicația Frontend, de dispozitivul RPi Pico și de alte servicii.
+<br><br>
 Numele Aplicației în CloudHub: devi-market-zero
+<br><br>
 Statusul Aplicației: <span style="color:green;">●</span> Running
+<br><br>
 Regiunea de Deployment (Target): Cloudhub-EU-Central-1 (Europa Centrală)
+<br><br>
 Versiune Runtime Mule: 4.9.6
+<br><br>
 Fișierul de Deployment: devi-market-zero-v1.6.jar
+<br><br>
 Public Endpoint (URL de Bază): 	https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io
+<br><br>
 Orice modificare a codului sursă necesită re-împachetarea aplicației într-un nou fișier .jar și aplicarea modificărilor prin interfața Runtime Manager, ceea ce va declanșa un nou proces de deployment pentru a actualiza aplicația la cea mai recentă versiune.
 6.2. Lista Completă a Endpoint-urilor API
 Următorul tabel centralizează toate endpoint-urile expuse de aplicația devi-market-zero în CloudHub. URL-ul de bază este cel public, furnizat de CloudHub la deployment.
