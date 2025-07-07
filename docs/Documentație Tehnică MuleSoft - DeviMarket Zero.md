@@ -303,6 +303,7 @@ Pentru fiecare product_fr, map va executa logica din interiorul acoladelor {...}
 <br><br>
 2. "Traducerea" Câmpurilor (Maparea propriu-zisă):
 Logica din interiorul acoladelor definește exact cum se construiește noul obiect. Fiecare linie este o regulă de mapare:
+
 <br><br>
 Mapare Directă cu Redenumire:
 <br><br>
@@ -313,6 +314,7 @@ description: product_fr.description_text: Câmpul description din destinație ia
 price: product_fr.unit_price: Câmpul price ia valoarea din unit_price.
 <br><br>
 category: product_fr.french_category: Câmpul category ia valoarea din french_category.
+<br><br>
 <br><br>
 Mapare 1-la-1 (același nume):
 <br><br>
