@@ -34,11 +34,15 @@ Acest flux este punctul de intrare pentru datele trimise de scannerul Raspberry 
 B.  Fluxul de Listare Produse(get:\products:scanare-produs-api-config):
 <br><br>
 Acest flux este motorul care alimentează cu date interfața web și este special conceput pentru a oferi o experiență de navigare eficientă prin paginare. Când primește o cerere GET, fluxul extrage și validează parametrii de page și limit, asigurându-se că aceștia sunt în limite rezonabile. Logica sa inteligentă constă în executarea a două interogări SQL distincte și secvențiale: prima extrage "felia" exactă de produse pentru pagina solicitată, folosind clauzele LIMIT și OFFSET, în timp ce a doua calculează numărul total de produse din tabel. La final, fluxul asamblează un răspuns JSON complex, care combină lista de produse (data) cu un obiect de metadate (metadata) ce conține informații critice pentru paginare, precum pagina curentă, numărul total de pagini și numărul total de produse, oferind astfel Frontend-ului tot ce are nevoie pentru a construi o interfață de navigare completă.
-
+<br><br>
+<img width="812" alt="image" src="https://github.com/user-attachments/assets/5ee3a68b-3d17-4625-b695-d675fceccbc6" />
+<br><br>
 C.  Fluxul de Transfer Automat de Produse (product-transferFlow):
 <br><br>
 Acest flux implementează un proces de migrare de date complet automatizat, conceput pentru a transfera produse dintr-o bază de date sursă ("clickhouse_db_franceza") în baza de date principală a proiectului(devimarket_db.products). Declanșat periodic la fiecare oră de un Scheduler, fluxul extrage mai întâi toate produsele active("is_active=1") care nu au fost încă transferate din tabela clickhouse_db_franceza.products_fr. Apoi, printr-o componentă Transform Message, fluxul mapează și redenumește câmpurile din structura sursă în cea a tabelei destinație (de ex: product_title devine name), generează un cod de bare nou și unic (uuid()) și setează o etichetă de origine (source_etl). Piesa centrală a logicii este o buclă For Each care procesează fiecare produs transformat individual. În interiorul buclei, produsul este mai întâi inserat în tabela principală devimarket_db.products. Imediat după inserarea cu succes, o operațiune Update este executată pe tabela sursă pentru a marca produsul respectiv ca fiind transferat (is_transfered = 1), asigurând astfel că nu va fi procesat din nou la următoarea rulare a fluxului. Utilizarea extensivă a componentelor Logger oferă o vizibilitate clară asupra fiecărui pas, de la numărul de produse extrase până la confirmarea fiecărei inserări și actualizări.
-
+<br><br>
+<img width="806" alt="image" src="https://github.com/user-attachments/assets/4f01fc4d-cf81-4049-8b3c-e0f25521f20b" />
+<br><br>
 
 ### 2.3 Explicarea transformărilor DataWeave complexe:
 
