@@ -9,25 +9,28 @@ Documentație pentru instalarea și utilizarea Postman în scopul testării API-
 - Conexiune internet
 - Docker (opțional, pentru testarea locală a API-urilor)
 
-
 ##Instalare Postman în Manjaro
 
 ###Cu `yay` (recomandat):
+
 ```bash
 yay -S postman-bin
 ```
 
 ###Alternativ, cu `pamac`:
+
 ```bash
 pamac build postman-bin
 ```
 
 ###Lansare aplicație:
+
 ```bash
 postman &
 ```
 
->Dacă nu ai `yay` instalat:
+> Dacă nu ai `yay` instalat:
+
 ```bash
 sudo pacman -S yay
 ```
@@ -93,19 +96,22 @@ pm.test("Răspunsul conține câmpul 'name'", () => {
 ##Exemplu concret: Testarea unui API de produse
 
 ### Endpoint testat:
+
 ```http
 GET http://localhost:8000/api/products
 ```
 
 ### Test inclus în tab-ul `Tests`:
+
 ```javascript
 pm.test("Lista de produse nu este goală", () => {
-    const data = pm.response.json();
-    pm.expect(data.length).to.be.above(0);
+  const data = pm.response.json();
+  pm.expect(data.length).to.be.above(0);
 });
 ```
 
 ### Alte endpoint-uri din colecția Sprint2:
+
 - `GET /products`
 - `GET /products/:id`
 - `POST /products`
@@ -113,5 +119,3 @@ pm.test("Lista de produse nu este goală", () => {
 - `DELETE /products/:id`
 
 ---
-
-

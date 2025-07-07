@@ -1,5 +1,6 @@
-```markdown
+````markdown
 # Document Proiect de Practică: DeviMarket Zero
+
 **Versiune:** 5.0 (Finală, Arhitectură Re-definită cu MuleSoft Central, Corecții Acces)
 **Data Ultimei Actualizări:** 24 Mai 2024
 **Tutore / Company Owner:** Petrut Constantin, Devidevs.com
@@ -13,150 +14,150 @@ Acest document reprezintă **ghidul fundamental și sursa unică de adevăr** pe
 **CUPRINS DETALIAT**
 
 **1. INTRODUCERE ȘI FUNDAMENTELE PROIECTULUI "DEVI MARKET ZERO"**
-    1.1. Denumirea Proiectului și Semnificația Sa
-    1.2. Scenariul de Practică: Simularea unei Cerințe Reale de la un Client al Devidevs.com
-        1.2.1. Profilul Clientului Fictiv și Contextul de Business
-        1.2.2. Cerințele Specifice Detaliate ale Clientului (Brief-ul Inițial)
-    1.3. Viziunea Produsului "DeviMarket Zero": Ce Construim Efectiv?
-        1.3.1. Descrierea Generală a Marketplace-ului Online
-        1.3.2. Rolul Central al MuleSoft Anypoint Platform în Arhitectură
-        1.3.3. Rolul Talend Open Studio în Fluxurile de Date
-    1.4. Obiectivele Specifice și Livrabilele Concrete ale MVP-ului (Minimum Viable Product)
-        1.4.1. Funcționalități Cheie ale Aplicației Frontend (React)
-        1.4.2. Serviciile și API-urile Furnizate de MuleSoft Anypoint Platform
-        1.4.3. Fluxurile ETL Implementate cu Talend Open Studio
-        1.4.4. Funcționalitatea Sistemului de Scanare (Raspberry Pi Pico W)
-        1.4.5. Structura și Conținutul Bazei de Date ClickHouse
-        1.4.6. Infrastructura Locală de Rulare (Docker, NGINX)
-        1.4.7. Documentația Tehnică Completă a Proiectului
-    1.5. Obiectivele Detaliate de Învățare pentru Studenți (Ghidate de Interesele Individuale)
-        1.5.1. Competențe Transversale (Agile, Git, Jira, Comunicare, Debugging)
-        1.5.2. Competențe Specifice pentru Team_1 (MuleSoft, Talend, ClickHouse Interaction, Concepte de Integrare)
-        1.5.3. Competențe Specifice pentru Team_2 (React, HTML/CSS/JS, Consum API-uri MuleSoft, MetaMask)
-        1.5.4. Competențe Specifice pentru Team_7 (Docker, Docker Compose, NGINX, Networking, ClickHouse Setup)
-        1.5.5. Competențe Specifice pentru Team_9 (MicroPython, RPi Pico W Hardware, HTTP, Interfațare Senzori/Periferice)
-        1.5.6. Competențe Specifice pentru Rolul de QA (Principii Testare, Postman, Documentare)
-    1.6. Constrângerile Fundamentale și Inflexibile ale Proiectului
-        1.6.1. Constrângerea de Cost Zero Absolut (Tehnologii și Servicii)
-        1.6.2. Constrângerea de Timp (Structura pe Sprinturi și Ore Alocate)
-        1.6.3. Constrângerea Nivelului de Start (Abordare "De la Zero" pentru Tehnologii Noi)
-        1.6.4. Constrângerea Mediului de Dezvoltare și Rulare (VM Ubuntu, Docker, Native Java Runtimes)
+1.1. Denumirea Proiectului și Semnificația Sa
+1.2. Scenariul de Practică: Simularea unei Cerințe Reale de la un Client al Devidevs.com
+1.2.1. Profilul Clientului Fictiv și Contextul de Business
+1.2.2. Cerințele Specifice Detaliate ale Clientului (Brief-ul Inițial)
+1.3. Viziunea Produsului "DeviMarket Zero": Ce Construim Efectiv?
+1.3.1. Descrierea Generală a Marketplace-ului Online
+1.3.2. Rolul Central al MuleSoft Anypoint Platform în Arhitectură
+1.3.3. Rolul Talend Open Studio în Fluxurile de Date
+1.4. Obiectivele Specifice și Livrabilele Concrete ale MVP-ului (Minimum Viable Product)
+1.4.1. Funcționalități Cheie ale Aplicației Frontend (React)
+1.4.2. Serviciile și API-urile Furnizate de MuleSoft Anypoint Platform
+1.4.3. Fluxurile ETL Implementate cu Talend Open Studio
+1.4.4. Funcționalitatea Sistemului de Scanare (Raspberry Pi Pico W)
+1.4.5. Structura și Conținutul Bazei de Date ClickHouse
+1.4.6. Infrastructura Locală de Rulare (Docker, NGINX)
+1.4.7. Documentația Tehnică Completă a Proiectului
+1.5. Obiectivele Detaliate de Învățare pentru Studenți (Ghidate de Interesele Individuale)
+1.5.1. Competențe Transversale (Agile, Git, Jira, Comunicare, Debugging)
+1.5.2. Competențe Specifice pentru Team_1 (MuleSoft, Talend, ClickHouse Interaction, Concepte de Integrare)
+1.5.3. Competențe Specifice pentru Team_2 (React, HTML/CSS/JS, Consum API-uri MuleSoft, MetaMask)
+1.5.4. Competențe Specifice pentru Team_7 (Docker, Docker Compose, NGINX, Networking, ClickHouse Setup)
+1.5.5. Competențe Specifice pentru Team_9 (MicroPython, RPi Pico W Hardware, HTTP, Interfațare Senzori/Periferice)
+1.5.6. Competențe Specifice pentru Rolul de QA (Principii Testare, Postman, Documentare)
+1.6. Constrângerile Fundamentale și Inflexibile ale Proiectului
+1.6.1. Constrângerea de Cost Zero Absolut (Tehnologii și Servicii)
+1.6.2. Constrângerea de Timp (Structura pe Sprinturi și Ore Alocate)
+1.6.3. Constrângerea Nivelului de Start (Abordare "De la Zero" pentru Tehnologii Noi)
+1.6.4. Constrângerea Mediului de Dezvoltare și Rulare (VM Ubuntu, Docker, Native Java Runtimes)
 
 **2. ROLURI ȘI RESPONSABILITĂȚI ÎN PROIECT**
-    2.1. Tutore / Company Owner (Petrut Constantin): Roluri și Implicare Detaliată
-        2.1.1. Rol 1: Reprezentant al Clientului și Păstrător al Viziunii Produsului
-        2.1.2. Rol 2: Mentor Tehnic Principal și Ghid de Învățare
-        2.1.3. Rol 3: Manager de Proiect (Adaptat pentru Practică) și Facilitator Agile
-        2.1.4. Rol 4: Evaluator al Performanței și Dezvoltator de Abilități Profesionale
-        2.1.5. Rol 5: Administrator de Resurse și Mediu de Lucru
-    2.2. Project Manager & Technical Lead (Asistent AI): Roluri și Limitări
-        2.2.1. Rol 1: Arhitect Inițial al Soluției și Documentator Principal
-        2.2.2. Rol 2: Creator al Planului de Proiect Detaliat și Definitor al Task-urilor Inițiale
-        2.2.3. Rol 3: Furnizor de Bază de Cunoștințe Tehnice și Resurse de Învățare
-        2.2.4. Rol 4: Consultant pentru Procese și Instrumente
-        2.2.5. Rol General: Asistent Pasiv în Execuție
-    2.3. Studenți (Membri ai Echipelor de Dezvoltare): Așteptări și Responsabilități Detaliate
-        2.3.1. Responsabilitate Fundamentală 1: Angajament Activ, Seriozitate și Participare Deplină
-        2.3.2. Responsabilitate Fundamentală 2: Învățare Proactivă, Autonomă, Continuă și Curiozitate Intelectuală
-        2.3.3. Responsabilitate Fundamentală 3: Realizarea Task-urilor Alocate cu Maximă Responsabilitate, Rigoare și Calitate
-        2.3.4. Responsabilitate Fundamentală 4: Colaborare Exemplară, Sprijin Reciproc și Promovarea unui Spirit de Echipă Pozitiv
-        2.3.5. Responsabilitate Fundamentală 5: Comunicare Transparentă, Proactivă, Eficientă și Asertivă (REGULA DE AUR: NU SE FAC PRESUPUNERI!)
-        2.3.6. Responsabilitate Fundamentală 6: Respectarea Riguroasă și Consecventă a Standardelor și Proceselor Definite
-        2.3.7. Responsabilitate Fundamentală 7: Crearea și Întreținerea Meticuloasă a Documentației Tehnice Asocociate Muncii Prestate
-        2.3.8. Responsabilitate Fundamentală 8: Pregătirea Conștiincioasă pentru Prezentarea Finală a Proiectului și pentru Autopromovarea Profesională
+2.1. Tutore / Company Owner (Petrut Constantin): Roluri și Implicare Detaliată
+2.1.1. Rol 1: Reprezentant al Clientului și Păstrător al Viziunii Produsului
+2.1.2. Rol 2: Mentor Tehnic Principal și Ghid de Învățare
+2.1.3. Rol 3: Manager de Proiect (Adaptat pentru Practică) și Facilitator Agile
+2.1.4. Rol 4: Evaluator al Performanței și Dezvoltator de Abilități Profesionale
+2.1.5. Rol 5: Administrator de Resurse și Mediu de Lucru
+2.2. Project Manager & Technical Lead (Asistent AI): Roluri și Limitări
+2.2.1. Rol 1: Arhitect Inițial al Soluției și Documentator Principal
+2.2.2. Rol 2: Creator al Planului de Proiect Detaliat și Definitor al Task-urilor Inițiale
+2.2.3. Rol 3: Furnizor de Bază de Cunoștințe Tehnice și Resurse de Învățare
+2.2.4. Rol 4: Consultant pentru Procese și Instrumente
+2.2.5. Rol General: Asistent Pasiv în Execuție
+2.3. Studenți (Membri ai Echipelor de Dezvoltare): Așteptări și Responsabilități Detaliate
+2.3.1. Responsabilitate Fundamentală 1: Angajament Activ, Seriozitate și Participare Deplină
+2.3.2. Responsabilitate Fundamentală 2: Învățare Proactivă, Autonomă, Continuă și Curiozitate Intelectuală
+2.3.3. Responsabilitate Fundamentală 3: Realizarea Task-urilor Alocate cu Maximă Responsabilitate, Rigoare și Calitate
+2.3.4. Responsabilitate Fundamentală 4: Colaborare Exemplară, Sprijin Reciproc și Promovarea unui Spirit de Echipă Pozitiv
+2.3.5. Responsabilitate Fundamentală 5: Comunicare Transparentă, Proactivă, Eficientă și Asertivă (REGULA DE AUR: NU SE FAC PRESUPUNERI!)
+2.3.6. Responsabilitate Fundamentală 6: Respectarea Riguroasă și Consecventă a Standardelor și Proceselor Definite
+2.3.7. Responsabilitate Fundamentală 7: Crearea și Întreținerea Meticuloasă a Documentației Tehnice Asocociate Muncii Prestate
+2.3.8. Responsabilitate Fundamentală 8: Pregătirea Conștiincioasă pentru Prezentarea Finală a Proiectului și pentru Autopromovarea Profesională
 
 **3. ARHITECTURA TEHNICĂ DETALIATĂ A SISTEMULUI "DEVI MARKET ZERO"**
-    3.1. Principii de Arhitectură Adoptate (MuleSoft ca Platformă API Centrală)
-    3.2. Diagrama Arhitecturală Generală a Sistemului (Ilustrând Fluxurile și Responsabilitățile)
-    3.3. Descrierea Detaliată a Fiecărei Componente Tehnologice și Responsabilitățile Echipelor Asociate
-        3.3.1. Componenta 1: Frontend Application (Interfața Utilizator cu React)
-        3.3.2. Componenta 2: MuleSoft Anypoint Platform (API-uri, Logică Business, Interacțiune DB)
-        3.3.3. Componenta 3: Talend Open Studio (Procese ETL pentru Baze de Date și Consum API MuleSoft)
-        3.3.4. Componenta 4: Baza de Date Centrală (Stocare Produse cu ClickHouse)
-        3.3.5. Componenta 5: Sistemul de Scanare Hardware (Raspberry Pi Pico W & MicroPython)
-        3.3.6. Componenta 6: Infrastructura de Rulare Locală (Docker pentru ClickHouse și NGINX/React-Build)
-        3.3.7. Componenta 7: Reverse Proxy și Servire Frontend (NGINX)
-    3.4. Fluxurile Principale de Date Detaliate (Scenarii End-to-End Cheie, Arhitectură MuleSoft Central)
-        3.4.1. Fluxul 1: Vizualizarea Produselor de către Utilizator (Frontend -> MuleSoft API -> ClickHouse)
-        3.4.2. Fluxul 2: Conectarea Portofelului MetaMask de către Utilizator (Frontend)
-        3.4.3. Fluxul 3: Scanarea unui Produs și Trimiterea Datelor (RPi Pico -> MuleSoft API -> ClickHouse)
-        3.4.4. Fluxul 4: Migrarea Datelor din "Baza Franceză" (Talend ETL -> ClickHouse)
-        3.4.5. Fluxul 5: Preluarea și Procesarea Produselor de la API-ul Extern (MuleSoft API -> ClickHouse)
-        3.4.6. Fluxul 6 (Opțional): Consumarea API-ului MuleSoft de către Talend (Talend ETL -> MuleSoft API -> ClickHouse)
-    3.5. Modelul de Date Central: Specificațiile Complete ale Tabelului `products` în ClickHouse
+3.1. Principii de Arhitectură Adoptate (MuleSoft ca Platformă API Centrală)
+3.2. Diagrama Arhitecturală Generală a Sistemului (Ilustrând Fluxurile și Responsabilitățile)
+3.3. Descrierea Detaliată a Fiecărei Componente Tehnologice și Responsabilitățile Echipelor Asociate
+3.3.1. Componenta 1: Frontend Application (Interfața Utilizator cu React)
+3.3.2. Componenta 2: MuleSoft Anypoint Platform (API-uri, Logică Business, Interacțiune DB)
+3.3.3. Componenta 3: Talend Open Studio (Procese ETL pentru Baze de Date și Consum API MuleSoft)
+3.3.4. Componenta 4: Baza de Date Centrală (Stocare Produse cu ClickHouse)
+3.3.5. Componenta 5: Sistemul de Scanare Hardware (Raspberry Pi Pico W & MicroPython)
+3.3.6. Componenta 6: Infrastructura de Rulare Locală (Docker pentru ClickHouse și NGINX/React-Build)
+3.3.7. Componenta 7: Reverse Proxy și Servire Frontend (NGINX)
+3.4. Fluxurile Principale de Date Detaliate (Scenarii End-to-End Cheie, Arhitectură MuleSoft Central)
+3.4.1. Fluxul 1: Vizualizarea Produselor de către Utilizator (Frontend -> MuleSoft API -> ClickHouse)
+3.4.2. Fluxul 2: Conectarea Portofelului MetaMask de către Utilizator (Frontend)
+3.4.3. Fluxul 3: Scanarea unui Produs și Trimiterea Datelor (RPi Pico -> MuleSoft API -> ClickHouse)
+3.4.4. Fluxul 4: Migrarea Datelor din "Baza Franceză" (Talend ETL -> ClickHouse)
+3.4.5. Fluxul 5: Preluarea și Procesarea Produselor de la API-ul Extern (MuleSoft API -> ClickHouse)
+3.4.6. Fluxul 6 (Opțional): Consumarea API-ului MuleSoft de către Talend (Talend ETL -> MuleSoft API -> ClickHouse)
+3.5. Modelul de Date Central: Specificațiile Complete ale Tabelului `products` în ClickHouse
 
 **4. ORGANIZAREA ECHIPELOR, ALOCAREA PE TEHNOLOGII ȘI FOCUS PE ÎNVĂȚARE**
-    4.1. Structura "Parent Teams" (Conform Listei Inițiale Furnizate de Tutore)
-    4.2. Profilul Individual al Studenților: Interese Declarate și Maparea Detaliată la Modulele și Tehnologiile Proiectului
-    4.3. Focus Detaliat pe Modulele Tehnice și Distribuția Responsabilităților Specifice către Fiecare "Parent Team"
-        4.3.1. Detalierea Sarcinilor și Tehnologiilor pentru Team_1 (MuleSoft API Development, Talend ETL, Interacțiune Directă cu ClickHouse)
-        4.3.2. Detalierea Sarcinilor și Tehnologiilor pentru Team_2 (Frontend React, Consum API-uri MuleSoft, Integrare MetaMask)
-        4.3.3. Detalierea Sarcinilor și Tehnologiilor pentru Team_7 (Infrastructură Docker pentru ClickHouse și NGINX/Frontend, Networking Local)
-        4.3.4. Detalierea Sarcinilor și Tehnologiilor pentru Team_9 (Hardware Integration cu Raspberry Pi Pico W, Apelare API MuleSoft, MicroPython)
-        4.3.5. Detalierea Rolului Transversal de QA și Coordonare Documentație (Culesca Teodora Maria, Team_7, cu implicarea tuturor)
+4.1. Structura "Parent Teams" (Conform Listei Inițiale Furnizate de Tutore)
+4.2. Profilul Individual al Studenților: Interese Declarate și Maparea Detaliată la Modulele și Tehnologiile Proiectului
+4.3. Focus Detaliat pe Modulele Tehnice și Distribuția Responsabilităților Specifice către Fiecare "Parent Team"
+4.3.1. Detalierea Sarcinilor și Tehnologiilor pentru Team_1 (MuleSoft API Development, Talend ETL, Interacțiune Directă cu ClickHouse)
+4.3.2. Detalierea Sarcinilor și Tehnologiilor pentru Team_2 (Frontend React, Consum API-uri MuleSoft, Integrare MetaMask)
+4.3.3. Detalierea Sarcinilor și Tehnologiilor pentru Team_7 (Infrastructură Docker pentru ClickHouse și NGINX/Frontend, Networking Local)
+4.3.4. Detalierea Sarcinilor și Tehnologiilor pentru Team_9 (Hardware Integration cu Raspberry Pi Pico W, Apelare API MuleSoft, MicroPython)
+4.3.5. Detalierea Rolului Transversal de QA și Coordonare Documentație (Culesca Teodora Maria, Team_7, cu implicarea tuturor)
 
 **5. PLANUL DETALIAT PE SPRINTURI ȘI OBIECTIVE SPECIFICE**
-    5.1. Sprint 1: Fundație și Setup Mediu Linux (Perioadă: ÎNCHEIAT – Recapitulare Scurtă a Realizărilor)
-    5.2. Sprint 2: Analiză Proiect, Setup Detaliat Medii de Dezvoltare Specifice, Primul "Hello World" Funcțional per Modul (Perioadă: 19/05/2025 - 30/05/2025, 8 ore de lucru efectiv/student)
-        5.2.1. Obiectivele Generale ale Sprintului 2: Înțelegere și Pregătire Tehnică Fundamentală
-        5.2.2. Task-uri Comune Tuturor Studenților în Sprint 2 (Citire Document, Pregătire Întrebări, Verificare Acces Jira, Solicitare Acces GitHub)
-        5.2.3. Task-uri Specifice Detaliate și Livrabile pentru Team_1 în Sprint 2 (Setup MuleSoft Studio, Talend Studio, "Hello API" Mule, "Hello Job" Talend, Conectare Simplă ClickHouse)
-        5.2.4. Task-uri Specifice Detaliate și Livrabile pentru Team_2 în Sprint 2 (Setup React/Vite, "Hello React Component" cu Tailwind)
-        5.2.5. Task-uri Specifice Detaliate și Livrabile pentru Team_7 în Sprint 2 (Setup Docker, "Hello NGINX" în Docker servind HTML, "Hello ClickHouse" în Docker)
-        5.2.6. Task-uri Specifice Detaliate și Livrabile pentru Team_9 în Sprint 2 (Setup Thonny/MicroPython, "Hello Pico WiFi & Basic HTTP GET")
-        5.2.7. Task-uri Specifice Detaliate și Livrabile pentru QA (Rolul Culesca T.M.) în Sprint 2 (Setup Postman, "Hello Postman" cu API public și API MuleSoft)
-        5.2.8. Obiective de Validare și Deliverables la Finalul Sprintului 2 (Ședință Demo Setup-uri)
-    5.3. Sprint 3: Dezvoltare Module Fundamentale, Integrare Componente, Testare și Realizare MVP (Perioadă: 2 săptămâni, 60 ore de lucru efectiv/student)
-        5.3.1. Obiectivele Generale ale Sprintului 3: Construcția și Integrarea MVP-ului "DeviMarket Zero"
-        5.3.2. Structura Generală a Task-urilor în Sprint 3 (Exemple de Epics și User Story-uri Principale per Modul/Echipă)
-        5.3.3. Focus pe Integrarea între Module și Rezolvarea Dependențelor în Sprint 3
-        5.3.4. Obiective de Validare și Deliverables la Finalul Sprintului 3 (Funcționalitățile Specifice ale MVP-ului Demonstrabil)
-    5.4. Sprint 4: Documentație Tehnică Finală, Pregătire CV-uri, Realizare și Susținere Prezentare Finală Proiect (Perioadă: 1 săptămână, 20 ore de lucru efectiv/student)
-        5.4.1. Obiectivele Generale ale Sprintului 4: Consolidare, Documentare Exhaustivă și Prezentare Profesională
-        5.4.2. Structura Generală a Task-urilor în Sprint 4 (Colaborative și Individuale)
-        5.4.3. Obiective de Validare și Deliverables la Finalul Sprintului 4 (și al Proiectului)
+5.1. Sprint 1: Fundație și Setup Mediu Linux (Perioadă: ÎNCHEIAT – Recapitulare Scurtă a Realizărilor)
+5.2. Sprint 2: Analiză Proiect, Setup Detaliat Medii de Dezvoltare Specifice, Primul "Hello World" Funcțional per Modul (Perioadă: 19/05/2025 - 30/05/2025, 8 ore de lucru efectiv/student)
+5.2.1. Obiectivele Generale ale Sprintului 2: Înțelegere și Pregătire Tehnică Fundamentală
+5.2.2. Task-uri Comune Tuturor Studenților în Sprint 2 (Citire Document, Pregătire Întrebări, Verificare Acces Jira, Solicitare Acces GitHub)
+5.2.3. Task-uri Specifice Detaliate și Livrabile pentru Team_1 în Sprint 2 (Setup MuleSoft Studio, Talend Studio, "Hello API" Mule, "Hello Job" Talend, Conectare Simplă ClickHouse)
+5.2.4. Task-uri Specifice Detaliate și Livrabile pentru Team_2 în Sprint 2 (Setup React/Vite, "Hello React Component" cu Tailwind)
+5.2.5. Task-uri Specifice Detaliate și Livrabile pentru Team_7 în Sprint 2 (Setup Docker, "Hello NGINX" în Docker servind HTML, "Hello ClickHouse" în Docker)
+5.2.6. Task-uri Specifice Detaliate și Livrabile pentru Team_9 în Sprint 2 (Setup Thonny/MicroPython, "Hello Pico WiFi & Basic HTTP GET")
+5.2.7. Task-uri Specifice Detaliate și Livrabile pentru QA (Rolul Culesca T.M.) în Sprint 2 (Setup Postman, "Hello Postman" cu API public și API MuleSoft)
+5.2.8. Obiective de Validare și Deliverables la Finalul Sprintului 2 (Ședință Demo Setup-uri)
+5.3. Sprint 3: Dezvoltare Module Fundamentale, Integrare Componente, Testare și Realizare MVP (Perioadă: 2 săptămâni, 60 ore de lucru efectiv/student)
+5.3.1. Obiectivele Generale ale Sprintului 3: Construcția și Integrarea MVP-ului "DeviMarket Zero"
+5.3.2. Structura Generală a Task-urilor în Sprint 3 (Exemple de Epics și User Story-uri Principale per Modul/Echipă)
+5.3.3. Focus pe Integrarea între Module și Rezolvarea Dependențelor în Sprint 3
+5.3.4. Obiective de Validare și Deliverables la Finalul Sprintului 3 (Funcționalitățile Specifice ale MVP-ului Demonstrabil)
+5.4. Sprint 4: Documentație Tehnică Finală, Pregătire CV-uri, Realizare și Susținere Prezentare Finală Proiect (Perioadă: 1 săptămână, 20 ore de lucru efectiv/student)
+5.4.1. Obiectivele Generale ale Sprintului 4: Consolidare, Documentare Exhaustivă și Prezentare Profesională
+5.4.2. Structura Generală a Task-urilor în Sprint 4 (Colaborative și Individuale)
+5.4.3. Obiective de Validare și Deliverables la Finalul Sprintului 4 (și al Proiectului)
 
 **6. METODOLOGIE DE LUCRU ȘI INSTRUMENTE UTILIZATE**
-    6.1. Managementul Proiectului și al Task-urilor: Utilizarea Jira
-        6.1.1. Structura Proiectului în Jira (Configurare Recomandată)
-        6.1.2. Fluxul de Lucru al Task-urilor pe Board-ul Agile
-        6.1.3. Responsabilitățile Studenților în Utilizarea Jira
-    6.2. Versionarea Codului și Colaborare: Utilizarea Git & GitHub
-        6.2.1. Organizarea Repository-urilor pe GitHub (Monorepo Recomandat)
-        6.2.2. Strategia de Branching (Flux de Lucru Git Simplificat)
-        6.2.3. Crearea și Gestionarea Pull Request-urilor (PRs) – Proces Critic
-        6.2.4. Standarde Detaliate pentru Mesajele de Commit Git (Conventional Commits)
-        6.2.5. Utilizarea Riguroasă a Fișierelor `.gitignore`
-    6.3. Canale și Etichetă de Comunicare
-        6.3.1. Canalul Principal de Comunicare (Decizia Tutorelui)
-        6.3.2. Comunicare Asincronă (Preferată)
-        6.3.3. Etichetă și Bune Practici de Comunicare
-    6.4. Ședințe și Ceremonii Agile (Adaptate pentru Proiectul de Practică)
-        6.4.1. Ședința de Sprint Planning
-        6.4.2. Daily Stand-up Meeting (Recomandat)
-        6.4.3. Ședința de Sprint Review / Demo Meeting
-        6.4.4. Ședința de Sprint Retrospective Meeting
-    6.5. Standarde Detaliate de Codare, Formatare și Denumire (per Tehnologie)
-        6.5.1. Standarde Generale Aplicate Tuturor Tehnologiilor
-        6.5.2. Standarde Specifice pentru React/JavaScript/TypeScript (Team_2)
-        6.5.3. Standarde Specifice pentru MicroPython (Team_9)
-        6.5.4. Standarde Specifice pentru DataWeave (MuleSoft - Team_1)
-        6.5.5. Standarde Specifice pentru Designul Job-urilor Talend (Team_1)
-        6.5.6. Standarde Specifice pentru Query-uri SQL (ClickHouse - Team_1, Team_7)
-        6.5.7. Standarde Specifice pentru Dockerfile-uri și `docker-compose.yml` (Team_7)
-        6.5.8. Standarde Specifice pentru Configurații NGINX (Team_7)
-    6.6. Definition of Done (DoD) Detaliată pentru Task-uri și User Stories
+6.1. Managementul Proiectului și al Task-urilor: Utilizarea Jira
+6.1.1. Structura Proiectului în Jira (Configurare Recomandată)
+6.1.2. Fluxul de Lucru al Task-urilor pe Board-ul Agile
+6.1.3. Responsabilitățile Studenților în Utilizarea Jira
+6.2. Versionarea Codului și Colaborare: Utilizarea Git & GitHub
+6.2.1. Organizarea Repository-urilor pe GitHub (Monorepo Recomandat)
+6.2.2. Strategia de Branching (Flux de Lucru Git Simplificat)
+6.2.3. Crearea și Gestionarea Pull Request-urilor (PRs) – Proces Critic
+6.2.4. Standarde Detaliate pentru Mesajele de Commit Git (Conventional Commits)
+6.2.5. Utilizarea Riguroasă a Fișierelor `.gitignore`
+6.3. Canale și Etichetă de Comunicare
+6.3.1. Canalul Principal de Comunicare (Decizia Tutorelui)
+6.3.2. Comunicare Asincronă (Preferată)
+6.3.3. Etichetă și Bune Practici de Comunicare
+6.4. Ședințe și Ceremonii Agile (Adaptate pentru Proiectul de Practică)
+6.4.1. Ședința de Sprint Planning
+6.4.2. Daily Stand-up Meeting (Recomandat)
+6.4.3. Ședința de Sprint Review / Demo Meeting
+6.4.4. Ședința de Sprint Retrospective Meeting
+6.5. Standarde Detaliate de Codare, Formatare și Denumire (per Tehnologie)
+6.5.1. Standarde Generale Aplicate Tuturor Tehnologiilor
+6.5.2. Standarde Specifice pentru React/JavaScript/TypeScript (Team_2)
+6.5.3. Standarde Specifice pentru MicroPython (Team_9)
+6.5.4. Standarde Specifice pentru DataWeave (MuleSoft - Team_1)
+6.5.5. Standarde Specifice pentru Designul Job-urilor Talend (Team_1)
+6.5.6. Standarde Specifice pentru Query-uri SQL (ClickHouse - Team_1, Team_7)
+6.5.7. Standarde Specifice pentru Dockerfile-uri și `docker-compose.yml` (Team_7)
+6.5.8. Standarde Specifice pentru Configurații NGINX (Team_7)
+6.6. Definition of Done (DoD) Detaliată pentru Task-uri și User Stories
 
 **7. CERINȚE INIȚIALE SPECIFICE PENTRU STUDENȚI (ACȚIUNI IMEDIATE ÎNAINTE DE STARTUL EFECTIV AL SPRINTULUI 2)**
-    7.1. Citirea Integrală, cu Maximă Atenție, și Înțelegerea Aprofundată a Acestui Document (`README.md` - Versiunea Actuală)
-    7.2. Pregătirea Întrebărilor de Clarificare pentru Ședința de Kick-off a Sprintului 2
-    7.3. Trimiterea Email-ului către Tutore (Petrut Constantin) pentru Solicitarea Accesului la Repository-ul GitHub al Proiectului (Conform Template-ului din Anexa 8.2)
+7.1. Citirea Integrală, cu Maximă Atenție, și Înțelegerea Aprofundată a Acestui Document (`README.md` - Versiunea Actuală)
+7.2. Pregătirea Întrebărilor de Clarificare pentru Ședința de Kick-off a Sprintului 2
+7.3. Trimiterea Email-ului către Tutore (Petrut Constantin) pentru Solicitarea Accesului la Repository-ul GitHub al Proiectului (Conform Template-ului din Anexa 8.2)
 
 **8. ANEXE (TEMPLATE-URI ȘI RESURSE UTILE)**
-    8.1. Exemplu Template Detaliat pentru Fișierul `SETUP_MODUL.md`
-    8.2. Template Email pentru Solicitarea Accesului la Repository-ul GitHub al Proiectului
-    8.3. Lista de API-uri Externe Gratuite Sugerate pentru Integrare (Responsabilitate Team_1 - MuleSoft)
-    8.4. Lista Recomandată de Resurse de Învățare Inițială (Link-uri către Documentația Oficială și Tutoriale de Bază per Tehnologie)
+8.1. Exemplu Template Detaliat pentru Fișierul `SETUP_MODUL.md`
+8.2. Template Email pentru Solicitarea Accesului la Repository-ul GitHub al Proiectului
+8.3. Lista de API-uri Externe Gratuite Sugerate pentru Integrare (Responsabilitate Team_1 - MuleSoft)
+8.4. Lista Recomandată de Resurse de Învățare Inițială (Link-uri către Documentația Oficială și Tutoriale de Bază per Tehnologie)
 
 ---
 
@@ -165,11 +166,12 @@ Acest document reprezintă **ghidul fundamental și sursa unică de adevăr** pe
 **1.1. Denumirea Proiectului și Semnificația Sa**
 
 Numele proiectului, **"DeviMarket Zero"**, a fost ales cu grijă pentru a încapsula esența acestei inițiative de practică:
-*   **"Devi"**: Stabilește o legătură directă cu compania tutorelui, **Devi**devs.com, sugerând că acest proiect este o simulare a unui angajament real în cadrul firmei, respectând standardele și viziunea acesteia.
-*   **"Market"**: Indică natura aplicației pe care o vom construi – un **market**place online, o platformă de comerț electronic menită să agrege și să prezinte produse din diverse surse.
-*   **"Zero"**: Acest sufix subliniază două aspecte fundamentale și definitorii ale proiectului:
-    1.  **Pornire de la Zero Cunoștințe Specifice:** Proiectul este special conceput pentru studenți care, pentru majoritatea tehnologiilor avansate și specifice utilizate (MuleSoft, Talend, ClickHouse, React la nivel de aplicație complexă, Docker, MicroPython), pornesc de la un nivel de cunoștințe zero sau minim. Învățarea ghidată și practică este un obiectiv central și asumat.
-    2.  **Costuri Operaționale Zero:** O constrângere inflexibilă a proiectului este utilizarea exclusivă a tehnologiilor, platformelor și serviciilor gratuite și open-source. Aceasta elimină orice barieră financiară și încurajează explorarea soluțiilor accesibile, dar puternice.
+
+- **"Devi"**: Stabilește o legătură directă cu compania tutorelui, **Devi**devs.com, sugerând că acest proiect este o simulare a unui angajament real în cadrul firmei, respectând standardele și viziunea acesteia.
+- **"Market"**: Indică natura aplicației pe care o vom construi – un **market**place online, o platformă de comerț electronic menită să agrege și să prezinte produse din diverse surse.
+- **"Zero"**: Acest sufix subliniază două aspecte fundamentale și definitorii ale proiectului:
+  1.  **Pornire de la Zero Cunoștințe Specifice:** Proiectul este special conceput pentru studenți care, pentru majoritatea tehnologiilor avansate și specifice utilizate (MuleSoft, Talend, ClickHouse, React la nivel de aplicație complexă, Docker, MicroPython), pornesc de la un nivel de cunoștințe zero sau minim. Învățarea ghidată și practică este un obiectiv central și asumat.
+  2.  **Costuri Operaționale Zero:** O constrângere inflexibilă a proiectului este utilizarea exclusivă a tehnologiilor, platformelor și serviciilor gratuite și open-source. Aceasta elimină orice barieră financiară și încurajează explorarea soluțiilor accesibile, dar puternice.
 
 **1.2. Scenariul de Practică: Simularea unei Cerințe Reale de la un Client al Devidevs.com**
 
@@ -827,8 +829,7 @@ Aceste constrângeri definesc limitele operaționale, tehnologice și temporale 
             *   Se va conecta la rețeaua WiFi locală (aceeași rețea la care este conectat și VM-ul studentului din Team_1 care rulează API-ul MuleSoft pentru scanner).
             *   Va trebui să poată rezolva și accesa IP-ul și portul VM-ului studentului din Team_1 pentru a apela API-ul MuleSoft. Aceasta poate necesita configurări specifice de rețea (ex: IP static pentru VM-ul Team_1 în rețeaua locală, sau descoperirea dinamică a IP-ului, deși mai complex).
     *   **Impact:** Studenții trebuie să dezvolte o înțelegere practică atât a conceptelor de containerizare și a modului de funcționare a rețelelor Docker, cât și a procesului de instalare, configurare și rulare a unor aplicații Java enterprise (Talend, MuleSoft) direct pe un sistem Linux. Gestionarea corectă a configurațiilor de rețea locală (IP-uri, porturi, firewall-ul VM-ului dacă este activ) devine importantă pentru a asigura comunicarea fluidă între toate componentele sistemului hibrid.
-	
-	
+
 ---
 
 **2. ROLURI ȘI RESPONSABILITĂȚI ÎN PROIECT (Versiune 5.0 - Finală, MuleSoft Central)**
@@ -1003,8 +1004,6 @@ Succesul individual al fiecărui student în acest program de practică, dezvolt
 
 ---
 
-
-
 ---
 
 **3. ARHITECTURA TEHNICĂ DETALIATĂ A SISTEMULUI "DEVI MARKET ZERO" (Versiune 5.0 - Finală, MuleSoft Central)**
@@ -1016,36 +1015,36 @@ Acest capitol oferă o descriere exhaustivă și detaliată a arhitecturii tehni
 Arhitectura sistemului "DeviMarket Zero" a fost proiectată și rafinată pe baza următoarelor principii directoare, care sunt aliniate cu cerințele clientului simulat "GlobalGoods Inc.", cu obiectivele de învățare ale studenților și cu constrângerile proiectului:
 
 1.  **MuleSoft Anypoint Platform ca Strat Central de API-uri, Logică de Business și Integrare:**
-    *   **Justificare Tehnică și Educațională:** Pentru a oferi studenților din Team_1 o experiență practică semnificativă și relevantă pentru industrie cu o platformă de integrare de top, MuleSoft (rulat local prin Anypoint Studio) a fost desemnat ca fiind componenta principală care va expune API-urile RESTful ale sistemului, va orchestra fluxurile de date critice (de la scanner și API-ul extern) și va gestiona interacțiunea directă cu baza de date ClickHouse pentru operațiunile inițiate prin aceste API-uri. Această alegere elimină necesitatea unui backend tradițional separat (cum ar fi unul bazat pe FastAPI/Python, care a fost considerat inițial) pentru aceste funcționalități, concentrând logica de backend în MuleSoft.
-    *   **Implicații Arhitecturale:** MuleSoft devine "inima" sistemului, gestionând API-urile pentru Frontend (React), API-ul pentru scannerul RPi Pico, și API-ul fațadă pentru sursa de date externă. Toată logica de validare, transformare (cu DataWeave) și persistență (în ClickHouse) pentru aceste fluxuri va fi implementată în aplicațiile Mule.
+    - **Justificare Tehnică și Educațională:** Pentru a oferi studenților din Team_1 o experiență practică semnificativă și relevantă pentru industrie cu o platformă de integrare de top, MuleSoft (rulat local prin Anypoint Studio) a fost desemnat ca fiind componenta principală care va expune API-urile RESTful ale sistemului, va orchestra fluxurile de date critice (de la scanner și API-ul extern) și va gestiona interacțiunea directă cu baza de date ClickHouse pentru operațiunile inițiate prin aceste API-uri. Această alegere elimină necesitatea unui backend tradițional separat (cum ar fi unul bazat pe FastAPI/Python, care a fost considerat inițial) pentru aceste funcționalități, concentrând logica de backend în MuleSoft.
+    - **Implicații Arhitecturale:** MuleSoft devine "inima" sistemului, gestionând API-urile pentru Frontend (React), API-ul pentru scannerul RPi Pico, și API-ul fațadă pentru sursa de date externă. Toată logica de validare, transformare (cu DataWeave) și persistență (în ClickHouse) pentru aceste fluxuri va fi implementată în aplicațiile Mule.
 
 2.  **Talend Open Studio pentru Procese ETL Batch Specifice și Migrare de Date:**
-    *   **Justificare Tehnică și Educațională:** Pentru a introduce studenții din Team_1 în conceptele și uneltele specifice proceselor ETL (Extract, Transform, Load) clasice, în special cele care implică lucrul cu volume de date în mod batch și migrarea/sincronizarea între diferite structuri de baze de date (chiar dacă în acest caz sursa și destinația sunt ambele în ClickHouse, dar simulate ca fiind distincte).
-    *   **Implicații Arhitecturale:** Talend va opera într-un mod mai "offline" sau programat. Principalul său rol va fi de a extrage date din "baza de date franceză" simulată, a le transforma și a le încărca direct în baza de date principală a proiectului. Opțional, poate consuma API-uri expuse de MuleSoft, demonstrând un alt pattern de integrare.
+    - **Justificare Tehnică și Educațională:** Pentru a introduce studenții din Team_1 în conceptele și uneltele specifice proceselor ETL (Extract, Transform, Load) clasice, în special cele care implică lucrul cu volume de date în mod batch și migrarea/sincronizarea între diferite structuri de baze de date (chiar dacă în acest caz sursa și destinația sunt ambele în ClickHouse, dar simulate ca fiind distincte).
+    - **Implicații Arhitecturale:** Talend va opera într-un mod mai "offline" sau programat. Principalul său rol va fi de a extrage date din "baza de date franceză" simulată, a le transforma și a le încărca direct în baza de date principală a proiectului. Opțional, poate consuma API-uri expuse de MuleSoft, demonstrând un alt pattern de integrare.
 
 3.  **Frontend React Decuplat și Modern (Single Page Application - SPA):**
-    *   **Justificare Tehnică și Educațională:** Aplicația Frontend (dezvoltată în React) va fi o aplicație client-side pură, care rulează integral în browserul utilizatorului. Aceasta comunică cu logica de backend (API-urile expuse de MuleSoft) exclusiv prin request-uri HTTP asincrone. Aceasta este o arhitectură modernă, scalabilă și comună pentru aplicațiile web interactive.
-    *   **Implicații Arhitecturale:** Team_2 se va concentra pe dezvoltarea experienței utilizator (UI/UX), pe logica de prezentare și pe interacțiunea client-side (inclusiv integrarea MetaMask), consumând API-urile bine definite și documentate (RAML) furnizate de Team_1 (MuleSoft).
+    - **Justificare Tehnică și Educațională:** Aplicația Frontend (dezvoltată în React) va fi o aplicație client-side pură, care rulează integral în browserul utilizatorului. Aceasta comunică cu logica de backend (API-urile expuse de MuleSoft) exclusiv prin request-uri HTTP asincrone. Aceasta este o arhitectură modernă, scalabilă și comună pentru aplicațiile web interactive.
+    - **Implicații Arhitecturale:** Team_2 se va concentra pe dezvoltarea experienței utilizator (UI/UX), pe logica de prezentare și pe interacțiunea client-side (inclusiv integrarea MetaMask), consumând API-urile bine definite și documentate (RAML) furnizate de Team_1 (MuleSoft).
 
 4.  **Bază de Date ClickHouse Optimizată pentru Stocarea Datelor despre Produse:**
-    *   **Justificare Tehnică și Educațională:** Alegerea ClickHouse respectă cerința clientului simulat și oferă studenților oportunitatea de a lucra cu o bază de date NoSQL analitică, orientată pe coloane, recunoscută pentru performanța sa excepțională la interogări complexe pe volume mari de date (deși în acest proiect volumul va fi mic, conceptele sunt importante). Pentru acest MVP, o vom utiliza și pentru operațiuni de scriere relativ frecvente, adaptând designul pentru acest scop.
-    *   **Implicații Arhitecturale:** Toate datele despre produse (din CSV via Talend, din API extern via MuleSoft, de la scanner via MuleSoft) vor fi consolidate și stocate în mod centralizat în instanța ClickHouse. Team_1 (MuleSoft și Talend) va fi principalul responsabil pentru operațiunile de scriere și actualizare, iar Team_1 (MuleSoft) va fi responsabil pentru expunerea API-urilor de citire pentru consumul de către Team_2 (Frontend).
+    - **Justificare Tehnică și Educațională:** Alegerea ClickHouse respectă cerința clientului simulat și oferă studenților oportunitatea de a lucra cu o bază de date NoSQL analitică, orientată pe coloane, recunoscută pentru performanța sa excepțională la interogări complexe pe volume mari de date (deși în acest proiect volumul va fi mic, conceptele sunt importante). Pentru acest MVP, o vom utiliza și pentru operațiuni de scriere relativ frecvente, adaptând designul pentru acest scop.
+    - **Implicații Arhitecturale:** Toate datele despre produse (din CSV via Talend, din API extern via MuleSoft, de la scanner via MuleSoft) vor fi consolidate și stocate în mod centralizat în instanța ClickHouse. Team_1 (MuleSoft și Talend) va fi principalul responsabil pentru operațiunile de scriere și actualizare, iar Team_1 (MuleSoft) va fi responsabil pentru expunerea API-urilor de citire pentru consumul de către Team_2 (Frontend).
 
 5.  **Containerizare Docker pentru Serviciile de Infrastructură Esențiale:**
-    *   **Justificare Tehnică și Educațională:** Pentru a asigura un mediu de rulare consistent, portabil, izolat și ușor de gestionat pentru componentele de infrastructură (baza de date ClickHouse și serverul web NGINX care servește build-ul React). Aceasta introduce studenții în conceptele și practicile DevOps fundamentale.
-    *   **Implicații Arhitecturale:** ClickHouse și NGINX vor rula în containere Docker separate, definite și orchestrate printr-un fișier `docker-compose.yml`. Team_7 va fi responsabil pentru crearea Dockerfile-urilor optimizate și a configurației Docker Compose.
+    - **Justificare Tehnică și Educațională:** Pentru a asigura un mediu de rulare consistent, portabil, izolat și ușor de gestionat pentru componentele de infrastructură (baza de date ClickHouse și serverul web NGINX care servește build-ul React). Aceasta introduce studenții în conceptele și practicile DevOps fundamentale.
+    - **Implicații Arhitecturale:** ClickHouse și NGINX vor rula în containere Docker separate, definite și orchestrate printr-un fișier `docker-compose.yml`. Team_7 va fi responsabil pentru crearea Dockerfile-urilor optimizate și a configurației Docker Compose.
 
 6.  **Rulare Nativă (Non-Containerizată) pentru Platformele de Dezvoltare și Integrare (MuleSoft Anypoint Studio, Talend Open Studio):**
-    *   **Justificare Tehnică și Educațională:** Pentru a simplifica curba de învățare inițială și procesul de setup pentru platformele MuleSoft Anypoint Studio și Talend Open Studio (care sunt aplicații Java complexe cu propriile medii de execuție), acestea vor fi instalate și rulate direct pe mașinile virtuale Ubuntu ale studenților din Team_1. Containerizarea acestor platforme de dezvoltare este un subiect avansat și ar adăuga o complexitate considerabilă, inutilă pentru obiectivele acestui MVP.
-    *   **Implicații Arhitecturale:** Team_1 va trebui să gestioneze instalarea și configurarea corectă a acestor unelte pe VM-urile lor. Comunicarea dintre aceste aplicații native și serviciile Dockerizate (cum ar fi ClickHouse) se va realiza prin intermediul porturilor pe care Docker le expune pe interfața de rețea a mașinii virtuale (host-ul Docker).
+    - **Justificare Tehnică și Educațională:** Pentru a simplifica curba de învățare inițială și procesul de setup pentru platformele MuleSoft Anypoint Studio și Talend Open Studio (care sunt aplicații Java complexe cu propriile medii de execuție), acestea vor fi instalate și rulate direct pe mașinile virtuale Ubuntu ale studenților din Team_1. Containerizarea acestor platforme de dezvoltare este un subiect avansat și ar adăuga o complexitate considerabilă, inutilă pentru obiectivele acestui MVP.
+    - **Implicații Arhitecturale:** Team_1 va trebui să gestioneze instalarea și configurarea corectă a acestor unelte pe VM-urile lor. Comunicarea dintre aceste aplicații native și serviciile Dockerizate (cum ar fi ClickHouse) se va realiza prin intermediul porturilor pe care Docker le expune pe interfața de rețea a mașinii virtuale (host-ul Docker).
 
 7.  **Integrare Hardware Distinctă și Decuplată (Raspberry Pi Pico W):**
-    *   **Justificare Tehnică și Educațională:** Introduce studenții din Team_9 în conceptele fundamentale ale dezvoltării pentru sisteme embedded (IoT), programării în MicroPython și interacțiunii unui dispozitiv fizic cu un sistem software prin API-uri de rețea.
-    *   **Implicații Arhitecturale:** Dispozitivul RPi Pico W va funcționa ca un client independent care, după citirea unui cod de bare, va iniția un request HTTPS către un API specific expus de MuleSoft. Acest API MuleSoft va fi punctul de intrare al datelor de la scanner în sistemul central.
+    - **Justificare Tehnică și Educațională:** Introduce studenții din Team_9 în conceptele fundamentale ale dezvoltării pentru sisteme embedded (IoT), programării în MicroPython și interacțiunii unui dispozitiv fizic cu un sistem software prin API-uri de rețea.
+    - **Implicații Arhitecturale:** Dispozitivul RPi Pico W va funcționa ca un client independent care, după citirea unui cod de bare, va iniția un request HTTPS către un API specific expus de MuleSoft. Acest API MuleSoft va fi punctul de intrare al datelor de la scanner în sistemul central.
 
 8.  **Implementarea Securității de Bază pentru Mediu Local (HTTPS cu Certificate Self-Signed):**
-    *   **Justificare Tehnică și Educațională:** Chiar și într-un mediu de dezvoltare local, este important să se introducă și să se practice conceptele de securitate a comunicațiilor, cum ar fi utilizarea HTTPS.
-    *   **Implicații Arhitecturale:** API-ul MuleSoft expus pentru scannerul RPi Pico va fi configurat să utilizeze HTTPS, folosind un certificat SSL auto-semnat (self-signed certificate) generat local. Scriptul de pe RPi Pico va trebui să fie capabil să gestioneze conexiunea la acest endpoint HTTPS (cel mai probabil prin ignorarea validării certificatului, o practică acceptabilă STRICT pentru acest context local). Similar, NGINX care servește Frontend-ul poate fi configurat cu HTTPS self-signed.
+    - **Justificare Tehnică și Educațională:** Chiar și într-un mediu de dezvoltare local, este important să se introducă și să se practice conceptele de securitate a comunicațiilor, cum ar fi utilizarea HTTPS.
+    - **Implicații Arhitecturale:** API-ul MuleSoft expus pentru scannerul RPi Pico va fi configurat să utilizeze HTTPS, folosind un certificat SSL auto-semnat (self-signed certificate) generat local. Scriptul de pe RPi Pico va trebui să fie capabil să gestioneze conexiunea la acest endpoint HTTPS (cel mai probabil prin ignorarea validării certificatului, o practică acceptabilă STRICT pentru acest context local). Similar, NGINX care servește Frontend-ul poate fi configurat cu HTTPS self-signed.
 
 **3.2. Diagrama Arhitecturală Generală a Sistemului (Ilustrând Fluxurile Detaliate și Responsabilitățile Echipelor)**
 
@@ -1103,31 +1102,32 @@ graph TD
     %% - Presupunem că VM-urile studenților sunt în aceeași rețea locală pentru ca RPi Pico și browserul să poată accesa API-urile MuleSoft rulate pe VM-ul unui student din Team_1.
     %% - NGINX nu face proxy către MuleSoft în această arhitectură; MuleSoft expune API-urile direct pe porturile sale.
 ```
+````
 
 **Interpretarea Detaliată a Diagramei Arhitecturale:**
 
-*   **Utilizatorul Final (Browser Web):** Interacționează cu aplicația Frontend React, care este servită static de către NGINX. Toate cererile de date dinamice din Frontend (ex: listarea produselor) sunt request-uri HTTP către API-urile specifice expuse de MuleSoft.
-*   **Raspberry Pi Pico W:** Funcționează ca un client hardware. După scanarea unui cod de bare, construiește un mesaj JSON și inițiază un request HTTPS POST direct către un API dedicat expus de MuleSoft (pe VM-ul unui student din Team_1), securizat cu un certificat self-signed.
-*   **MuleSoft Anypoint Platform (Rulat Nativ pe VM Team_1):** Acesta este **componenta centrală de backend și integrare**.
-    *   Expune multiple API-uri RESTful:
-        *   Un API HTTPS pentru a primi date de la RPi Pico (`/api/scanner/product_scan`).
-        *   Un API HTTP pentru a orchestra preluarea și procesarea datelor de la un API extern gratuit (`/api/marketplace/ingest-external-products`).
-        *   Un set de API-uri HTTP pentru a fi consumate de aplicația Frontend React (`/api/marketplace/products`, `/api/marketplace/products/{id}`).
-    *   Implementează logica de business: validarea datelor primite, transformarea datelor (folosind DataWeave), și logica de "upsert" (insert or update) a produselor.
-    *   Interacționează direct cu baza de date ClickHouse (care rulează în Docker) prin JDBC și query-uri SQL pentru toate operațiunile de citire și scriere inițiate prin API-urile sale.
-*   **Talend Open Studio (Rulat Nativ pe VM Team_1):**
-    *   Este utilizat pentru procese ETL batch.
-    *   Principalul său rol este de a citi date din "baza de date franceză" simulată (un tabel/schemă în aceeași instanță ClickHouse), a le transforma, și a le încărca direct în tabelul principal `products` al proiectului (tot în ClickHouse).
-    *   Opțional, poate consuma un API expus de MuleSoft (cel care aduce date de la API-ul extern), demonstrând un alt pattern de integrare, și apoi încărca aceste date în ClickHouse.
-*   **NGINX Reverse Proxy (Rulat în Docker pe VM-uri):**
-    *   Rolul său principal în această arhitectură este de a servi fișierele statice ale build-ului aplicației Frontend React.
-    *   Poate fi configurat cu HTTPS (folosind certificate self-signed) pentru a servi Frontend-ul în mod securizat local.
-    *   **Important:** În această arhitectură, NGINX **NU** acționează ca un reverse proxy pentru API-urile MuleSoft (deoarece MuleSoft rulează nativ pe VM-ul Team_1 și își expune propriile endpoint-uri HTTP/HTTPS direct pe porturile sale). Dacă s-ar dori un singur punct de intrare pentru tot (ex: `devimarket.local/api-mule/*`), atunci NGINX ar trebui configurat să facă proxy și către instanța MuleSoft. Pentru MVP, accesul direct la porturile MuleSoft este mai simplu.
-*   **React Application Build (Fișiere Statice):** Acestea sunt fișierele HTML, CSS și JavaScript generate de procesul de build al aplicației React (`npm run build`), care sunt servite de NGINX.
-*   **ClickHouse Database Server (Rulat în Docker pe VM-uri):**
-    *   Este baza de date centrală care stochează tabelul principal `products` al marketplace-ului.
-    *   De asemenea, găzduiește tabelul simulat `products_fr` (în schema `clickhouse_db_franceza`) care servește ca sursă pentru job-ul ETL Talend.
-    *   Este accesată direct de aplicațiile MuleSoft și de job-urile Talend prin conexiuni JDBC.
+- **Utilizatorul Final (Browser Web):** Interacționează cu aplicația Frontend React, care este servită static de către NGINX. Toate cererile de date dinamice din Frontend (ex: listarea produselor) sunt request-uri HTTP către API-urile specifice expuse de MuleSoft.
+- **Raspberry Pi Pico W:** Funcționează ca un client hardware. După scanarea unui cod de bare, construiește un mesaj JSON și inițiază un request HTTPS POST direct către un API dedicat expus de MuleSoft (pe VM-ul unui student din Team_1), securizat cu un certificat self-signed.
+- **MuleSoft Anypoint Platform (Rulat Nativ pe VM Team_1):** Acesta este **componenta centrală de backend și integrare**.
+  - Expune multiple API-uri RESTful:
+    - Un API HTTPS pentru a primi date de la RPi Pico (`/api/scanner/product_scan`).
+    - Un API HTTP pentru a orchestra preluarea și procesarea datelor de la un API extern gratuit (`/api/marketplace/ingest-external-products`).
+    - Un set de API-uri HTTP pentru a fi consumate de aplicația Frontend React (`/api/marketplace/products`, `/api/marketplace/products/{id}`).
+  - Implementează logica de business: validarea datelor primite, transformarea datelor (folosind DataWeave), și logica de "upsert" (insert or update) a produselor.
+  - Interacționează direct cu baza de date ClickHouse (care rulează în Docker) prin JDBC și query-uri SQL pentru toate operațiunile de citire și scriere inițiate prin API-urile sale.
+- **Talend Open Studio (Rulat Nativ pe VM Team_1):**
+  - Este utilizat pentru procese ETL batch.
+  - Principalul său rol este de a citi date din "baza de date franceză" simulată (un tabel/schemă în aceeași instanță ClickHouse), a le transforma, și a le încărca direct în tabelul principal `products` al proiectului (tot în ClickHouse).
+  - Opțional, poate consuma un API expus de MuleSoft (cel care aduce date de la API-ul extern), demonstrând un alt pattern de integrare, și apoi încărca aceste date în ClickHouse.
+- **NGINX Reverse Proxy (Rulat în Docker pe VM-uri):**
+  - Rolul său principal în această arhitectură este de a servi fișierele statice ale build-ului aplicației Frontend React.
+  - Poate fi configurat cu HTTPS (folosind certificate self-signed) pentru a servi Frontend-ul în mod securizat local.
+  - **Important:** În această arhitectură, NGINX **NU** acționează ca un reverse proxy pentru API-urile MuleSoft (deoarece MuleSoft rulează nativ pe VM-ul Team_1 și își expune propriile endpoint-uri HTTP/HTTPS direct pe porturile sale). Dacă s-ar dori un singur punct de intrare pentru tot (ex: `devimarket.local/api-mule/*`), atunci NGINX ar trebui configurat să facă proxy și către instanța MuleSoft. Pentru MVP, accesul direct la porturile MuleSoft este mai simplu.
+- **React Application Build (Fișiere Statice):** Acestea sunt fișierele HTML, CSS și JavaScript generate de procesul de build al aplicației React (`npm run build`), care sunt servite de NGINX.
+- **ClickHouse Database Server (Rulat în Docker pe VM-uri):**
+  - Este baza de date centrală care stochează tabelul principal `products` al marketplace-ului.
+  - De asemenea, găzduiește tabelul simulat `products_fr` (în schema `clickhouse_db_franceza`) care servește ca sursă pentru job-ul ETL Talend.
+  - Este accesată direct de aplicațiile MuleSoft și de job-urile Talend prin conexiuni JDBC.
 
 **3.3. Descrierea Detaliată a Fiecărei Componente Tehnologice și Responsabilitățile Echipelor Asociate**
 
@@ -1676,28 +1676,29 @@ Aceasta este definiția detaliată și finală pentru tabelul principal `product
 **Nume Tabel:** `products`
 **Bază de Date:** `devimarket_db` (nume confirmat de Team_7 la setup)
 
-| Nume Coloană     | Tip de Date ClickHouse                | Nullable? | Cheie Primară / Sortare? | Indecși Secundari Sugerați (Skip Indexes) | Descriere Detaliată, Scop și Reguli de Validare                                                                                                                               | Exemplu Valoare Concretă             | Responsabil Principal de Alimentare (Flux) |
-|------------------|---------------------------------------|-----------|--------------------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|--------------------------------------------|
-| `id`             | `UUID`                                | **NU**    | `PRIMARY KEY / ORDER BY` | Identificator unic global (UUID v4) pentru fiecare înregistrare de produs. Generat de fluxul de ingestie (MuleSoft sau Talend) la crearea rândului.           | `f47ac10b-58cc-4372-a567-0e02b2c3d479` | MuleSoft (Scanner, API Ext), Talend      |
-| `barcode`        | `String`                              | DA        |                          | `INDEX idx_barcode barcode TYPE bloom_filter GRANULARITY 1` | Codul de bare numeric al produsului (EAN-13, UPC-A, etc.). Poate fi null dacă produsul nu are sau nu este scanat. Dacă este prezent, ar trebui să fie unic (constângere aplicată logic în MuleSoft/Talend la upsert). | `0123456789012`                      | RPi Pico (via MuleSoft)                    |
-| `name`           | `String`                              | **NU**    | Parte din `ORDER BY`     | `INDEX idx_name name TYPE tokenbf_v1(5120,3,0) GRANULARITY 1` (pentru căutare text) | Numele comercial complet și descriptiv al produsului. Maxim 255 caractere. Obligatoriu. Curățați spațiile albe.                                                            | `Cafea Boabe Etiopia Yirgacheffe Prajire Medie Bio 1kg` | MuleSoft (API Ext), Talend               |
-| `description`    | `String`                              | DA        |                          | `INDEX idx_desc description TYPE tokenbf_v1(8192,3,0) GRANULARITY 1` | O descriere detaliată a produsului. Poate conține text mai lung (ex: max 4000 caractere).                                                                               | `Cafea de origine unica, 100% Arabica...` | MuleSoft (API Ext), Talend               |
-| `price`          | `Decimal(12, 2)`                      | **NU**    |                          |                                           | Prețul de vânzare al produsului. Tip Decimal pentru precizie financiară (12 cifre totale, 2 zecimale). Obligatoriu. Valoare pozitivă.                                        | `125.99`                             | MuleSoft (API Ext), Talend               |
-| `currency`       | `LowCardinality(String(3))`           | **NU**    |                          |                                           | Codul ISO 4217 al monedei prețului (3 litere). Default 'RON'. Valori permise: 'RON', 'EUR', 'USD' (validate în fluxul de ingestie).                                         | `RON`                                | MuleSoft (API Ext), Talend               |
-| `category`       | `LowCardinality(String)`              | DA        | Parte din `ORDER BY`     | `INDEX idx_cat category TYPE set(0) GRANULARITY 1`        | Categoria principală a produsului (ex: 'Bauturi', 'Alimente', 'Electronice'). Max 50 caractere. Consistentizarea valorilor (ex: capitalizare).                               | `Bauturi`                            | MuleSoft (API Ext), Talend               |
-| `sub_category`   | `LowCardinality(String)`              | DA        | Parte din `ORDER BY`     | `INDEX idx_subcat sub_category TYPE set(0) GRANULARITY 1` | Subcategoria produsului. Max 50 caractere. Poate depinde de `category`.                                                                                                     | `Cafea`                              | MuleSoft (API Ext), Talend               |
-| `brand`          | `LowCardinality(String)`              | DA        |                          | `INDEX idx_brand brand TYPE set(0) GRANULARITY 1`         | Marca (producătorul) produsului. Max 100 caractere.                                                                                                                          | `DeviPremium Coffee`                 | MuleSoft (API Ext), Talend               |
-| `stock_quantity` | `Int32`                               | **NU**    |                          |                                           | Cantitatea numerică a produsului disponibilă în stoc. Valoare întreagă, non-negativă. Default 0 la creare dacă nu e specificat altfel. Poate fi actualizată de scanner.    | `150`                                | MuleSoft (Scanner, API Ext), Talend      |
-| `image_url`      | `String`                              | DA        |                          |                                           | URL-ul complet către imaginea principală a produsului. Ar trebui să fie un URL valid (validare de format în fluxul de ingestie). Max 500 caractere.                           | `https://cdn.example.com/images/cafea.jpg` | MuleSoft (API Ext), Talend               |
-| `source_etl`     | `LowCardinality(String(50))`          | **NU**    | INDEX                    |                                           | Indică sursa și versiunea fluxului ETL care a creat/actualizat semnificativ înregistrarea (ex: 'TALEND_FR_MIGR_V1.1', 'MULE_DUMMYJSON_V1.0', 'RPI_PICO_SCAN_V1.2'). Max 50 caractere. | `MULE_DUMMYJSON_V1.0`              | MuleSoft (Scanner, API Ext), Talend      |
-| `attributes`     | `Map(LowCardinality(String), String)` | DA        |                          |                                           | O structură flexibilă cheie-valoare pentru atribute specifice produsului. Cheile și valorile sunt stringuri. Chei max 50 caractere, Valori max 255 caractere.                 | `{'Tip Prajire':'Medie', 'Aciditate':'Scazuta'}` | MuleSoft (API Ext), Talend               |
-| `tags`           | `Array(LowCardinality(String))`       | DA        |                          | `INDEX idx_tags tags TYPE bloom_filter GRANULARITY 1`     | O listă de etichete (keywords) asociate produsului. Tag-uri max 50 caractere. Curățare și normalizare (ex: lowercase).                                                       | `['bio', 'cafea boabe', 'arabica']`  | MuleSoft (API Ext), Talend               |
-| `is_active`      | `UInt8`                               | **NU**    | INDEX                    |                                           | Flag boolean (0 sau 1) pentru a indica dacă produsul este activ și vizibil. 1 = Activ, 0 = Inactiv. Default 1 la creare.                                                   | `1`                                  | MuleSoft (API Ext), Talend               |
-| `created_at`     | `DateTime64(3, 'Etc/UTC')`            | **NU**    | Parte din `ORDER BY`     |                                           | Timestamp (UTC, cu precizie de milisecunde) când înregistrarea a fost creată. Setat automat de fluxul de ingestie la INSERT.                                              | `2024-05-24 10:00:00.123`            | MuleSoft (Scanner, API Ext), Talend      |
-| `updated_at`     | `DateTime64(3, 'Etc/UTC')`            | **NU**    | INDEX                    |                                           | Timestamp (UTC, cu precizie de milisecunde) când înregistrarea a fost ultima dată actualizată. Setat automat la INSERT și la fiecare UPDATE semnificativ.                     | `2024-05-24 12:30:45.678`            | MuleSoft (Scanner, API Ext), Talend      |
-| `external_product_id` | `String`                         | DA        | INDEX (opțional, unic)   | `INDEX idx_extid external_product_id TYPE bloom_filter GRANULARITY 1` | ID-ul produsului din sistemul sursă extern (dacă API-ul extern furnizează unul). Util pentru logica de upsert în fluxul MuleSoft pentru API-ul extern.                      | `DUMMYJSON_PROD_42`                  | MuleSoft (API Ext)                       |
+| Nume Coloană          | Tip de Date ClickHouse                | Nullable? | Cheie Primară / Sortare? | Indecși Secundari Sugerați (Skip Indexes)                                                                                                           | Descriere Detaliată, Scop și Reguli de Validare                                                                                                                                                                       | Exemplu Valoare Concretă                                | Responsabil Principal de Alimentare (Flux) |
+| --------------------- | ------------------------------------- | --------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------ |
+| `id`                  | `UUID`                                | **NU**    | `PRIMARY KEY / ORDER BY` | Identificator unic global (UUID v4) pentru fiecare înregistrare de produs. Generat de fluxul de ingestie (MuleSoft sau Talend) la crearea rândului. | `f47ac10b-58cc-4372-a567-0e02b2c3d479`                                                                                                                                                                                | MuleSoft (Scanner, API Ext), Talend                     |
+| `barcode`             | `String`                              | DA        |                          | `INDEX idx_barcode barcode TYPE bloom_filter GRANULARITY 1`                                                                                         | Codul de bare numeric al produsului (EAN-13, UPC-A, etc.). Poate fi null dacă produsul nu are sau nu este scanat. Dacă este prezent, ar trebui să fie unic (constângere aplicată logic în MuleSoft/Talend la upsert). | `0123456789012`                                         | RPi Pico (via MuleSoft)                    |
+| `name`                | `String`                              | **NU**    | Parte din `ORDER BY`     | `INDEX idx_name name TYPE tokenbf_v1(5120,3,0) GRANULARITY 1` (pentru căutare text)                                                                 | Numele comercial complet și descriptiv al produsului. Maxim 255 caractere. Obligatoriu. Curățați spațiile albe.                                                                                                       | `Cafea Boabe Etiopia Yirgacheffe Prajire Medie Bio 1kg` | MuleSoft (API Ext), Talend                 |
+| `description`         | `String`                              | DA        |                          | `INDEX idx_desc description TYPE tokenbf_v1(8192,3,0) GRANULARITY 1`                                                                                | O descriere detaliată a produsului. Poate conține text mai lung (ex: max 4000 caractere).                                                                                                                             | `Cafea de origine unica, 100% Arabica...`               | MuleSoft (API Ext), Talend                 |
+| `price`               | `Decimal(12, 2)`                      | **NU**    |                          |                                                                                                                                                     | Prețul de vânzare al produsului. Tip Decimal pentru precizie financiară (12 cifre totale, 2 zecimale). Obligatoriu. Valoare pozitivă.                                                                                 | `125.99`                                                | MuleSoft (API Ext), Talend                 |
+| `currency`            | `LowCardinality(String(3))`           | **NU**    |                          |                                                                                                                                                     | Codul ISO 4217 al monedei prețului (3 litere). Default 'RON'. Valori permise: 'RON', 'EUR', 'USD' (validate în fluxul de ingestie).                                                                                   | `RON`                                                   | MuleSoft (API Ext), Talend                 |
+| `category`            | `LowCardinality(String)`              | DA        | Parte din `ORDER BY`     | `INDEX idx_cat category TYPE set(0) GRANULARITY 1`                                                                                                  | Categoria principală a produsului (ex: 'Bauturi', 'Alimente', 'Electronice'). Max 50 caractere. Consistentizarea valorilor (ex: capitalizare).                                                                        | `Bauturi`                                               | MuleSoft (API Ext), Talend                 |
+| `sub_category`        | `LowCardinality(String)`              | DA        | Parte din `ORDER BY`     | `INDEX idx_subcat sub_category TYPE set(0) GRANULARITY 1`                                                                                           | Subcategoria produsului. Max 50 caractere. Poate depinde de `category`.                                                                                                                                               | `Cafea`                                                 | MuleSoft (API Ext), Talend                 |
+| `brand`               | `LowCardinality(String)`              | DA        |                          | `INDEX idx_brand brand TYPE set(0) GRANULARITY 1`                                                                                                   | Marca (producătorul) produsului. Max 100 caractere.                                                                                                                                                                   | `DeviPremium Coffee`                                    | MuleSoft (API Ext), Talend                 |
+| `stock_quantity`      | `Int32`                               | **NU**    |                          |                                                                                                                                                     | Cantitatea numerică a produsului disponibilă în stoc. Valoare întreagă, non-negativă. Default 0 la creare dacă nu e specificat altfel. Poate fi actualizată de scanner.                                               | `150`                                                   | MuleSoft (Scanner, API Ext), Talend        |
+| `image_url`           | `String`                              | DA        |                          |                                                                                                                                                     | URL-ul complet către imaginea principală a produsului. Ar trebui să fie un URL valid (validare de format în fluxul de ingestie). Max 500 caractere.                                                                   | `https://cdn.example.com/images/cafea.jpg`              | MuleSoft (API Ext), Talend                 |
+| `source_etl`          | `LowCardinality(String(50))`          | **NU**    | INDEX                    |                                                                                                                                                     | Indică sursa și versiunea fluxului ETL care a creat/actualizat semnificativ înregistrarea (ex: 'TALEND_FR_MIGR_V1.1', 'MULE_DUMMYJSON_V1.0', 'RPI_PICO_SCAN_V1.2'). Max 50 caractere.                                 | `MULE_DUMMYJSON_V1.0`                                   | MuleSoft (Scanner, API Ext), Talend        |
+| `attributes`          | `Map(LowCardinality(String), String)` | DA        |                          |                                                                                                                                                     | O structură flexibilă cheie-valoare pentru atribute specifice produsului. Cheile și valorile sunt stringuri. Chei max 50 caractere, Valori max 255 caractere.                                                         | `{'Tip Prajire':'Medie', 'Aciditate':'Scazuta'}`        | MuleSoft (API Ext), Talend                 |
+| `tags`                | `Array(LowCardinality(String))`       | DA        |                          | `INDEX idx_tags tags TYPE bloom_filter GRANULARITY 1`                                                                                               | O listă de etichete (keywords) asociate produsului. Tag-uri max 50 caractere. Curățare și normalizare (ex: lowercase).                                                                                                | `['bio', 'cafea boabe', 'arabica']`                     | MuleSoft (API Ext), Talend                 |
+| `is_active`           | `UInt8`                               | **NU**    | INDEX                    |                                                                                                                                                     | Flag boolean (0 sau 1) pentru a indica dacă produsul este activ și vizibil. 1 = Activ, 0 = Inactiv. Default 1 la creare.                                                                                              | `1`                                                     | MuleSoft (API Ext), Talend                 |
+| `created_at`          | `DateTime64(3, 'Etc/UTC')`            | **NU**    | Parte din `ORDER BY`     |                                                                                                                                                     | Timestamp (UTC, cu precizie de milisecunde) când înregistrarea a fost creată. Setat automat de fluxul de ingestie la INSERT.                                                                                          | `2024-05-24 10:00:00.123`                               | MuleSoft (Scanner, API Ext), Talend        |
+| `updated_at`          | `DateTime64(3, 'Etc/UTC')`            | **NU**    | INDEX                    |                                                                                                                                                     | Timestamp (UTC, cu precizie de milisecunde) când înregistrarea a fost ultima dată actualizată. Setat automat la INSERT și la fiecare UPDATE semnificativ.                                                             | `2024-05-24 12:30:45.678`                               | MuleSoft (Scanner, API Ext), Talend        |
+| `external_product_id` | `String`                              | DA        | INDEX (opțional, unic)   | `INDEX idx_extid external_product_id TYPE bloom_filter GRANULARITY 1`                                                                               | ID-ul produsului din sistemul sursă extern (dacă API-ul extern furnizează unul). Util pentru logica de upsert în fluxul MuleSoft pentru API-ul extern.                                                                | `DUMMYJSON_PROD_42`                                     | MuleSoft (API Ext)                         |
 
 **Definiție Tabel ClickHouse (Exemplu DDL):**
+
 ```sql
 CREATE TABLE IF NOT EXISTS devimarket_db.products
 (
@@ -1737,16 +1738,17 @@ PRIMARY KEY id
 ORDER BY (id, category, sub_category, name, created_at)
 SETTINGS index_granularity = 8192;
 ```
-*Notă la DDL: `ORDER BY (id, category, sub_category, name, created_at)` este o sugestie pentru o cheie de sortare/index primar care ar putea ajuta la query-urile Frontend-ului. `index_granularity` este o setare de bază. Acestea pot fi ajustate de Team_1/Team_7 după mai multă analiză. Indecșii secundari sunt sugestii pentru a accelera filtrele comune.*
+
+_Notă la DDL: `ORDER BY (id, category, sub_category, name, created_at)` este o sugestie pentru o cheie de sortare/index primar care ar putea ajuta la query-urile Frontend-ului. `index_granularity` este o setare de bază. Acestea pot fi ajustate de Team_1/Team_7 după mai multă analiză. Indecșii secundari sunt sugestii pentru a accelera filtrele comune._
 
 **Tabel Sursă Simulat (pentru Talend ETL): `clickhouse_db_franceza.products_fr`**
 Schema acestui tabel va fi definită de Team_1, dar ar trebui să fie diferită de `devimarket_db.products` pentru a face transformările Talend relevante. De exemplu:
-*   Poate avea nume de coloane în franceză: `id_produit_fr`, `nom_produit_fr`, `prix_ht_eur`, `categorie_fr`, `quantite_stock_fr`.
-*   Poate avea tipuri de date diferite: `prix_ht_eur` ca `String`, `quantite_stock_fr` ca `String`.
-*   Poate lipsi unele câmpuri (ex: `sub_category`, `brand`, `image_url`, `attributes`, `tags`).
-*   Poate avea câmpuri suplimentare care nu sunt relevante pentru noul marketplace.
-Team_1 va crea DDL-ul pentru acest tabel și îl va popula cu date de test.
 
+- Poate avea nume de coloane în franceză: `id_produit_fr`, `nom_produit_fr`, `prix_ht_eur`, `categorie_fr`, `quantite_stock_fr`.
+- Poate avea tipuri de date diferite: `prix_ht_eur` ca `String`, `quantite_stock_fr` ca `String`.
+- Poate lipsi unele câmpuri (ex: `sub_category`, `brand`, `image_url`, `attributes`, `tags`).
+- Poate avea câmpuri suplimentare care nu sunt relevante pentru noul marketplace.
+  Team_1 va crea DDL-ul pentru acest tabel și îl va popula cu date de test.
 
 ---
 
@@ -1758,126 +1760,127 @@ Acest capitol detaliază structura echipelor de studenți ("Parent Teams"), așa
 
 Organizarea de bază a celor 10 studenți în "Parent Teams", așa cum a fost stabilită de Tutore (Petrut Constantin) la începutul programului de practică și menținută pentru acest proiect, este următoarea:
 
-*   **Team 1 ("Automatizare și Integrare Date"):**
-    *   Coman Raluca *(din Child Team A inițial)*
-    *   Cotan Petruta *(din Child Team B inițial)*
-    *   Necoara Aida Florentina *(din Child Team C inițial)*
-    *   **Focus Principal Proiect:** MuleSoft Anypoint Platform (Dezvoltare API-uri, Logică Business, Interacțiune DB), Talend Open Studio (Procese ETL Batch), Design Schemă și Interacțiune Avansată ClickHouse.
+- **Team 1 ("Automatizare și Integrare Date"):**
+  - Coman Raluca _(din Child Team A inițial)_
+  - Cotan Petruta _(din Child Team B inițial)_
+  - Necoara Aida Florentina _(din Child Team C inițial)_
+  - **Focus Principal Proiect:** MuleSoft Anypoint Platform (Dezvoltare API-uri, Logică Business, Interacțiune DB), Talend Open Studio (Procese ETL Batch), Design Schemă și Interacțiune Avansată ClickHouse.
 
-*   **Team 2 ("Dezvoltare Web & Web3 Frontend"):**
-    *   Tuca Dragos Andrei *(din Child Team A inițial)*
-    *   Proaspatu Nicolae Bogdan *(din Child Team B inițial)*
-    *   **Focus Principal Proiect:** Dezvoltarea Aplicației Frontend (React, Tailwind CSS, JavaScript/TypeScript), Consumul API-urilor MuleSoft, Integrarea MetaMask.
+- **Team 2 ("Dezvoltare Web & Web3 Frontend"):**
+  - Tuca Dragos Andrei _(din Child Team A inițial)_
+  - Proaspatu Nicolae Bogdan _(din Child Team B inițial)_
+  - **Focus Principal Proiect:** Dezvoltarea Aplicației Frontend (React, Tailwind CSS, JavaScript/TypeScript), Consumul API-urilor MuleSoft, Integrarea MetaMask.
 
-*   **Team 7 ("Infrastructură, Networking, DevOps & QA"):**
-    *   Chesnoiu Andrei Bogdan *(din Child Team A inițial)*
-    *   Culesca Teodora Maria *(din Child Team B inițial)*
-    *   Ghetau Cristian Marian *(din Child Team C inițial)*
-    *   **Focus Principal Proiect:**
-        *   Chesnoiu A.B. & Ghetau C.M.: Infrastructură Docker (ClickHouse, NGINX), Docker Compose, Configurare NGINX, Networking Local și între Componente.
-        *   Culesca T.M.: Quality Assurance (Testare API-uri MuleSoft cu Postman, Testare Funcțională Frontend), Coordonare Documentație Tehnică.
+- **Team 7 ("Infrastructură, Networking, DevOps & QA"):**
+  - Chesnoiu Andrei Bogdan _(din Child Team A inițial)_
+  - Culesca Teodora Maria _(din Child Team B inițial)_
+  - Ghetau Cristian Marian _(din Child Team C inițial)_
+  - **Focus Principal Proiect:**
+    - Chesnoiu A.B. & Ghetau C.M.: Infrastructură Docker (ClickHouse, NGINX), Docker Compose, Configurare NGINX, Networking Local și între Componente.
+    - Culesca T.M.: Quality Assurance (Testare API-uri MuleSoft cu Postman, Testare Funcțională Frontend), Coordonare Documentație Tehnică.
 
-*   **Team 9 ("Sisteme Embedded & Microprocesoare"):**
-    *   Cadar Andreea *(din Child Team A inițial)*
-    *   Pista Darius *(din Child Team B inițial)*
-    *   **Focus Principal Proiect:** Dezvoltare Sistem de Scanare Hardware (Raspberry Pi Pico W, Programare MicroPython, Interfațare Scanner, Apelare API MuleSoft).
+- **Team 9 ("Sisteme Embedded & Microprocesoare"):**
+  - Cadar Andreea _(din Child Team A inițial)_
+  - Pista Darius _(din Child Team B inițial)_
+  - **Focus Principal Proiect:** Dezvoltare Sistem de Scanare Hardware (Raspberry Pi Pico W, Programare MicroPython, Interfațare Scanner, Apelare API MuleSoft).
 
 **Notă Importantă privind Colaborarea Inter-Echipe și Flexibilitatea Rolurilor:**
-*   **Interdependență și Colaborare:** Deși există această împărțire pe "Parent Teams" cu focusuri specifice, proiectul "DeviMarket Zero" este, prin natura sa, extrem de integrat. Succesul depinde fundamental de o **colaborare strânsă, deschisă, constantă și proactivă** între membrii tuturor echipelor. Punctele de integrare dintre module (ex: Frontend consumând API-uri MuleSoft; RPi Pico apelând API-uri MuleSoft; MuleSoft și Talend scriind/citind din instanța ClickHouse configurată de Team_7; NGINX servind build-ul React) vor necesita comunicare frecventă, definirea clară a contractelor (API-uri, structuri de date) și sesiuni de testare de integrare comune.
-*   **Flexibilitatea Rolurilor (Limitată):** Deși focusul principal este stabilit, studenții sunt încurajați să exploreze și aspecte adiacente intereselor lor, cu acordul Tutorelui, dacă timpul permite și nu afectează negativ task-urile principale. De exemplu, un student din Team_2 interesat de backend ar putea studia mai în detaliu API-urile MuleSoft pe care le consumă.
-*   **"Child Teams":** Subdiviziunile "Child Team A, B, C" menționate în lista inițială sunt considerate o formă de organizare internă anterioară și nu vor fi folosite ca unități de asignare distincte în Jira pentru acest proiect specific, pentru a simplifica managementul și a promova colaborarea la nivel de "Parent Team" pe modulele tehnice. Responsabilitățile vor fi la nivel de "Parent Team" sau, pentru task-uri specifice, la nivel individual în cadrul echipei.
+
+- **Interdependență și Colaborare:** Deși există această împărțire pe "Parent Teams" cu focusuri specifice, proiectul "DeviMarket Zero" este, prin natura sa, extrem de integrat. Succesul depinde fundamental de o **colaborare strânsă, deschisă, constantă și proactivă** între membrii tuturor echipelor. Punctele de integrare dintre module (ex: Frontend consumând API-uri MuleSoft; RPi Pico apelând API-uri MuleSoft; MuleSoft și Talend scriind/citind din instanța ClickHouse configurată de Team_7; NGINX servind build-ul React) vor necesita comunicare frecventă, definirea clară a contractelor (API-uri, structuri de date) și sesiuni de testare de integrare comune.
+- **Flexibilitatea Rolurilor (Limitată):** Deși focusul principal este stabilit, studenții sunt încurajați să exploreze și aspecte adiacente intereselor lor, cu acordul Tutorelui, dacă timpul permite și nu afectează negativ task-urile principale. De exemplu, un student din Team_2 interesat de backend ar putea studia mai în detaliu API-urile MuleSoft pe care le consumă.
+- **"Child Teams":** Subdiviziunile "Child Team A, B, C" menționate în lista inițială sunt considerate o formă de organizare internă anterioară și nu vor fi folosite ca unități de asignare distincte în Jira pentru acest proiect specific, pentru a simplifica managementul și a promova colaborarea la nivel de "Parent Team" pe modulele tehnice. Responsabilitățile vor fi la nivel de "Parent Team" sau, pentru task-uri specifice, la nivel individual în cadrul echipei.
 
 **4.2. Profilul Individual al Studenților: Interese Declarate și Maparea Detaliată la Modulele și Tehnologiile Proiectului "DeviMarket Zero"**
 
 Această secțiune reiterează interesele de învățare declarate de fiecare student și le mapează în mod specific și detaliat la modulele tehnice și tehnologiile concrete pe care le vor aborda în cadrul proiectului "DeviMarket Zero", în contextul arhitecturii cu MuleSoft ca platformă API centrală.
 
-*   **Cadar Andreea** (Parent Team: **Team_9**)
-    *   **Interes Declarat:** CAD + Microprocesoare.
-    *   **Mapare Specifică la Proiect:**
-        *   **Focus Principal:** **Modulul de Scanare Hardware (Raspberry Pi Pico W)**.
-        *   **Tehnologii și Activități de Învățare Detaliate:** Programare aprofundată în **MicroPython** pe RPi Pico W, înțelegerea arhitecturii microcontroller-ului, interfațarea directă cu pinii GPIO (pentru LED-uri de feedback), implementarea logicii de conectare la rețele WiFi, construirea și trimiterea de request-uri HTTPS (cu gestionarea specifică a certificatelor self-signed în MicroPython) către API-ul MuleSoft dedicat scannerului. Provocarea principală va fi **cercetarea și implementarea unei metode fiabile de citire a datelor de la un scanner de coduri de bare USB** (fie prin emulare USB Host pe Pico W, fie printr-o soluție alternativă agreată). Va învăța despre ciclul de dezvoltare pentru sisteme embedded, depanarea pe hardware și interacțiunea dintre un dispozitiv fizic și un API de rețea.
+- **Cadar Andreea** (Parent Team: **Team_9**)
+  - **Interes Declarat:** CAD + Microprocesoare.
+  - **Mapare Specifică la Proiect:**
+    - **Focus Principal:** **Modulul de Scanare Hardware (Raspberry Pi Pico W)**.
+    - **Tehnologii și Activități de Învățare Detaliate:** Programare aprofundată în **MicroPython** pe RPi Pico W, înțelegerea arhitecturii microcontroller-ului, interfațarea directă cu pinii GPIO (pentru LED-uri de feedback), implementarea logicii de conectare la rețele WiFi, construirea și trimiterea de request-uri HTTPS (cu gestionarea specifică a certificatelor self-signed în MicroPython) către API-ul MuleSoft dedicat scannerului. Provocarea principală va fi **cercetarea și implementarea unei metode fiabile de citire a datelor de la un scanner de coduri de bare USB** (fie prin emulare USB Host pe Pico W, fie printr-o soluție alternativă agreată). Va învăța despre ciclul de dezvoltare pentru sisteme embedded, depanarea pe hardware și interacțiunea dintre un dispozitiv fizic și un API de rețea.
 
-*   **Chesnoiu Andrei Bogdan** (Parent Team: **Team_7**)
-    *   **Interes Declarat:** Infrastructura + Networking + Limbaje de Programare + DevOps Intro + Security Basics.
-    *   **Mapare Specifică la Proiect:**
-        *   **Focus Principal:** **Modulul de Infrastructură Locală (Docker, Docker Compose, NGINX)** și **Aspectele de Networking și Securitate de Bază ale acesteia**.
-        *   **Tehnologii și Activități de Învățare Detaliate:**
-            *   **Docker & Docker Compose:** Stăpânirea creării de Dockerfile-uri optimizate (multi-stage pentru NGINX/React), scrierea și gestionarea unui fișier `docker-compose.yml` complex pentru orchestrarea containerelor ClickHouse și NGINX, managementul avansat al volumelor Docker (pentru persistența datelor ClickHouse și montarea configurațiilor/scripturilor) și al rețelelor Docker custom (definire, conectare servicii).
-            *   **NGINX:** Configurare detaliată și avansată a NGINX ca server web pentru servirea aplicației Frontend React (build static), incluzând gestionarea corectă a rutării client-side pentru SPA-uri și implementarea **HTTPS local cu certificate self-signed** (generare certificate, configurare NGINX).
-            *   **Networking:** Definirea și depanarea problemelor de conectivitate între containerele Docker (ClickHouse, NGINX), între aplicațiile native rulate pe VM (MuleSoft, Talend) și serviciile Dockerizate (ClickHouse), și între dispozitivul RPi Pico (din rețeaua locală) și API-ul MuleSoft (rulat pe VM-ul unui student din Team_1). Aceasta include înțelegerea IP-urilor, porturilor, DNS-ului local (prin `/etc/hosts`), firewall-ului VM.
-            *   **DevOps Intro (Practic):** Aplicarea conceptelor de "Infrastructure as Code" prin utilizarea `docker-compose.yml` și a Dockerfile-urilor pentru a defini și reproduce consistent mediul de rulare. (Opțional, dacă timpul permite și există inițiativă, explorarea unui pipeline GitHub Actions foarte simplu pentru linting-ul codului versionat sau pentru un build Docker automat – strict ca exercițiu de învățare).
-            *   **Security Basics (Aplicat):** Implementarea HTTPS cu certificate self-signed pe NGINX. Înțelegerea riscurilor de securitate într-o rețea locală și a măsurilor de bază (ex: configurarea corectă a utilizatorilor și parolelor pentru ClickHouse, deși nu va implementa politici de securitate complexe pentru API-uri).
-            *   **(Limbaje de Programare - Contextual):** Va scrie scripturi de configurare (Bash pentru inițializare DB în Docker, configurații NGINX). Va înțelege cum diversele aplicații (scrise în JavaScript/React, Java/MuleSoft/Talend, MicroPython) interacționează cu infrastructura de rețea și cu serviciile pe care le configurează.
+- **Chesnoiu Andrei Bogdan** (Parent Team: **Team_7**)
+  - **Interes Declarat:** Infrastructura + Networking + Limbaje de Programare + DevOps Intro + Security Basics.
+  - **Mapare Specifică la Proiect:**
+    - **Focus Principal:** **Modulul de Infrastructură Locală (Docker, Docker Compose, NGINX)** și **Aspectele de Networking și Securitate de Bază ale acesteia**.
+    - **Tehnologii și Activități de Învățare Detaliate:**
+      - **Docker & Docker Compose:** Stăpânirea creării de Dockerfile-uri optimizate (multi-stage pentru NGINX/React), scrierea și gestionarea unui fișier `docker-compose.yml` complex pentru orchestrarea containerelor ClickHouse și NGINX, managementul avansat al volumelor Docker (pentru persistența datelor ClickHouse și montarea configurațiilor/scripturilor) și al rețelelor Docker custom (definire, conectare servicii).
+      - **NGINX:** Configurare detaliată și avansată a NGINX ca server web pentru servirea aplicației Frontend React (build static), incluzând gestionarea corectă a rutării client-side pentru SPA-uri și implementarea **HTTPS local cu certificate self-signed** (generare certificate, configurare NGINX).
+      - **Networking:** Definirea și depanarea problemelor de conectivitate între containerele Docker (ClickHouse, NGINX), între aplicațiile native rulate pe VM (MuleSoft, Talend) și serviciile Dockerizate (ClickHouse), și între dispozitivul RPi Pico (din rețeaua locală) și API-ul MuleSoft (rulat pe VM-ul unui student din Team_1). Aceasta include înțelegerea IP-urilor, porturilor, DNS-ului local (prin `/etc/hosts`), firewall-ului VM.
+      - **DevOps Intro (Practic):** Aplicarea conceptelor de "Infrastructure as Code" prin utilizarea `docker-compose.yml` și a Dockerfile-urilor pentru a defini și reproduce consistent mediul de rulare. (Opțional, dacă timpul permite și există inițiativă, explorarea unui pipeline GitHub Actions foarte simplu pentru linting-ul codului versionat sau pentru un build Docker automat – strict ca exercițiu de învățare).
+      - **Security Basics (Aplicat):** Implementarea HTTPS cu certificate self-signed pe NGINX. Înțelegerea riscurilor de securitate într-o rețea locală și a măsurilor de bază (ex: configurarea corectă a utilizatorilor și parolelor pentru ClickHouse, deși nu va implementa politici de securitate complexe pentru API-uri).
+      - **(Limbaje de Programare - Contextual):** Va scrie scripturi de configurare (Bash pentru inițializare DB în Docker, configurații NGINX). Va înțelege cum diversele aplicații (scrise în JavaScript/React, Java/MuleSoft/Talend, MicroPython) interacționează cu infrastructura de rețea și cu serviciile pe care le configurează.
 
-*   **Coman Raluca** (Parent Team: **Team_1**)
-    *   **Interes Declarat:** Automatizare.
-    *   **Mapare Specifică la Proiect:**
-        *   **Focus Principal:** **Modulul de Integrare și Procesare Date (MuleSoft Anypoint Platform & Talend Open Studio)**.
-        *   **Tehnologii și Activități de Învățare Detaliate:** Contribuție majoră și aprofundată la designul, implementarea, testarea și documentarea:
-            *   **API-urilor RESTful în MuleSoft Anypoint Studio:** Dezvoltarea fluxurilor Mule, scrierea de scripturi **DataWeave** pentru transformări de date complexe, configurarea conectorilor HTTP și Database (ClickHouse), implementarea logicii de business pentru API-ul scannerului, API-ul fațadă pentru sursa externă și API-urile pentru Frontend.
-            *   **Job-urilor ETL în Talend Open Studio:** Crearea job-urilor pentru migrarea datelor din "baza franceză" simulată în ClickHouse, incluzând extragerea, transformările complexe în `tMap` (cu expresii Java), și încărcarea în ClickHouse. (Opțional) Crearea unui job care consumă un API MuleSoft.
-            *   Va învăța în mod direct cum aceste platforme de integrare (MuleSoft, Talend) sunt folosite pentru a **automatiza fluxurile de date** complexe, a orchestra interacțiunile între sisteme și a reduce efortul manual în procesele de business.
+- **Coman Raluca** (Parent Team: **Team_1**)
+  - **Interes Declarat:** Automatizare.
+  - **Mapare Specifică la Proiect:**
+    - **Focus Principal:** **Modulul de Integrare și Procesare Date (MuleSoft Anypoint Platform & Talend Open Studio)**.
+    - **Tehnologii și Activități de Învățare Detaliate:** Contribuție majoră și aprofundată la designul, implementarea, testarea și documentarea:
+      - **API-urilor RESTful în MuleSoft Anypoint Studio:** Dezvoltarea fluxurilor Mule, scrierea de scripturi **DataWeave** pentru transformări de date complexe, configurarea conectorilor HTTP și Database (ClickHouse), implementarea logicii de business pentru API-ul scannerului, API-ul fațadă pentru sursa externă și API-urile pentru Frontend.
+      - **Job-urilor ETL în Talend Open Studio:** Crearea job-urilor pentru migrarea datelor din "baza franceză" simulată în ClickHouse, incluzând extragerea, transformările complexe în `tMap` (cu expresii Java), și încărcarea în ClickHouse. (Opțional) Crearea unui job care consumă un API MuleSoft.
+      - Va învăța în mod direct cum aceste platforme de integrare (MuleSoft, Talend) sunt folosite pentru a **automatiza fluxurile de date** complexe, a orchestra interacțiunile între sisteme și a reduce efortul manual în procesele de business.
 
-*   **Cotan Petruta** (Parent Team: **Team_1**)
-    *   **Interes Declarat:** Automatizare.
-    *   **Mapare Specifică la Proiect:**
-        *   **Focus Principal:** **Modulul de Integrare și Procesare Date (MuleSoft Anypoint Platform & Talend Open Studio)**.
-        *   **Tehnologii și Activități de Învățare Detaliate:** Similar cu Coman Raluca, va avea o contribuție majoră și aprofundată la designul, implementarea, testarea și documentarea API-urilor MuleSoft (fluxuri, DataWeave, conectori, logică business) și a job-urilor ETL Talend (migrare date, transformări `tMap`, încărcare). Se va concentra pe aplicarea practică a conceptelor de automatizare a integrării datelor folosind aceste unelte puternice.
+- **Cotan Petruta** (Parent Team: **Team_1**)
+  - **Interes Declarat:** Automatizare.
+  - **Mapare Specifică la Proiect:**
+    - **Focus Principal:** **Modulul de Integrare și Procesare Date (MuleSoft Anypoint Platform & Talend Open Studio)**.
+    - **Tehnologii și Activități de Învățare Detaliate:** Similar cu Coman Raluca, va avea o contribuție majoră și aprofundată la designul, implementarea, testarea și documentarea API-urilor MuleSoft (fluxuri, DataWeave, conectori, logică business) și a job-urilor ETL Talend (migrare date, transformări `tMap`, încărcare). Se va concentra pe aplicarea practică a conceptelor de automatizare a integrării datelor folosind aceste unelte puternice.
 
-*   **Culesca Teodora Maria** (Parent Team: **Team_7**)
-    *   **Interes Declarat:** Din fiecare cate putin.
-    *   **Mapare Specifică la Proiect:**
-        *   **Rol Transversal Principal:** **Quality Assurance (QA) și Coordonarea Documentației Tehnice**. Acest rol îi va oferi oportunitatea unică de a interacționa cu toate modulele și tehnologiile proiectului.
-        *   **Tehnologii și Activități de Învățare Detaliate:**
-            *   **Quality Assurance (QA):**
-                *   Crearea unui Plan de Testare simplu, dar cuprinzător, pentru funcționalitățile MVP-ului.
-                *   Testarea manuală a interfeței Frontend React (verificarea UI-ului, a navigării, a afișării corecte a datelor, a funcționalității MetaMask).
-                *   Testarea API-urilor expuse de MuleSoft folosind **Postman**: crearea unei colecții de request-uri, definirea de teste (aserțiuni JavaScript) pentru validarea status code-urilor, a structurii și a conținutului răspunsurilor JSON.
-                *   Verificarea integrității și corectitudinii datelor în baza de date ClickHouse după rularea fluxurilor ETL (Talend, MuleSoft) și a scanărilor RPi Pico (folosind DBeaver sau `clickhouse-client`).
-                *   Raportarea detaliată și urmărirea riguroasă a bug-urilor identificate în Jira. Re-testarea bug-urilor după ce sunt marcate ca rezolvate.
-            *   **Coordonarea Documentației Tehnice:**
-                *   Colaborarea cu fiecare echipă pentru a se asigura că fișierele `SETUP_MODUL.md` sunt complete, corecte, actualizate și ușor de înțeles. Poate propune un template standard și un checklist de calitate pentru aceste documente.
-                *   Revizuirea generală a întregii documentații de proiect (acest README, diagrame, etc.) pentru consistență terminologică, claritate, corectitudine gramaticală și stilistică.
-                *   Asistarea activă la procesul de consolidare și redactare a Documentației Tehnice Finale în Sprint 4, asigurând un standard de calitate ridicat pentru livrabilul final.
-            *   **(Explorare "Din Fiecare Câte Puțin"):** Prin natura rolului său de QA și coordonator de documentație, Teodora va avea ocazia unică de a studia și înțelege la un nivel funcțional toate componentele și tehnologiile proiectului: React (din perspectiva utilizatorului și a testării), MuleSoft și Talend (prin înțelegerea fluxurilor pentru a le putea testa și documenta), ClickHouse (prin verificarea datelor), Docker/NGINX (prin înțelegerea modului de rulare a sistemului pentru testare) și MicroPython/RPi Pico (prin testarea funcționalității de scanare).
+- **Culesca Teodora Maria** (Parent Team: **Team_7**)
+  - **Interes Declarat:** Din fiecare cate putin.
+  - **Mapare Specifică la Proiect:**
+    - **Rol Transversal Principal:** **Quality Assurance (QA) și Coordonarea Documentației Tehnice**. Acest rol îi va oferi oportunitatea unică de a interacționa cu toate modulele și tehnologiile proiectului.
+    - **Tehnologii și Activități de Învățare Detaliate:**
+      - **Quality Assurance (QA):**
+        - Crearea unui Plan de Testare simplu, dar cuprinzător, pentru funcționalitățile MVP-ului.
+        - Testarea manuală a interfeței Frontend React (verificarea UI-ului, a navigării, a afișării corecte a datelor, a funcționalității MetaMask).
+        - Testarea API-urilor expuse de MuleSoft folosind **Postman**: crearea unei colecții de request-uri, definirea de teste (aserțiuni JavaScript) pentru validarea status code-urilor, a structurii și a conținutului răspunsurilor JSON.
+        - Verificarea integrității și corectitudinii datelor în baza de date ClickHouse după rularea fluxurilor ETL (Talend, MuleSoft) și a scanărilor RPi Pico (folosind DBeaver sau `clickhouse-client`).
+        - Raportarea detaliată și urmărirea riguroasă a bug-urilor identificate în Jira. Re-testarea bug-urilor după ce sunt marcate ca rezolvate.
+      - **Coordonarea Documentației Tehnice:**
+        - Colaborarea cu fiecare echipă pentru a se asigura că fișierele `SETUP_MODUL.md` sunt complete, corecte, actualizate și ușor de înțeles. Poate propune un template standard și un checklist de calitate pentru aceste documente.
+        - Revizuirea generală a întregii documentații de proiect (acest README, diagrame, etc.) pentru consistență terminologică, claritate, corectitudine gramaticală și stilistică.
+        - Asistarea activă la procesul de consolidare și redactare a Documentației Tehnice Finale în Sprint 4, asigurând un standard de calitate ridicat pentru livrabilul final.
+      - **(Explorare "Din Fiecare Câte Puțin"):** Prin natura rolului său de QA și coordonator de documentație, Teodora va avea ocazia unică de a studia și înțelege la un nivel funcțional toate componentele și tehnologiile proiectului: React (din perspectiva utilizatorului și a testării), MuleSoft și Talend (prin înțelegerea fluxurilor pentru a le putea testa și documenta), ClickHouse (prin verificarea datelor), Docker/NGINX (prin înțelegerea modului de rulare a sistemului pentru testare) și MicroPython/RPi Pico (prin testarea funcționalității de scanare).
 
-*   **Ghetau Cristian Marian** (Parent Team: **Team_7**)
-    *   **Interes Declarat:** Networking.
-    *   **Mapare Specifică la Proiect:**
-        *   **Focus Principal:** **Aspectele de Networking ale Modulului de Infrastructură Locală și Inter-Componente**.
-        *   **Tehnologii și Activități de Învățare Detaliate:**
-            *   Configurarea detaliată a rețelelor custom în Docker Compose (`devimarket-net`), asigurând izolarea și comunicarea corectă între containerele ClickHouse și NGINX.
-            *   Managementul și depanarea mapărilor de porturi între containere și host-ul VM, pentru a face serviciile accesibile atât local pe VM, cât și din rețeaua locală (pentru RPi Pico).
-            *   Depanarea problemelor de conectivitate între dispozitivul RPi Pico (care este în rețeaua WiFi locală) și API-ul MuleSoft (care rulează nativ pe VM-ul unui student din Team_1, necesitând ca IP-ul acelui VM să fie accesibil și portul MuleSoft să fie deschis/forwardat corect). Aceasta poate implica înțelegerea configurațiilor de rețea ale VM-ului (NAT, Bridge), a setărilor de firewall ale VM-ului (`ufw`) și, potențial, a setărilor de bază ale router-ului WiFi local.
-            *   Configurarea NGINX pentru a asculta pe interfețele de rețea corecte și pentru a gestiona request-urile venite de la utilizatori.
-            *   Înțelegerea și documentarea fluxului de date prin diferitele segmente de rețea: browser utilizator -> NGINX (Docker) -> (conceptual, apel JavaScript către) MuleSoft (nativ pe VM Team_1); RPi Pico (WiFi) -> MuleSoft (nativ pe VM Team_1); MuleSoft/Talend (nativ pe VM Team_1) -> ClickHouse (Docker).
-            *   Configurarea și testarea HTTPS (cu certificate self-signed) pe NGINX și înțelegerea implicațiilor pentru clienți (browser, RPi Pico).
+- **Ghetau Cristian Marian** (Parent Team: **Team_7**)
+  - **Interes Declarat:** Networking.
+  - **Mapare Specifică la Proiect:**
+    - **Focus Principal:** **Aspectele de Networking ale Modulului de Infrastructură Locală și Inter-Componente**.
+    - **Tehnologii și Activități de Învățare Detaliate:**
+      - Configurarea detaliată a rețelelor custom în Docker Compose (`devimarket-net`), asigurând izolarea și comunicarea corectă între containerele ClickHouse și NGINX.
+      - Managementul și depanarea mapărilor de porturi între containere și host-ul VM, pentru a face serviciile accesibile atât local pe VM, cât și din rețeaua locală (pentru RPi Pico).
+      - Depanarea problemelor de conectivitate între dispozitivul RPi Pico (care este în rețeaua WiFi locală) și API-ul MuleSoft (care rulează nativ pe VM-ul unui student din Team_1, necesitând ca IP-ul acelui VM să fie accesibil și portul MuleSoft să fie deschis/forwardat corect). Aceasta poate implica înțelegerea configurațiilor de rețea ale VM-ului (NAT, Bridge), a setărilor de firewall ale VM-ului (`ufw`) și, potențial, a setărilor de bază ale router-ului WiFi local.
+      - Configurarea NGINX pentru a asculta pe interfețele de rețea corecte și pentru a gestiona request-urile venite de la utilizatori.
+      - Înțelegerea și documentarea fluxului de date prin diferitele segmente de rețea: browser utilizator -> NGINX (Docker) -> (conceptual, apel JavaScript către) MuleSoft (nativ pe VM Team_1); RPi Pico (WiFi) -> MuleSoft (nativ pe VM Team_1); MuleSoft/Talend (nativ pe VM Team_1) -> ClickHouse (Docker).
+      - Configurarea și testarea HTTPS (cu certificate self-signed) pe NGINX și înțelegerea implicațiilor pentru clienți (browser, RPi Pico).
 
-*   **Necoara Aida Florentina** (Parent Team: **Team_1**)
-    *   **Interes Declarat:** Automatizare.
-    *   **Mapare Specifică la Proiect:**
-        *   **Focus Principal:** **Modulul de Integrare și Procesare Date (MuleSoft Anypoint Platform & Talend Open Studio)**.
-        *   **Tehnologii și Activități de Învățare Detaliate:** Similar cu Coman Raluca și Cotan Petruta, va avea o contribuție majoră și aprofundată la designul, implementarea, testarea și documentarea API-urilor MuleSoft (fluxuri, DataWeave, conectori, logică business) și a job-urilor ETL Talend (migrare date, transformări `tMap`, încărcare). Poate avea un focus specific pe orchestrarea și automatizarea pașilor din cadrul fluxurilor MuleSoft (ex: utilizarea `Scheduler`, a componentelor de control al fluxului) și a job-urilor Talend (ex: secvențierea subjob-urilor, gestionarea contextelor pentru rulări diferite).
+- **Necoara Aida Florentina** (Parent Team: **Team_1**)
+  - **Interes Declarat:** Automatizare.
+  - **Mapare Specifică la Proiect:**
+    - **Focus Principal:** **Modulul de Integrare și Procesare Date (MuleSoft Anypoint Platform & Talend Open Studio)**.
+    - **Tehnologii și Activități de Învățare Detaliate:** Similar cu Coman Raluca și Cotan Petruta, va avea o contribuție majoră și aprofundată la designul, implementarea, testarea și documentarea API-urilor MuleSoft (fluxuri, DataWeave, conectori, logică business) și a job-urilor ETL Talend (migrare date, transformări `tMap`, încărcare). Poate avea un focus specific pe orchestrarea și automatizarea pașilor din cadrul fluxurilor MuleSoft (ex: utilizarea `Scheduler`, a componentelor de control al fluxului) și a job-urilor Talend (ex: secvențierea subjob-urilor, gestionarea contextelor pentru rulări diferite).
 
-*   **Pista Darius** (Parent Team: **Team_9**)
-    *   **Interes Declarat:** CAD + Microprocesoare.
-    *   **Mapare Specifică la Proiect:**
-        *   **Focus Principal:** **Modulul de Scanare Hardware (Raspberry Pi Pico W)**.
-        *   **Tehnologii și Activități de Învățare Detaliate:** Similar cu Cadar Andreea, se va concentra pe programarea aprofundată în MicroPython pe RPi Pico W, pe înțelegerea interacțiunii cu hardware-ul (GPIO-uri, potențial senzori simpli dacă timpul permite o extindere minoră), pe provocarea interfațării cu scannerul USB și pe implementarea robustă a logicii de comunicare WiFi și HTTP/HTTPS (cu gestionarea certificatelor self-signed) către API-ul MuleSoft. Poate explora aspecte mai detaliate ale optimizării codului MicroPython pentru performanță și consum de resurse pe microcontroller sau metode alternative de interfațare hardware.
+- **Pista Darius** (Parent Team: **Team_9**)
+  - **Interes Declarat:** CAD + Microprocesoare.
+  - **Mapare Specifică la Proiect:**
+    - **Focus Principal:** **Modulul de Scanare Hardware (Raspberry Pi Pico W)**.
+    - **Tehnologii și Activități de Învățare Detaliate:** Similar cu Cadar Andreea, se va concentra pe programarea aprofundată în MicroPython pe RPi Pico W, pe înțelegerea interacțiunii cu hardware-ul (GPIO-uri, potențial senzori simpli dacă timpul permite o extindere minoră), pe provocarea interfațării cu scannerul USB și pe implementarea robustă a logicii de comunicare WiFi și HTTP/HTTPS (cu gestionarea certificatelor self-signed) către API-ul MuleSoft. Poate explora aspecte mai detaliate ale optimizării codului MicroPython pentru performanță și consum de resurse pe microcontroller sau metode alternative de interfațare hardware.
 
-*   **Proaspatu Nicolae Bogdan** (Parent Team: **Team_2**)
-    *   **Interes Declarat:** Limbaje de Programare + Web Dev + Web 3.
-    *   **Mapare Specifică la Proiect:**
-        *   **Focus Principal:** **Modulul Frontend Application (React)** și, implicit, consumul API-urilor.
-        *   **Tehnologii și Activități de Învățare Detaliate:** Dezvoltarea componentelor UI/UX în React, implementarea logicii de afișare dinamică a datelor și a interacțiunilor cu utilizatorul, consumul API-urilor RESTful expuse de MuleSoft (cu Axios/Fetch), stilizarea avansată cu Tailwind CSS. Va aplica intensiv cunoștințele de JavaScript/TypeScript (Web Development). Componenta Web 3 va fi concretizată prin implementarea funcționalității de conectare a portofelului MetaMask și gestionarea adresei utilizatorului.
-        *   **(Limbaje de Programare):** Va lucra intensiv cu JavaScript (ES6+) și, preferabil, TypeScript în contextul React, aprofundând concepte precum asincronicitatea, promisiunile, lucrul cu JSON și modulele ES6.
+- **Proaspatu Nicolae Bogdan** (Parent Team: **Team_2**)
+  - **Interes Declarat:** Limbaje de Programare + Web Dev + Web 3.
+  - **Mapare Specifică la Proiect:**
+    - **Focus Principal:** **Modulul Frontend Application (React)** și, implicit, consumul API-urilor.
+    - **Tehnologii și Activități de Învățare Detaliate:** Dezvoltarea componentelor UI/UX în React, implementarea logicii de afișare dinamică a datelor și a interacțiunilor cu utilizatorul, consumul API-urilor RESTful expuse de MuleSoft (cu Axios/Fetch), stilizarea avansată cu Tailwind CSS. Va aplica intensiv cunoștințele de JavaScript/TypeScript (Web Development). Componenta Web 3 va fi concretizată prin implementarea funcționalității de conectare a portofelului MetaMask și gestionarea adresei utilizatorului.
+    - **(Limbaje de Programare):** Va lucra intensiv cu JavaScript (ES6+) și, preferabil, TypeScript în contextul React, aprofundând concepte precum asincronicitatea, promisiunile, lucrul cu JSON și modulele ES6.
 
-*   **Tuca Dragos Andrei** (Parent Team: **Team_2**)
-    *   **Interes Declarat:** Limbaje de Programare + Web 3 + Web Dev.
-    *   **Mapare Specifică la Proiect:**
-        *   **Focus Principal:** **Modulul Frontend Application (React)** și, implicit, consumul API-urilor.
-        *   **Tehnologii și Activități de Învățare Detaliate:** Similar cu Proaspatu Nicolae Bogdan, se va concentra pe dezvoltarea Frontend-ului cu React, pe crearea unei experiențe utilizator fluide, pe consumul API-urilor MuleSoft și pe integrarea funcționalității MetaMask. Va avea ocazia să aplice și să aprofundeze conceptele de Web Development (HTML, CSS, JS/TS, React) și Web 3 (interacțiunea cu portofele crypto).
-        *   **(Limbaje de Programare):** Va lucra intensiv cu JavaScript (ES6+) și, preferabil, TypeScript în React, consolidându-și competențele în aceste limbaje.
+- **Tuca Dragos Andrei** (Parent Team: **Team_2**)
+  - **Interes Declarat:** Limbaje de Programare + Web 3 + Web Dev.
+  - **Mapare Specifică la Proiect:**
+    - **Focus Principal:** **Modulul Frontend Application (React)** și, implicit, consumul API-urilor.
+    - **Tehnologii și Activități de Învățare Detaliate:** Similar cu Proaspatu Nicolae Bogdan, se va concentra pe dezvoltarea Frontend-ului cu React, pe crearea unei experiențe utilizator fluide, pe consumul API-urilor MuleSoft și pe integrarea funcționalității MetaMask. Va avea ocazia să aplice și să aprofundeze conceptele de Web Development (HTML, CSS, JS/TS, React) și Web 3 (interacțiunea cu portofele crypto).
+    - **(Limbaje de Programare):** Va lucra intensiv cu JavaScript (ES6+) și, preferabil, TypeScript în React, consolidându-și competențele în aceste limbaje.
 
 **4.3. Focus Detaliat pe Modulele Tehnice și Distribuția Responsabilităților Specifice către Fiecare "Parent Team"**
 
@@ -1913,7 +1916,6 @@ Această secțiune reiterează și sintetizează responsabilitățile centrale l
     *   **Tehnologii și Competențe de Dezvoltat:** Postman (testare API avansată, scripting aserțiuni), Principii de QA și metodologii de testare, Jira (pentru bug tracking și management), Markdown (pentru documentație), abilități de comunicare și colaborare cu toate echipele.
     *   **Livrabile Cheie:** Plan de Testare, Colecții Postman cu teste automate pentru API-urile MuleSoft, Rapoarte de Bug-uri în Jira, contribuție majoră la Documentația Tehnică Finală (revizuire, consolidare, standardizare), fișier `SETUP_POSTMAN_QA.md`.
 
-
 ---
 
 **5. PLANUL DETALIAT PE SPRINTURI ȘI OBIECTIVE SPECIFICE (Versiune 5.0 - Finală, MuleSoft Central)**
@@ -1922,24 +1924,20 @@ Acest capitol prezintă structura temporală a proiectului "DeviMarket Zero", î
 
 **5.1. Sprint 1: Fundație și Setup Mediu Linux (Perioadă: ÎNCHEIAT – Recapitulare Scurtă a Realizărilor)**
 
-*   **Perioadă:** Conform planificării inițiale a programului de practică (finalizat la data de 19/05 – a se confirma anul exact, ex: 2025).
-*   **Obiective Principale Atinge (Recapitulare):**
-    1.  **Instalare și Configurare VM Ubuntu:** Fiecare dintre cei 10 studenți a instalat și configurat cu succes o mașină virtuală (VM) cu sistemul de operare Ubuntu Linux (o versiune LTS stabilă, ex: 20.04 sau 22.04), asigurând un mediu de lucru standardizat și izolat.
-    2.  **Familiarizare cu Linia de Comandă Linux:** Studenții s-au familiarizat cu interfața terminalului Bash și au exersat comenzile Linux fundamentale pentru navigarea în sistemul de fișiere (`cd`, `ls`, `pwd`), managementul fișierelor și directoarelor (`touch`, `mkdir`, `rm`, `rmdir`, `cp`, `mv`), vizualizarea conținutului fișierelor (`cat`, `less`, `head`, `tail`), editarea de bază a fișierelor text (`nano` sau `vim`), și înțelegerea conceptelor de permisiuni.
-    3.  **Management Pachete și Software de Bază:** Studenții au învățat să utilizeze managerul de pachete `apt` pentru a actualiza sistemul (`sudo apt update`, `sudo apt upgrade`) și pentru a instala pachete software de bază (ex: `git`, un browser web, unelte de arhivare).
-*   **Deliverables Sprint 1 (Confirmate de Tutore):**
-    *   Fiecare student dispune de un VM Ubuntu funcțional, cu acces la internet și cu uneltele de bază instalate.
-    *   Fiecare student demonstrează competențe de bază în utilizarea liniei de comandă Linux.
-    *   Task-urile specifice acestui sprint, așa cum au fost ele definite în planificarea inițială (ex: cele din CSV-ul furnizat), au fost validate ca fiind completate de către Tutore (Petrut Constantin).
-*   **Importanța pentru Proiectul "DeviMarket Zero":** Acest sprint a fost esențial pentru a stabili o fundație tehnică comună și un mediu de lucru uniform pentru toți studenții, pregătindu-i pentru instalarea și configurarea software-ului mai complex necesar în sprinturile următoare.
+- **Perioadă:** Conform planificării inițiale a programului de practică (finalizat la data de 19/05 – a se confirma anul exact, ex: 2025).
+- **Obiective Principale Atinge (Recapitulare):**
+  1.  **Instalare și Configurare VM Ubuntu:** Fiecare dintre cei 10 studenți a instalat și configurat cu succes o mașină virtuală (VM) cu sistemul de operare Ubuntu Linux (o versiune LTS stabilă, ex: 20.04 sau 22.04), asigurând un mediu de lucru standardizat și izolat.
+  2.  **Familiarizare cu Linia de Comandă Linux:** Studenții s-au familiarizat cu interfața terminalului Bash și au exersat comenzile Linux fundamentale pentru navigarea în sistemul de fișiere (`cd`, `ls`, `pwd`), managementul fișierelor și directoarelor (`touch`, `mkdir`, `rm`, `rmdir`, `cp`, `mv`), vizualizarea conținutului fișierelor (`cat`, `less`, `head`, `tail`), editarea de bază a fișierelor text (`nano` sau `vim`), și înțelegerea conceptelor de permisiuni.
+  3.  **Management Pachete și Software de Bază:** Studenții au învățat să utilizeze managerul de pachete `apt` pentru a actualiza sistemul (`sudo apt update`, `sudo apt upgrade`) și pentru a instala pachete software de bază (ex: `git`, un browser web, unelte de arhivare).
+- **Deliverables Sprint 1 (Confirmate de Tutore):**
+  - Fiecare student dispune de un VM Ubuntu funcțional, cu acces la internet și cu uneltele de bază instalate.
+  - Fiecare student demonstrează competențe de bază în utilizarea liniei de comandă Linux.
+  - Task-urile specifice acestui sprint, așa cum au fost ele definite în planificarea inițială (ex: cele din CSV-ul furnizat), au fost validate ca fiind completate de către Tutore (Petrut Constantin).
+- **Importanța pentru Proiectul "DeviMarket Zero":** Acest sprint a fost esențial pentru a stabili o fundație tehnică comună și un mediu de lucru uniform pentru toți studenții, pregătindu-i pentru instalarea și configurarea software-ului mai complex necesar în sprinturile următoare.
 
 **5.2. Sprint 2: Analiză Proiect, Setup Detaliat Medii de Dezvoltare Specifice, Primul "Hello World" Funcțional per Modul (Perioadă: 19/05/2025 - 30/05/2025, 8 ore de lucru efectiv și concentrat per student)**
 
-Acest sprint de două săptămâni, cu o alocare de 8 ore de muncă efectivă per student, este **fundamental și critic** pentru demararea cu succes a proiectului "DeviMarket Zero". Obiectivul principal nu este dezvoltarea de funcționalități complexe ale marketplace-ului, ci asigurarea că fiecare student:
-    1.  **Înțelege în Profunzime Proiectul:** Asimilează complet arhitectura, cerințele, tehnologiile și rolul său specific.
-    2.  **Configurează Corect Mediul de Dezvoltare:** Instalează și configurează toate uneltele, IDE-urile, SDK-urile, driverele și bibliotecile necesare pentru modulul și tehnologiile la care va lucra.
-    3.  **Validează Funcționalitatea Minimă ("Hello World"):** Implementează și rulează cu succes un exemplu minimal, un "Hello World" sau o operațiune de bază cu fiecare tehnologie principală alocată, pentru a demonstra că mediul este funcțional și pentru a avea o primă interacțiune practică.
-    4.  **Documentează Setup-ul Inițial:** Creează un ghid detaliat (`SETUP_MODUL.md`) pentru procesul de instalare și configurare.
+Acest sprint de două săptămâni, cu o alocare de 8 ore de muncă efectivă per student, este **fundamental și critic** pentru demararea cu succes a proiectului "DeviMarket Zero". Obiectivul principal nu este dezvoltarea de funcționalități complexe ale marketplace-ului, ci asigurarea că fiecare student: 1. **Înțelege în Profunzime Proiectul:** Asimilează complet arhitectura, cerințele, tehnologiile și rolul său specific. 2. **Configurează Corect Mediul de Dezvoltare:** Instalează și configurează toate uneltele, IDE-urile, SDK-urile, driverele și bibliotecile necesare pentru modulul și tehnologiile la care va lucra. 3. **Validează Funcționalitatea Minimă ("Hello World"):** Implementează și rulează cu succes un exemplu minimal, un "Hello World" sau o operațiune de bază cu fiecare tehnologie principală alocată, pentru a demonstra că mediul este funcțional și pentru a avea o primă interacțiune practică. 4. **Documentează Setup-ul Inițial:** Creează un ghid detaliat (`SETUP_MODUL.md`) pentru procesul de instalare și configurare.
 
     **5.2.1. Obiectivele Generale ale Sprintului 2: Înțelegere Completă și Pregătire Tehnică Fundamentală pentru Fiecare Tehnologie**
     *   **Obiectiv A (Înțelegere și Aliniere):** Toți cei 10 studenți vor citi integral, vor analiza critic și vor înțelege în detaliu conținutul acestui document principal de proiect (`README.md` - Versiunea 5.0). Se va acorda o atenție specială capitolelor care descriu arhitectura generală, fluxurile de date, modulul specific la care este alocat fiecare și tehnologiile detaliate asociate. Orice neclaritate, ambiguitate sau întrebare va fi adresată Tutorelui în ședința de kick-off sau pe parcurs.
@@ -3257,40 +3255,39 @@ Respectarea unor standarde comune și consistente de codare, formatare și denum
 
 "Definition of Done" (DoD) reprezintă un set de criterii clare, specifice, măsurabile, acceptate și realiste, agreate de întreaga echipă de proiect (studenți și Tutore), care trebuie îndeplinite **în totalitate** pentru ca un task individual, o User Story sau o funcționalitate mai mare să fie considerată complet finalizată și gata de a fi integrată sau demonstrată. DoD este un element fundamental al metodologiilor Agile și servește ca un contract comun pentru calitate, asigurând consistența livrabilelor și eliminând ambiguitățile legate de "ce înseamnă cu adevărat gata".
 
-*   **DoD Comună la Nivel de Task Tehnic Individual (ex: implementarea unei funcții, crearea unei componente React simple, configurarea unui flux MuleSoft de bază, scrierea unui script MicroPython, crearea unui Dockerfile):**
-    1.  **Cerințe și Criterii de Acceptare Îndeplinite Complet:** Toate cerințele funcționale și tehnice specificate în descrierea task-ului Jira și toate Criteriile de Acceptare asociate acestuia sunt implementate corect și în totalitate. Orice deviere sau problemă a fost discutată și agreată cu Tutorele.
-    2.  **Cod/Configurație Scris și Funcțional Local:** Codul sursă (JavaScript, Python, DataWeave, SQL etc.) sau fișierele de configurare (Mule, Talend, Docker, NGINX) au fost scrise și funcționează conform așteptărilor în mediul de dezvoltare local al studentului, fără erori de compilare sau de execuție critice.
-    3.  **Standarde de Codare și Formatare Respectate Riguros:** Codul și configurațiile respectă în totalitate standardele de codare, formatare, denumire și comentare definite în Capitolul 6.5 pentru tehnologia specifică. S-au utilizat lintere și formatoare automate acolo unde au fost specificate.
-    4.  **Testare Locală Documentată (Minimală) de către Dezvoltator:** Dezvoltatorul a testat temeinic propria muncă local, acoperind cel puțin scenariile pozitive (nominale) și câteva cazuri de eroare de bază. Pașii de testare executați și rezultatele observate pot fi sumarizați într-un comentariu pe task-ul Jira sau în descrierea PR-ului.
-    5.  **Comentarii Explicative în Cod (unde este necesar):** Logica complexă, deciziile de design non-triviale sau secțiunile de cod mai puțin evidente sunt comentate clar și concis în limba engleză.
-    6.  **Documentația `SETUP_MODUL.md` Actualizată (dacă task-ul afectează procesul de setup/rulare):** Dacă task-ul a implicat instalarea unui nou software, o modificare semnificativă a configurării mediului, sau a modificat pașii necesari pentru a rula modulul, fișierul `SETUP_MODUL.md` relevant a fost actualizat pentru a reflecta aceste schimbări.
-    7.  **Versionare Git Corectă și Completă:**
-        *   Toate modificările relevante sunt pe un **feature branch** dedicat, creat corect din ultima versiune a branch-ului `develop`.
-        *   Au fost făcute **commit-uri atomice și frecvente**, cu mesaje de commit clare, descriptive și respectând **formatul Conventional Commits** (specificat în 6.2.4).
-        *   Feature branch-ul local a fost **actualizat cu ultimele modificări din `develop`** (prin `rebase` sau `merge`, conform strategiei agreate) și orice conflicte de merge au fost rezolvate local de către autor.
-    8.  **Pull Request (PR) Creat și Gata de Review (dacă task-ul implică artefacte versionate):**
-        *   Un Pull Request a fost creat pe GitHub de pe feature branch către branch-ul `develop`.
-        *   PR-ul are un **titlu clar și o descriere extrem de detaliată**, incluzând obligatoriu: link către task-ul Jira, sumarul modificărilor, context (dacă e necesar), pași exacți pentru testarea manuală a funcționalității, impactul potențial și orice probleme cunoscute.
-        *   **Tutorele (Petrut Constantin)** a fost adăugat ca reviewer obligatoriu. (Opțional) Un peer reviewer a fost adăugat.
-    9.  **Fără Erori de Linter sau de Build Automat:** Codul trece toate verificările automate de linter (ESLint, etc.) configurate pentru proiect. Procesul de build (ex: `npm run build` pentru React, build-ul imaginii Docker, compilarea proiectului Mule/Talend dacă e cazul) se finalizează cu succes, fără erori.
-    10. **Task Jira Actualizat în Coloana "In Review":** Statusul task-ului în Jira a fost mutat de către student în coloana "In Review", iar în comentariul de actualizare s-a adăugat link-ul către Pull Request-ul de pe GitHub.
+- **DoD Comună la Nivel de Task Tehnic Individual (ex: implementarea unei funcții, crearea unei componente React simple, configurarea unui flux MuleSoft de bază, scrierea unui script MicroPython, crearea unui Dockerfile):**
+  1.  **Cerințe și Criterii de Acceptare Îndeplinite Complet:** Toate cerințele funcționale și tehnice specificate în descrierea task-ului Jira și toate Criteriile de Acceptare asociate acestuia sunt implementate corect și în totalitate. Orice deviere sau problemă a fost discutată și agreată cu Tutorele.
+  2.  **Cod/Configurație Scris și Funcțional Local:** Codul sursă (JavaScript, Python, DataWeave, SQL etc.) sau fișierele de configurare (Mule, Talend, Docker, NGINX) au fost scrise și funcționează conform așteptărilor în mediul de dezvoltare local al studentului, fără erori de compilare sau de execuție critice.
+  3.  **Standarde de Codare și Formatare Respectate Riguros:** Codul și configurațiile respectă în totalitate standardele de codare, formatare, denumire și comentare definite în Capitolul 6.5 pentru tehnologia specifică. S-au utilizat lintere și formatoare automate acolo unde au fost specificate.
+  4.  **Testare Locală Documentată (Minimală) de către Dezvoltator:** Dezvoltatorul a testat temeinic propria muncă local, acoperind cel puțin scenariile pozitive (nominale) și câteva cazuri de eroare de bază. Pașii de testare executați și rezultatele observate pot fi sumarizați într-un comentariu pe task-ul Jira sau în descrierea PR-ului.
+  5.  **Comentarii Explicative în Cod (unde este necesar):** Logica complexă, deciziile de design non-triviale sau secțiunile de cod mai puțin evidente sunt comentate clar și concis în limba engleză.
+  6.  **Documentația `SETUP_MODUL.md` Actualizată (dacă task-ul afectează procesul de setup/rulare):** Dacă task-ul a implicat instalarea unui nou software, o modificare semnificativă a configurării mediului, sau a modificat pașii necesari pentru a rula modulul, fișierul `SETUP_MODUL.md` relevant a fost actualizat pentru a reflecta aceste schimbări.
+  7.  **Versionare Git Corectă și Completă:**
+      - Toate modificările relevante sunt pe un **feature branch** dedicat, creat corect din ultima versiune a branch-ului `develop`.
+      - Au fost făcute **commit-uri atomice și frecvente**, cu mesaje de commit clare, descriptive și respectând **formatul Conventional Commits** (specificat în 6.2.4).
+      - Feature branch-ul local a fost **actualizat cu ultimele modificări din `develop`** (prin `rebase` sau `merge`, conform strategiei agreate) și orice conflicte de merge au fost rezolvate local de către autor.
+  8.  **Pull Request (PR) Creat și Gata de Review (dacă task-ul implică artefacte versionate):**
+      - Un Pull Request a fost creat pe GitHub de pe feature branch către branch-ul `develop`.
+      - PR-ul are un **titlu clar și o descriere extrem de detaliată**, incluzând obligatoriu: link către task-ul Jira, sumarul modificărilor, context (dacă e necesar), pași exacți pentru testarea manuală a funcționalității, impactul potențial și orice probleme cunoscute.
+      - **Tutorele (Petrut Constantin)** a fost adăugat ca reviewer obligatoriu. (Opțional) Un peer reviewer a fost adăugat.
+  9.  **Fără Erori de Linter sau de Build Automat:** Codul trece toate verificările automate de linter (ESLint, etc.) configurate pentru proiect. Procesul de build (ex: `npm run build` pentru React, build-ul imaginii Docker, compilarea proiectului Mule/Talend dacă e cazul) se finalizează cu succes, fără erori.
+  10. **Task Jira Actualizat în Coloana "In Review":** Statusul task-ului în Jira a fost mutat de către student în coloana "In Review", iar în comentariul de actualizare s-a adăugat link-ul către Pull Request-ul de pe GitHub.
 
-*   **DoD Extinsă la Nivel de User Story sau Funcționalitate Majoră (care poate cuprinde mai multe task-uri tehnice):**
-    1.  **Toate Task-urile Tehnice Asociate sunt "Done":** Toate task-urile tehnice individuale care contribuie la implementarea User Story-ei au îndeplinit DoD-ul lor specific (punctele 1-10 de mai sus).
-    2.  **Code Review Completat și Toate Feedback-urile Integrate:** Pull Request-ul (sau PR-urile multiple) asociat(e) User Story-ei a fost revizuit complet de către Tutore (și peer revieweri, dacă au fost). Tot feedback-ul primit a fost analizat, discutat (dacă e necesar) și integrat corect de către autor(i).
-    3.  **Pull Request(s) Aprobat(e) Formal:** PR-ul (sau PR-urile) a primit aprobarea formală ("Approve") din partea Tutorelui (și a celorlalți revieweri obligatorii).
-    4.  **Merge cu Succes în Branch-ul `develop`:** PR-ul (sau PR-urile) a fost merguit cu succes în branch-ul `develop` (de către Tutore sau de către autor după aprobări), fără conflicte de merge nerezolvate. Feature branch-ul poate fi șters după merge.
-    5.  **Testare Funcțională și de Integrare de către QA (dacă este definit un rol QA specific pentru User Story):**
-        *   Funcționalitatea implementată a fost testată de către QA (Culesca T.M. sau alt student desemnat) conform scenariilor de test relevante (manuale sau cu Postman pentru API-uri).
-        *   **Nu există bug-uri critice sau majore deschise** legate de această User Story. Orice bug-uri identificate au fost fie corectate și re-testate, fie acceptate de Tutore ca fiind minore și transferate în backlog pentru o iterație viitoare (cu justificare clară).
-    6.  **Demonstrație Funcțională de Succes (în Sprint Review sau ad-hoc pentru Tutore):** Funcționalitatea completă a User Story-ei poate fi demonstrată live și funcționează conform așteptărilor într-un mediu de testare/integrare care reflectă cât mai fidel configurația finală (ex: toate componentele Docker pornite, aplicațiile Mule/Talend rulate).
-    7.  **Toate Criteriile de Acceptare ale User Story-ei sunt Îndeplinite:** Fiecare criteriu de acceptare specificat în descrierea tichetului Jira al User Story-ei este verificat și confirmat ca fiind satisfăcut.
-    8.  **Documentație Tehnică Relevantă Actualizată:** Orice documentație tehnică care este direct impactată de implementarea User Story-ei (ex: specificații API RAML, documentație job Talend, diagrame de arhitectură, `SETUP_MODUL.md`) a fost actualizată pentru a reflecta starea curentă.
-    9.  **Acceptarea Formală de către Tutore (în rol de Product Owner Simulat):** Petrut Constantin, acționând ca reprezentant al clientului, confirmă că User Story-a implementată aduce valoarea de business așteptată și este considerată finalizată din perspectiva funcțională.
-    10. **Task Jira (User Story) Mutat în Coloana "Done":** Doar după îndeplinirea tuturor criteriilor de mai sus, tichetul User Story din Jira este mutat de către Tutore în coloana finală "Done".
+- **DoD Extinsă la Nivel de User Story sau Funcționalitate Majoră (care poate cuprinde mai multe task-uri tehnice):**
+  1.  **Toate Task-urile Tehnice Asociate sunt "Done":** Toate task-urile tehnice individuale care contribuie la implementarea User Story-ei au îndeplinit DoD-ul lor specific (punctele 1-10 de mai sus).
+  2.  **Code Review Completat și Toate Feedback-urile Integrate:** Pull Request-ul (sau PR-urile multiple) asociat(e) User Story-ei a fost revizuit complet de către Tutore (și peer revieweri, dacă au fost). Tot feedback-ul primit a fost analizat, discutat (dacă e necesar) și integrat corect de către autor(i).
+  3.  **Pull Request(s) Aprobat(e) Formal:** PR-ul (sau PR-urile) a primit aprobarea formală ("Approve") din partea Tutorelui (și a celorlalți revieweri obligatorii).
+  4.  **Merge cu Succes în Branch-ul `develop`:** PR-ul (sau PR-urile) a fost merguit cu succes în branch-ul `develop` (de către Tutore sau de către autor după aprobări), fără conflicte de merge nerezolvate. Feature branch-ul poate fi șters după merge.
+  5.  **Testare Funcțională și de Integrare de către QA (dacă este definit un rol QA specific pentru User Story):**
+      - Funcționalitatea implementată a fost testată de către QA (Culesca T.M. sau alt student desemnat) conform scenariilor de test relevante (manuale sau cu Postman pentru API-uri).
+      - **Nu există bug-uri critice sau majore deschise** legate de această User Story. Orice bug-uri identificate au fost fie corectate și re-testate, fie acceptate de Tutore ca fiind minore și transferate în backlog pentru o iterație viitoare (cu justificare clară).
+  6.  **Demonstrație Funcțională de Succes (în Sprint Review sau ad-hoc pentru Tutore):** Funcționalitatea completă a User Story-ei poate fi demonstrată live și funcționează conform așteptărilor într-un mediu de testare/integrare care reflectă cât mai fidel configurația finală (ex: toate componentele Docker pornite, aplicațiile Mule/Talend rulate).
+  7.  **Toate Criteriile de Acceptare ale User Story-ei sunt Îndeplinite:** Fiecare criteriu de acceptare specificat în descrierea tichetului Jira al User Story-ei este verificat și confirmat ca fiind satisfăcut.
+  8.  **Documentație Tehnică Relevantă Actualizată:** Orice documentație tehnică care este direct impactată de implementarea User Story-ei (ex: specificații API RAML, documentație job Talend, diagrame de arhitectură, `SETUP_MODUL.md`) a fost actualizată pentru a reflecta starea curentă.
+  9.  **Acceptarea Formală de către Tutore (în rol de Product Owner Simulat):** Petrut Constantin, acționând ca reprezentant al clientului, confirmă că User Story-a implementată aduce valoarea de business așteptată și este considerată finalizată din perspectiva funcțională.
+  10. **Task Jira (User Story) Mutat în Coloana "Done":** Doar după îndeplinirea tuturor criteriilor de mai sus, tichetul User Story din Jira este mutat de către Tutore în coloana finală "Done".
 
-*Notă Importantă: Această Definition of Done este un ghid și un angajament pentru calitate. Tutorele poate decide să o ajusteze sau să adauge criterii specifice pe parcursul proiectului, în funcție de nevoi, dar orice modificare va fi comunicată clar întregii echipe.*
-
+_Notă Importantă: Această Definition of Done este un ghid și un angajament pentru calitate. Tutorele poate decide să o ajusteze sau să adauge criterii specifice pe parcursul proiectului, în funcție de nevoi, dar orice modificare va fi comunicată clar întregii echipe._
 
 ---
 
@@ -3300,61 +3297,61 @@ Acest capitol definește acțiunile obligatorii și fundamentale pe care fiecare
 
 **7.1. Citirea Integrală, cu Maximă Atenție și Efort de Înțelegere Aprofundată, a Acestui Document (`README.md` - Versiunea Actuală, Completă)**
 
-*   **Responsabilitate:** Fiecare student individual.
-*   **Descriere Detaliată și Specifică:**
-    1.  Fiecare student va aloca un interval de timp dedicat și suficient (estimat la minim 1.5 - 2.5 ore de lectură concentrată, în funcție de viteza individuală de procesare a informației tehnice) pentru a citi **integral, cu maximă atenție și cu un efort conștient de înțelegere** acest document complet de proiect ("DeviMarket Zero - README.md", Versiunea 5.0 - Finală). Aceasta include parcurgerea și asimilarea informațiilor din toate cele 8 capitole, de la Introducere și Fundamentele Proiectului până la Anexe.
-    2.  Scopul acestei lecturi aprofundate nu este doar o simplă parcurgere a textului, ci **dezvoltarea unei înțelegeri profunde și clare** a următoarelor aspecte critice:
-        *   **Viziunea Generală a Proiectului:** Contextul de business, nevoile clientului simulat "GlobalGoods Inc." și obiectivele pe termen lung (chiar dacă MVP-ul acoperă doar o parte).
-        *   **Arhitectura Tehnică Completă:** Rolul și interacțiunile dintre toate componentele majore: Frontend React, Platforma API Centrală MuleSoft, Procesele ETL Talend, Baza de Date ClickHouse, Sistemul de Scanare RPi Pico, Infrastructura Docker și serverul NGINX.
-        *   **Rolul Specific și Responsabilitățile Detaliate Alocate Propriei "Parent Team":** O înțelegere clară a modulelor tehnice la care va contribui direct și a tehnologiilor specifice pe care va trebui să le învețe și să le aplice.
-        *   **Interdependențele cu Alte Echipe:** Identificarea modulelor și echipelor de care depinde munca proprie și a celor care depind de livrabilele proprii.
-        *   **Planul General pe Sprinturi:** Obiectivele fiecărui sprint și, în special, obiectivele și task-urile detaliate pentru Sprint 2.
-        *   **Metodologia de Lucru Agile:** Procesele de Sprint Planning, Daily Stand-up (dacă se aplică), Sprint Review, Sprint Retrospective.
-        *   **Standardele Git și GitHub:** Fluxul de lucru cu branch-uri, Pull Request-uri, Code Reviews, mesaje de commit.
-        *   **Standardele de Codare și Documentare:** Așteptările privind calitatea codului și a documentației.
-        *   **Definition of Done (DoD):** Criteriile care definesc când un task este considerat finalizat.
-    3.  Pe parcursul acestei lecturi atente și reflexive, fiecare student este puternic încurajat și responsabil să își **noteze în mod activ** (digital sau pe hârtie) orice nelămurire, întrebare de clarificare (oricât de "simplă" ar părea), aspect tehnic neclar, potențială problemă identificată sau chiar sugestie de îmbunătățire a documentului sau a proiectului.
-*   **Criterii de Acceptare / Deliverable pentru Acest Task:**
-    *   Fiecare student poate demonstra (printr-o discuție cu Tutorele sau prin răspunsuri la întrebări) o înțelegere solidă a obiectivelor generale ale proiectului, a arhitecturii principale și a rolului său specific în cadrul echipei și al proiectului.
-    *   Fiecare student a pregătit o listă personală, scrisă, conținând minim 2-3 (sau mai multe, dacă este cazul) întrebări de clarificare pertinente și specifice, sau puncte de discuție pentru ședința de kick-off a Sprintului 2 (conform task-ului 7.2). Dacă, după o citire atentă, studentul consideră că toate aspectele sunt perfect clare, va pregăti o confirmare în acest sens, poate cu 1-2 observații sau aspecte pe care le consideră deosebit de importante.
-    *   Confirmarea verbală (sau printr-un mesaj pe canalul de comunicare agreat) către Tutore, la începutul ședinței de kick-off a Sprintului 2, că acest document a fost citit integral și că s-a depus un efort serios pentru înțelegerea sa.
+- **Responsabilitate:** Fiecare student individual.
+- **Descriere Detaliată și Specifică:**
+  1.  Fiecare student va aloca un interval de timp dedicat și suficient (estimat la minim 1.5 - 2.5 ore de lectură concentrată, în funcție de viteza individuală de procesare a informației tehnice) pentru a citi **integral, cu maximă atenție și cu un efort conștient de înțelegere** acest document complet de proiect ("DeviMarket Zero - README.md", Versiunea 5.0 - Finală). Aceasta include parcurgerea și asimilarea informațiilor din toate cele 8 capitole, de la Introducere și Fundamentele Proiectului până la Anexe.
+  2.  Scopul acestei lecturi aprofundate nu este doar o simplă parcurgere a textului, ci **dezvoltarea unei înțelegeri profunde și clare** a următoarelor aspecte critice:
+      - **Viziunea Generală a Proiectului:** Contextul de business, nevoile clientului simulat "GlobalGoods Inc." și obiectivele pe termen lung (chiar dacă MVP-ul acoperă doar o parte).
+      - **Arhitectura Tehnică Completă:** Rolul și interacțiunile dintre toate componentele majore: Frontend React, Platforma API Centrală MuleSoft, Procesele ETL Talend, Baza de Date ClickHouse, Sistemul de Scanare RPi Pico, Infrastructura Docker și serverul NGINX.
+      - **Rolul Specific și Responsabilitățile Detaliate Alocate Propriei "Parent Team":** O înțelegere clară a modulelor tehnice la care va contribui direct și a tehnologiilor specifice pe care va trebui să le învețe și să le aplice.
+      - **Interdependențele cu Alte Echipe:** Identificarea modulelor și echipelor de care depinde munca proprie și a celor care depind de livrabilele proprii.
+      - **Planul General pe Sprinturi:** Obiectivele fiecărui sprint și, în special, obiectivele și task-urile detaliate pentru Sprint 2.
+      - **Metodologia de Lucru Agile:** Procesele de Sprint Planning, Daily Stand-up (dacă se aplică), Sprint Review, Sprint Retrospective.
+      - **Standardele Git și GitHub:** Fluxul de lucru cu branch-uri, Pull Request-uri, Code Reviews, mesaje de commit.
+      - **Standardele de Codare și Documentare:** Așteptările privind calitatea codului și a documentației.
+      - **Definition of Done (DoD):** Criteriile care definesc când un task este considerat finalizat.
+  3.  Pe parcursul acestei lecturi atente și reflexive, fiecare student este puternic încurajat și responsabil să își **noteze în mod activ** (digital sau pe hârtie) orice nelămurire, întrebare de clarificare (oricât de "simplă" ar părea), aspect tehnic neclar, potențială problemă identificată sau chiar sugestie de îmbunătățire a documentului sau a proiectului.
+- **Criterii de Acceptare / Deliverable pentru Acest Task:**
+  - Fiecare student poate demonstra (printr-o discuție cu Tutorele sau prin răspunsuri la întrebări) o înțelegere solidă a obiectivelor generale ale proiectului, a arhitecturii principale și a rolului său specific în cadrul echipei și al proiectului.
+  - Fiecare student a pregătit o listă personală, scrisă, conținând minim 2-3 (sau mai multe, dacă este cazul) întrebări de clarificare pertinente și specifice, sau puncte de discuție pentru ședința de kick-off a Sprintului 2 (conform task-ului 7.2). Dacă, după o citire atentă, studentul consideră că toate aspectele sunt perfect clare, va pregăti o confirmare în acest sens, poate cu 1-2 observații sau aspecte pe care le consideră deosebit de importante.
+  - Confirmarea verbală (sau printr-un mesaj pe canalul de comunicare agreat) către Tutore, la începutul ședinței de kick-off a Sprintului 2, că acest document a fost citit integral și că s-a depus un efort serios pentru înțelegerea sa.
 
 **7.2. Pregătirea Activă a Întrebărilor de Clarificare și a Punctelor de Discuție pentru Ședința de Kick-off a Sprintului 2**
 
-*   **Responsabilitate:** Fiecare student individual.
-*   **Descriere Detaliată și Specifică:**
-    1.  Bazându-se pe notițele și observațiile făcute în timpul lecturii aprofundate a documentului de proiect (task 7.1), fiecare student va compila și va structura o listă finală de întrebări specifice, nelămuriri sau sugestii pe care dorește să le adreseze Tutorelui (Petrut Constantin) în cadrul ședinței de kick-off a Sprintului 2.
-    2.  Aceste întrebări ar trebui să fie cât mai **specifice și la obiect** posibil. Ele pot viza:
-        *   Clarificări privind cerințele funcționale ale MVP-ului sau ale unor module specifice.
-        *   Detalii suplimentare despre arhitectura tehnică sau interacțiunea dintre componente.
-        *   Nelămuriri legate de tehnologiile specifice care trebuie utilizate (ex: "Pentru conectarea Talend la ClickHouse, ce versiune de driver JDBC este recomandată și de unde o putem descărca în siguranță?").
-        *   Aspecte legate de rolurile și responsabilitățile individuale sau ale echipei.
-        *   Clarificări privind procesele de lucru (Agile, Git, Jira, Code Review).
-        *   Detalii despre task-urile specifice alocate pentru Sprint 2.
-        *   Orice alt aspect al proiectului care nu este pe deplin înțeles.
-    3.  Scopul fundamental al acestui task este de a transforma ședința de kick-off într-o sesiune Q&A interactivă și extrem de productivă, care să elimine orice ambiguitate majoră de la bun început și să asigure că toți studenții pornesc în Sprint 2 cu o înțelegere comună și corectă.
-*   **Criterii de Acceptare / Deliverable pentru Acest Task:**
-    *   Fiecare student deține o listă scrisă (digital sau pe hârtie, ușor accesibilă în timpul ședinței) cu întrebările și punctele de discuție pregătite.
-    *   Fiecare student participă activ și asertiv (dar politicos) la sesiunea Q&A din cadrul ședinței de kick-off, adresând întrebările sale și contribuind la discuții.
+- **Responsabilitate:** Fiecare student individual.
+- **Descriere Detaliată și Specifică:**
+  1.  Bazându-se pe notițele și observațiile făcute în timpul lecturii aprofundate a documentului de proiect (task 7.1), fiecare student va compila și va structura o listă finală de întrebări specifice, nelămuriri sau sugestii pe care dorește să le adreseze Tutorelui (Petrut Constantin) în cadrul ședinței de kick-off a Sprintului 2.
+  2.  Aceste întrebări ar trebui să fie cât mai **specifice și la obiect** posibil. Ele pot viza:
+      - Clarificări privind cerințele funcționale ale MVP-ului sau ale unor module specifice.
+      - Detalii suplimentare despre arhitectura tehnică sau interacțiunea dintre componente.
+      - Nelămuriri legate de tehnologiile specifice care trebuie utilizate (ex: "Pentru conectarea Talend la ClickHouse, ce versiune de driver JDBC este recomandată și de unde o putem descărca în siguranță?").
+      - Aspecte legate de rolurile și responsabilitățile individuale sau ale echipei.
+      - Clarificări privind procesele de lucru (Agile, Git, Jira, Code Review).
+      - Detalii despre task-urile specifice alocate pentru Sprint 2.
+      - Orice alt aspect al proiectului care nu este pe deplin înțeles.
+  3.  Scopul fundamental al acestui task este de a transforma ședința de kick-off într-o sesiune Q&A interactivă și extrem de productivă, care să elimine orice ambiguitate majoră de la bun început și să asigure că toți studenții pornesc în Sprint 2 cu o înțelegere comună și corectă.
+- **Criterii de Acceptare / Deliverable pentru Acest Task:**
+  - Fiecare student deține o listă scrisă (digital sau pe hârtie, ușor accesibilă în timpul ședinței) cu întrebările și punctele de discuție pregătite.
+  - Fiecare student participă activ și asertiv (dar politicos) la sesiunea Q&A din cadrul ședinței de kick-off, adresând întrebările sale și contribuind la discuții.
 
 **7.3. Trimiterea Email-ului Formal către Tutore (Petrut Constantin) pentru Solicitarea Accesului la Repository-ul GitHub al Proiectului "DeviMarket Zero" (Conform Template-ului Specificat)**
 
-*   **Responsabilitate:** Fiecare student individual.
-*   **Descriere Detaliată și Specifică:**
-    1.  După ce a parcurs integral acest document (task 7.1) și și-a pregătit întrebările de clarificare (task 7.2), și **înainte** de începerea efectivă a lucrului la task-urile tehnice din Sprint 2 (care necesită clonarea repository-ului), fiecare student va compune și va trimite un email formal către Tutore (Petrut Constantin), la adresa de email care va fi comunicată de acesta.
-    2.  Email-ul trebuie să fie redactat **cu maximă atenție și exactitate, respectând întocmai template-ul** furnizat în **Anexa 8.2** ("Template Email pentru Solicitarea Accesului la Repository-ul GitHub al Proiectului") a acestui document. Este crucial ca toate informațiile solicitate în template să fie completate corect.
-    3.  Informațiile **obligatorii** care trebuie incluse în email (conform template-ului) sunt:
-        *   Un subiect standardizat și clar, care să permită Tutorelui identificarea rapidă a solicitării (ex: `Solicitare Acces GitHub Proiect DeviMarket Zero - Popescu Ion`).
-        *   În corpul email-ului: numele complet al studentului și, cel mai important, **username-ul GitHub exact și corect** al studentului (cel pe care îl va folosi pentru a colabora la proiect).
-        *   O solicitare politicoasă și formală pentru acordarea accesului de tip "colaborator" (sau un nivel similar care permite clonarea, crearea de branch-uri și Pull Request-uri) la repository-ul/repository-urile GitHub dedicate proiectului "DeviMarket Zero" (numele exact al repository-ului va fi comunicat de Tutore, ex: `DeviMarketZero-Practice-FullProject`).
-    4.  Acest email servește drept notificare formală și oficială către Tutore și centralizează informațiile esențiale (în special username-ul GitHub) necesare pentru ca Tutorele să poată acorda rapid și corect accesul la codul sursă al proiectului.
-    5.  **Notă Importantă:** Deoarece s-a specificat că studenții au deja acces la instanța Jira a Devidevs.com și la proiectul "DeviMarket Zero" din Jira, **NU mai este necesară crearea unui tichet Jira specific pentru solicitarea accesului GitHub.** Acest email este suficient și este procesul agreat pentru solicitarea accesului la repository-ul de cod.
-*   **Criterii de Acceptare / Deliverable pentru Acest Task:**
-    *   Un email, redactat conform template-ului și conținând toate informațiile solicitate (în special username-ul GitHub corect), a fost trimis cu succes către Tutore (Petrut Constantin) de către fiecare student.
-*   **Acțiune Ulterioară din Partea Tutorelui (Petrut Constantin):**
-    *   După recepționarea acestor email-uri, Petrut Constantin va procesa solicitările în cel mai scurt timp posibil.
-    *   Va acorda fiecărui student (pe baza username-ului GitHub furnizat) permisiunile necesare (ex: rol de colaborator) pe repository-ul/repository-urile GitHub ale proiectului.
-    *   Va anunța întreaga echipă (pe canalul principal de comunicare) atunci când accesul la GitHub a fost acordat tuturor, permițând astfel studenților să cloneze repository-ul și să înceapă efectiv lucrul la task-urile de setup din Sprint 2 care implică interacțiunea cu codul (ex: crearea fișierelor `SETUP_MODUL.md`, commit-uirea exemplelor "Hello World").
+- **Responsabilitate:** Fiecare student individual.
+- **Descriere Detaliată și Specifică:**
+  1.  După ce a parcurs integral acest document (task 7.1) și și-a pregătit întrebările de clarificare (task 7.2), și **înainte** de începerea efectivă a lucrului la task-urile tehnice din Sprint 2 (care necesită clonarea repository-ului), fiecare student va compune și va trimite un email formal către Tutore (Petrut Constantin), la adresa de email care va fi comunicată de acesta.
+  2.  Email-ul trebuie să fie redactat **cu maximă atenție și exactitate, respectând întocmai template-ul** furnizat în **Anexa 8.2** ("Template Email pentru Solicitarea Accesului la Repository-ul GitHub al Proiectului") a acestui document. Este crucial ca toate informațiile solicitate în template să fie completate corect.
+  3.  Informațiile **obligatorii** care trebuie incluse în email (conform template-ului) sunt:
+      - Un subiect standardizat și clar, care să permită Tutorelui identificarea rapidă a solicitării (ex: `Solicitare Acces GitHub Proiect DeviMarket Zero - Popescu Ion`).
+      - În corpul email-ului: numele complet al studentului și, cel mai important, **username-ul GitHub exact și corect** al studentului (cel pe care îl va folosi pentru a colabora la proiect).
+      - O solicitare politicoasă și formală pentru acordarea accesului de tip "colaborator" (sau un nivel similar care permite clonarea, crearea de branch-uri și Pull Request-uri) la repository-ul/repository-urile GitHub dedicate proiectului "DeviMarket Zero" (numele exact al repository-ului va fi comunicat de Tutore, ex: `DeviMarketZero-Practice-FullProject`).
+  4.  Acest email servește drept notificare formală și oficială către Tutore și centralizează informațiile esențiale (în special username-ul GitHub) necesare pentru ca Tutorele să poată acorda rapid și corect accesul la codul sursă al proiectului.
+  5.  **Notă Importantă:** Deoarece s-a specificat că studenții au deja acces la instanța Jira a Devidevs.com și la proiectul "DeviMarket Zero" din Jira, **NU mai este necesară crearea unui tichet Jira specific pentru solicitarea accesului GitHub.** Acest email este suficient și este procesul agreat pentru solicitarea accesului la repository-ul de cod.
+- **Criterii de Acceptare / Deliverable pentru Acest Task:**
+  - Un email, redactat conform template-ului și conținând toate informațiile solicitate (în special username-ul GitHub corect), a fost trimis cu succes către Tutore (Petrut Constantin) de către fiecare student.
+- **Acțiune Ulterioară din Partea Tutorelui (Petrut Constantin):**
+  - După recepționarea acestor email-uri, Petrut Constantin va procesa solicitările în cel mai scurt timp posibil.
+  - Va acorda fiecărui student (pe baza username-ului GitHub furnizat) permisiunile necesare (ex: rol de colaborator) pe repository-ul/repository-urile GitHub ale proiectului.
+  - Va anunța întreaga echipă (pe canalul principal de comunicare) atunci când accesul la GitHub a fost acordat tuturor, permițând astfel studenților să cloneze repository-ul și să înceapă efectiv lucrul la task-urile de setup din Sprint 2 care implică interacțiunea cu codul (ex: crearea fișierelor `SETUP_MODUL.md`, commit-uirea exemplelor "Hello World").
 
 Finalizarea cu succes, la timp și cu atenție la detalii a acestor trei acțiuni inițiale de către fiecare student este **obligatorie și reprezintă o precondiție** pentru un start organizat, eficient și aliniat al Sprintului 2 și, implicit, al întregului proiect "DeviMarket Zero".
 
@@ -3368,7 +3365,6 @@ Acest capitol final al documentului conține template-uri standardizate pentru d
 
 Fiecare echipă (sau student individual, dacă lucrează la un sub-modul distinct) responsabilă pentru dezvoltarea și întreținerea unui modul tehnic major (ex: MuleSoft APIs, Talend Jobs, React Frontend, RPi Pico Script, Docker Infrastructure) va crea și va actualiza constant un fișier `SETUP_MODUL.md` în directorul corespunzător al modulului său pe GitHub. Acest fișier este **crucial** și trebuie să fie un ghid "la cheie", extrem de detaliat, permițând oricărui alt membru al echipei (inclusiv Tutorelui sau unui student nou venit ipotetic) să instaleze, configureze și să ruleze o versiune de bază ("Hello World" sau funcționalitate minimă) a modulului respectiv pe un VM Ubuntu proaspăt, fără a necesita asistență suplimentară extinsă.
 
-
 # SETUP_MODUL.MD: Ghid Complet de Instalare, Configurare și Rulare Inițială pentru Modulul [Numele Exact și Clar al Modulului, ex: MuleSoft Anypoint Studio și Aplicația API Scanner]
 
 **Nume Modul:** [Reiterați Numele Modulului]
@@ -3378,165 +3374,150 @@ Fiecare echipă (sau student individual, dacă lucrează la un sub-modul distinc
 **Data Ultimei Actualizări:** YYYY-MM-DD (ex: 2025-05-30)
 
 ## 1. Scopul și Descrierea Generală a Modulului
-*   **1.1. Rolul Modulului în Arhitectura "DeviMarket Zero":**
-    *   O descriere clară și concisă (2-4 fraze) a responsabilităților principale ale acestui modul în cadrul arhitecturii generale a proiectului.
-    *   Cum interacționează acest modul cu alte module/componente (intrări, ieșiri, dependențe).
-    *   *Exemplu pentru MuleSoft API Scanner: "Acest modul, dezvoltat în MuleSoft Anypoint Studio, este responsabil pentru expunerea unui API HTTPS securizat (/api/scanner/product_scan) care primește date (cod de bare și timestamp) de la sistemul de scanare Raspberry Pi Pico W. Logica implementată în MuleSoft validează aceste date și realizează operațiunea de 'upsert' (creare sau actualizare) a produsului corespunzător în baza de date ClickHouse (`devimarket_db.products`)."*
-*   **1.2. Tehnologii Principale Utilizate în Modul:**
-    *   Listarea tehnologiilor, platformelor și bibliotecilor cheie utilizate pentru dezvoltarea acestui modul (ex: MuleSoft Anypoint Studio v7.x, Mule Runtime v4.x, DataWeave 2.x, RAML 1.0, JDK 11, ClickHouse JDBC Driver vX.Y.Z).
+
+- **1.1. Rolul Modulului în Arhitectura "DeviMarket Zero":**
+  - O descriere clară și concisă (2-4 fraze) a responsabilităților principale ale acestui modul în cadrul arhitecturii generale a proiectului.
+  - Cum interacționează acest modul cu alte module/componente (intrări, ieșiri, dependențe).
+  - _Exemplu pentru MuleSoft API Scanner: "Acest modul, dezvoltat în MuleSoft Anypoint Studio, este responsabil pentru expunerea unui API HTTPS securizat (/api/scanner/product_scan) care primește date (cod de bare și timestamp) de la sistemul de scanare Raspberry Pi Pico W. Logica implementată în MuleSoft validează aceste date și realizează operațiunea de 'upsert' (creare sau actualizare) a produsului corespunzător în baza de date ClickHouse (`devimarket_db.products`)."_
+- **1.2. Tehnologii Principale Utilizate în Modul:**
+  - Listarea tehnologiilor, platformelor și bibliotecilor cheie utilizate pentru dezvoltarea acestui modul (ex: MuleSoft Anypoint Studio v7.x, Mule Runtime v4.x, DataWeave 2.x, RAML 1.0, JDK 11, ClickHouse JDBC Driver vX.Y.Z).
 
 ## 2. Cerințe de Sistem și Software Necesar (Prerequisites)
-*   Listă exhaustivă a întregului software care trebuie să fie instalat și configurat pe mașina virtuală Ubuntu pentru a putea dezvolta, rula și testa acest modul. Includeți versiunile specifice testate și, acolo unde este posibil, link-uri oficiale de download sau comenzi de instalare.
 
-*   **2.1. Sistem de Operare:**
-    *   Ubuntu Linux: Versiunea [ex: 22.04 LTS] (versiunea standard agreată pentru proiect).
-*   **2.2. Java Development Kit (JDK) (dacă este necesar pentru modul, ex: MuleSoft, Talend):**
-    *   Versiune Specifică Recomandată/Testată: [ex: OpenJDK 11.0.x] (Menționați dacă este critică o anumită distribuție sau update).
-    *   Comandă de Instalare pe Ubuntu (Exemplu): `sudo apt update && sudo apt install openjdk-11-jdk`
-    *   Verificare Instalare: `java -version`, `javac -version`
-    *   Configurare `JAVA_HOME` (dacă este necesară pentru unealtă): [Pași detaliați, vezi exemplul din Anexa 8.1 a README principal]
-*   **2.3. [Nume Platformă/IDE Specific Modulului, ex: MuleSoft Anypoint Studio]:**
-    *   Versiune Specifică Recomandată/Testată: [ex: Anypoint Studio 7.15.x]
-    *   Link Oficial de Download: [URL către pagina oficială de download MuleSoft/Talend etc.]
-    *   Eventuale Dependențe Specifice ale Platformei (altele decât JDK, ex: Maven dacă proiectul Mule e Maven-based și nu vine cu Maven embedat).
-*   **2.4. [Nume Bază de Date Client/GUI, ex: DBeaver Community Edition]:** (dacă modulul interacționează direct cu DB și este util pentru testare/verificare)
-    *   Versiune: [ex: Ultima versiune stabilă]
-    *   Link Download: [URL]
-    *   Driver JDBC Necesar (ex: ClickHouse JDBC Driver): [Nume fișier JAR, versiune, și de unde se descarcă]
-*   **2.5. [Nume Unelte de Testare, ex: Postman Desktop App]:** (dacă modulul expune API-uri)
-    *   Versiune: [ex: Ultima versiune stabilă]
-    *   Link Download: [URL]
-*   **2.6. Git Client (Linie de Comandă):**
-    *   Versiune: [ex: 2.34.x sau mai recentă]
-    *   Comandă Instalare (Ubuntu): `sudo apt install git`
-    *   Configurare Inițială (dacă nu s-a făcut deja): `git config --global user.name "Nume Prenume"`, `git config --global user.email "email@example.com"`
-*   **2.7. (Opțional) Editor de Text / IDE Suplimentar (ex: Visual Studio Code):**
-    *   Pentru editarea fișierelor de configurare, scripturi, documentație Markdown.
-*   *(Adăugați orice alt software specific, bibliotecă sau unealtă care este absolut necesară pentru acest modul și nu este inclusă în distribuția standard Ubuntu sau în platforma principală a modulului).*
+- Listă exhaustivă a întregului software care trebuie să fie instalat și configurat pe mașina virtuală Ubuntu pentru a putea dezvolta, rula și testa acest modul. Includeți versiunile specifice testate și, acolo unde este posibil, link-uri oficiale de download sau comenzi de instalare.
+
+- **2.1. Sistem de Operare:**
+  - Ubuntu Linux: Versiunea [ex: 22.04 LTS] (versiunea standard agreată pentru proiect).
+- **2.2. Java Development Kit (JDK) (dacă este necesar pentru modul, ex: MuleSoft, Talend):**
+  - Versiune Specifică Recomandată/Testată: [ex: OpenJDK 11.0.x] (Menționați dacă este critică o anumită distribuție sau update).
+  - Comandă de Instalare pe Ubuntu (Exemplu): `sudo apt update && sudo apt install openjdk-11-jdk`
+  - Verificare Instalare: `java -version`, `javac -version`
+  - Configurare `JAVA_HOME` (dacă este necesară pentru unealtă): [Pași detaliați, vezi exemplul din Anexa 8.1 a README principal]
+- **2.3. [Nume Platformă/IDE Specific Modulului, ex: MuleSoft Anypoint Studio]:**
+  - Versiune Specifică Recomandată/Testată: [ex: Anypoint Studio 7.15.x]
+  - Link Oficial de Download: [URL către pagina oficială de download MuleSoft/Talend etc.]
+  - Eventuale Dependențe Specifice ale Platformei (altele decât JDK, ex: Maven dacă proiectul Mule e Maven-based și nu vine cu Maven embedat).
+- **2.4. [Nume Bază de Date Client/GUI, ex: DBeaver Community Edition]:** (dacă modulul interacționează direct cu DB și este util pentru testare/verificare)
+  - Versiune: [ex: Ultima versiune stabilă]
+  - Link Download: [URL]
+  - Driver JDBC Necesar (ex: ClickHouse JDBC Driver): [Nume fișier JAR, versiune, și de unde se descarcă]
+- **2.5. [Nume Unelte de Testare, ex: Postman Desktop App]:** (dacă modulul expune API-uri)
+  - Versiune: [ex: Ultima versiune stabilă]
+  - Link Download: [URL]
+- **2.6. Git Client (Linie de Comandă):**
+  - Versiune: [ex: 2.34.x sau mai recentă]
+  - Comandă Instalare (Ubuntu): `sudo apt install git`
+  - Configurare Inițială (dacă nu s-a făcut deja): `git config --global user.name "Nume Prenume"`, `git config --global user.email "email@example.com"`
+- **2.7. (Opțional) Editor de Text / IDE Suplimentar (ex: Visual Studio Code):**
+  - Pentru editarea fișierelor de configurare, scripturi, documentație Markdown.
+- _(Adăugați orice alt software specific, bibliotecă sau unealtă care este absolut necesară pentru acest modul și nu este inclusă în distribuția standard Ubuntu sau în platforma principală a modulului)._
 
 ## 3. Pași Detaliați de Instalare și Configurare a Mediului de Dezvoltare pentru Modul
-*   Aceasta este secțiunea cea mai importantă a documentului. Descrieți **pas cu pas, într-un mod extrem de clar, precis și ușor de urmărit de către un începător**, întregul proces de instalare și configurare a fiecărui element software listat la secțiunea 2.
-*   Includeți **comenzile exacte** care trebuie rulate în terminalul Ubuntu.
-*   Furnizați **capturi de ecran relevante** (screenshots) pentru pașii critici de configurare din interfețele grafice (ex: configurarea unui nou proiect în Anypoint Studio, adăugarea unui driver JDBC în Talend, setările unui HTTP Listener în MuleSoft).
-*   Specificați orice **configurare specifică** necesară pentru ca software-ul să funcționeze corect în contextul proiectului "DeviMarket Zero" (ex: setarea unor variabile de mediu specifice, configurarea porturilor, crearea de workspace-uri/proiecte inițiale).
-*   Anticipați posibilele probleme și oferiți soluții sau sfaturi.
 
-    **3.1. Instalarea și Configurarea [Nume Software 1, ex: Java Development Kit (JDK) Versiunea X.Y.Z]**
-        1.  **Descărcare (dacă nu e din `apt`):** [Link direct sau instrucțiuni de navigare pe site].
-        2.  **Comandă Instalare:** `sudo apt install openjdk-X-jdk` (sau pașii pentru arhiva descărcată).
-        3.  **Verificare Versiune:** `java -version`. Output așteptat: `openjdk version "X.Y.Z" ...`
-        4.  **Configurare `JAVA_HOME` și `PATH` (dacă este necesar pentru platforma specifică modulului):**
-            *   Identificarea căii de instalare a JDK (ex: `update-alternatives --config java` poate ajuta).
-            *   Editarea fișierului `~/.bashrc` (ex: cu `nano ~/.bashrc`).
-            *   Adăugarea liniilor (exemplu):
-                ```bash
-                export JAVA_HOME=/usr/lib/jvm/java-X-openjdk-amd64  # Ajustați calea exactă!
-                export PATH=$JAVA_HOME/bin:$PATH
-                ```
-            *   Salvarea fișierului și aplicarea modificărilor: `source ~/.bashrc`.
-            *   Verificarea variabilelor: `echo $JAVA_HOME`, `echo $PATH`.
+- Aceasta este secțiunea cea mai importantă a documentului. Descrieți **pas cu pas, într-un mod extrem de clar, precis și ușor de urmărit de către un începător**, întregul proces de instalare și configurare a fiecărui element software listat la secțiunea 2.
+- Includeți **comenzile exacte** care trebuie rulate în terminalul Ubuntu.
+- Furnizați **capturi de ecran relevante** (screenshots) pentru pașii critici de configurare din interfețele grafice (ex: configurarea unui nou proiect în Anypoint Studio, adăugarea unui driver JDBC în Talend, setările unui HTTP Listener în MuleSoft).
+- Specificați orice **configurare specifică** necesară pentru ca software-ul să funcționeze corect în contextul proiectului "DeviMarket Zero" (ex: setarea unor variabile de mediu specifice, configurarea porturilor, crearea de workspace-uri/proiecte inițiale).
+- Anticipați posibilele probleme și oferiți soluții sau sfaturi.
 
-    **3.2. Instalarea și Configurarea [Nume Platformă/IDE Specific Modulului, ex: MuleSoft Anypoint Studio Versiunea A.B.C]**
-        1.  **Descărcare Arhivă:** Descărcați arhiva Anypoint Studio (ex: `AnypointStudio-A.B.C-linux64.tar.gz`) de la [Link-ul oficial MuleSoft].
-        2.  **Creare Director de Instalare:** `mkdir -p ~/Applications/MuleSoft` (sau altă locație preferată).
-        3.  **Dezarhivare:** `tar -xzf /calea/catre/AnypointStudio-A.B.C-linux64.tar.gz -C ~/Applications/MuleSoft/`
-        4.  **Prima Lansare și Configurare Workspace:**
-            *   Navigați în directorul de instalare: `cd ~/Applications/MuleSoft/AnypointStudio/`
-            *   Lansați Anypoint Studio: `./AnypointStudio` (Poate fi util să creați un shortcut pe Desktop).
-            *   La prima lansare, vi se va solicita să selectați un director pentru workspace. Alegeți o locație (ex: `~/MuleWorkspace_DeviMarket`). Bifați "Use this as the default and do not ask again" dacă doriți.
-            *   *(Captură de ecran a dialogului de selecție workspace).*
-        5.  **Verificare Inițială:** Asigurați-vă că Anypoint Studio pornește complet, fără erori majore în consola internă sau în pop-up-uri. Familiarizați-vă cu perspectiva "Mule Design".
-        6.  **(Dacă este necesar pentru ClickHouse) Adăugare Driver JDBC ClickHouse în Proiectele Mule:** Acest pas va fi probabil relevant la crearea primului proiect Mule care interacționează cu DB în Sprint 3, dar menționarea aici a necesității driverului este utilă. Pașii vor fi:
-            *   Descărcați JAR-ul driverului JDBC ClickHouse (ex: `clickhouse-jdbc-VERSION-all.jar`).
-            *   Pentru fiecare proiect Mule care necesită acces la ClickHouse: Adăugați JAR-ul la build path-ul proiectului (ex: prin `pom.xml` dacă proiectul e Maven, sau manual prin "Add External JARs" în proprietățile proiectului, secțiunea "Java Build Path" > "Libraries").
+  **3.1. Instalarea și Configurarea [Nume Software 1, ex: Java Development Kit (JDK) Versiunea X.Y.Z]** 1. **Descărcare (dacă nu e din `apt`):** [Link direct sau instrucțiuni de navigare pe site]. 2. **Comandă Instalare:** `sudo apt install openjdk-X-jdk` (sau pașii pentru arhiva descărcată). 3. **Verificare Versiune:** `java -version`. Output așteptat: `openjdk version "X.Y.Z" ...` 4. **Configurare `JAVA_HOME` și `PATH` (dacă este necesar pentru platforma specifică modulului):**
+  _ Identificarea căii de instalare a JDK (ex: `update-alternatives --config java` poate ajuta).
+  _ Editarea fișierului `~/.bashrc` (ex: cu `nano ~/.bashrc`).
+  _ Adăugarea liniilor (exemplu):
+  `bash
+            export JAVA_HOME=/usr/lib/jvm/java-X-openjdk-amd64  # Ajustați calea exactă!
+            export PATH=$JAVA_HOME/bin:$PATH
+            `
+  _ Salvarea fișierului și aplicarea modificărilor: `source ~/.bashrc`. \* Verificarea variabilelor: `echo $JAVA_HOME`, `echo $PATH`.
 
-    *(Continuați cu pași similari, extrem de detaliați, pentru fiecare software listat în secțiunea 2 a acestui template, incluzând Talend Open Studio, Docker, Docker Compose, Thonny IDE, configurarea inițială a proiectelor, etc., specific pentru modulul documentat).*
+  **3.2. Instalarea și Configurarea [Nume Platformă/IDE Specific Modulului, ex: MuleSoft Anypoint Studio Versiunea A.B.C]** 1. **Descărcare Arhivă:** Descărcați arhiva Anypoint Studio (ex: `AnypointStudio-A.B.C-linux64.tar.gz`) de la [Link-ul oficial MuleSoft]. 2. **Creare Director de Instalare:** `mkdir -p ~/Applications/MuleSoft` (sau altă locație preferată). 3. **Dezarhivare:** `tar -xzf /calea/catre/AnypointStudio-A.B.C-linux64.tar.gz -C ~/Applications/MuleSoft/` 4. **Prima Lansare și Configurare Workspace:**
+  _ Navigați în directorul de instalare: `cd ~/Applications/MuleSoft/AnypointStudio/`
+  _ Lansați Anypoint Studio: `./AnypointStudio` (Poate fi util să creați un shortcut pe Desktop).
+  _ La prima lansare, vi se va solicita să selectați un director pentru workspace. Alegeți o locație (ex: `~/MuleWorkspace_DeviMarket`). Bifați "Use this as the default and do not ask again" dacă doriți.
+  _ _(Captură de ecran a dialogului de selecție workspace)._ 5. **Verificare Inițială:** Asigurați-vă că Anypoint Studio pornește complet, fără erori majore în consola internă sau în pop-up-uri. Familiarizați-vă cu perspectiva "Mule Design". 6. **(Dacă este necesar pentru ClickHouse) Adăugare Driver JDBC ClickHouse în Proiectele Mule:** Acest pas va fi probabil relevant la crearea primului proiect Mule care interacționează cu DB în Sprint 3, dar menționarea aici a necesității driverului este utilă. Pașii vor fi:
+  _ Descărcați JAR-ul driverului JDBC ClickHouse (ex: `clickhouse-jdbc-VERSION-all.jar`).
+  _ Pentru fiecare proiect Mule care necesită acces la ClickHouse: Adăugați JAR-ul la build path-ul proiectului (ex: prin `pom.xml` dacă proiectul e Maven, sau manual prin "Add External JARs" în proprietățile proiectului, secțiunea "Java Build Path" > "Libraries").
+
+  _(Continuați cu pași similari, extrem de detaliați, pentru fiecare software listat în secțiunea 2 a acestui template, incluzând Talend Open Studio, Docker, Docker Compose, Thonny IDE, configurarea inițială a proiectelor, etc., specific pentru modulul documentat)._
 
 ## 4. Clonarea Repository-ului Proiectului și Setup-ul Inițial al Modulului Specific
-*   Descrieți cum se obține codul sursă al întregului proiect "DeviMarket Zero" (dacă nu s-a făcut deja) și apoi cum se navighează sau se importă componenta specifică acestui modul în IDE-ul relevant.
+
+- Descrieți cum se obține codul sursă al întregului proiect "DeviMarket Zero" (dacă nu s-a făcut deja) și apoi cum se navighează sau se importă componenta specifică acestui modul în IDE-ul relevant.
 
 1.  **Clonarea Monorepo-ului Principal (dacă nu este deja clonat):**
-    *   Deschideți un terminal pe VM Ubuntu.
-    *   Navigați la directorul unde doriți să stocați proiectele de practică (ex: `cd ~/Practice_Devidevs`).
-    *   Rulați comanda: `git clone [URL-ul complet al repository-ului GitHub DeviMarketZero-Practice-FullProject]`
-    *   Navigați în directorul proiectului clonat: `cd DeviMarketZero-Practice-FullProject/`
+    - Deschideți un terminal pe VM Ubuntu.
+    - Navigați la directorul unde doriți să stocați proiectele de practică (ex: `cd ~/Practice_Devidevs`).
+    - Rulați comanda: `git clone [URL-ul complet al repository-ului GitHub DeviMarketZero-Practice-FullProject]`
+    - Navigați în directorul proiectului clonat: `cd DeviMarketZero-Practice-FullProject/`
 2.  **Navigarea la Directorul Modulului:**
-    *   Navigați la sub-directorul specific acestui modul, conform structurii definite în README-ul principal (ex: `cd team1_integrations/mulesoft_apis/devi_market_scanner_api/` pentru un proiect MuleSoft).
+    - Navigați la sub-directorul specific acestui modul, conform structurii definite în README-ul principal (ex: `cd team1_integrations/mulesoft_apis/devi_market_scanner_api/` pentru un proiect MuleSoft).
 3.  **Setup Specific Proiectului în IDE (Exemple):**
-    *   **Pentru un Proiect MuleSoft (import în Anypoint Studio):**
-        1.  În Anypoint Studio, selectați `File > Import...`.
-        2.  În dialogul de import, alegeți `Anypoint Studio > Anypoint Studio Project from File System` (dacă proiectul există deja ca structură de foldere în repo) sau `Maven > Existing Maven Projects` (dacă proiectul Mule este structurat ca un proiect Maven și are un `pom.xml` la rădăcină – aceasta este practica recomandată).
-        3.  Navigați la directorul rădăcină al proiectului Mule specific (ex: `.../devi_market_scanner_api/`) și finalizați procesul de import.
-        4.  Verificați în "Package Explorer" că proiectul a fost importat corect și că nu există erori de build inițiale.
-    *   **Pentru un Job Talend (import în Talend Open Studio):**
-        1.  În Talend Open Studio, în view-ul "Repository", dați click dreapta pe "Job Designs".
-        2.  Selectați "Import items".
-        3.  În dialogul de import, navigați la locația unde se află fișierele exportate ale job-ului Talend (de obicei o arhivă `.zip` sau un director care conține fișierele `.item`, `.properties`, `.screenshot`). Selectați arhiva sau directorul rădăcină.
-        4.  Selectați item-urile de importat și finalizați procesul. Verificați că job-ul apare corect în "Job Designs".
-    *   **Pentru un Proiect React (deschidere în VS Code):**
-        1.  Deschideți Visual Studio Code.
-        2.  Selectați `File > Open Folder...` și navigați la directorul rădăcină al aplicației React (ex: `.../team2_react_frontend/devi-market-frontend/`).
-        3.  Deschideți un terminal integrat în VS Code (`Terminal > New Terminal`).
-        4.  Rulați comanda `npm install` (sau `yarn install`) pentru a descărca și instala toate dependențele de proiect listate în `package.json`. Acest pas este crucial.
+    - **Pentru un Proiect MuleSoft (import în Anypoint Studio):**
+      1.  În Anypoint Studio, selectați `File > Import...`.
+      2.  În dialogul de import, alegeți `Anypoint Studio > Anypoint Studio Project from File System` (dacă proiectul există deja ca structură de foldere în repo) sau `Maven > Existing Maven Projects` (dacă proiectul Mule este structurat ca un proiect Maven și are un `pom.xml` la rădăcină – aceasta este practica recomandată).
+      3.  Navigați la directorul rădăcină al proiectului Mule specific (ex: `.../devi_market_scanner_api/`) și finalizați procesul de import.
+      4.  Verificați în "Package Explorer" că proiectul a fost importat corect și că nu există erori de build inițiale.
+    - **Pentru un Job Talend (import în Talend Open Studio):**
+      1.  În Talend Open Studio, în view-ul "Repository", dați click dreapta pe "Job Designs".
+      2.  Selectați "Import items".
+      3.  În dialogul de import, navigați la locația unde se află fișierele exportate ale job-ului Talend (de obicei o arhivă `.zip` sau un director care conține fișierele `.item`, `.properties`, `.screenshot`). Selectați arhiva sau directorul rădăcină.
+      4.  Selectați item-urile de importat și finalizați procesul. Verificați că job-ul apare corect în "Job Designs".
+    - **Pentru un Proiect React (deschidere în VS Code):**
+      1.  Deschideți Visual Studio Code.
+      2.  Selectați `File > Open Folder...` și navigați la directorul rădăcină al aplicației React (ex: `.../team2_react_frontend/devi-market-frontend/`).
+      3.  Deschideți un terminal integrat în VS Code (`Terminal > New Terminal`).
+      4.  Rulați comanda `npm install` (sau `yarn install`) pentru a descărca și instala toate dependențele de proiect listate în `package.json`. Acest pas este crucial.
 
 ## 5. Rularea Exemplului "Hello World" sau a Funcționalității de Bază (Specific Sprintului 2)
-*   Descrieți **exact**, pas cu pas, comenzile și acțiunile necesare pentru a rula exemplul minimal "Hello World" sau operațiunea de bază care a fost definită ca livrabil pentru acest modul în cadrul Sprintului 2 (conform detaliilor din Capitolul 5.2 al README-ului principal). Includeți orice configurare prealabilă specifică rulării (ex: pornirea altor servicii de care depinde, cum ar fi containerul ClickHouse).
 
-    **5.1. Rularea Exemplului "Hello World" API în MuleSoft (Exemplu Specific)**
-        1.  Asigurați-vă că proiectul Mule `sprint2_helloworld_api` (sau numele relevant) este importat corect și deschis în Anypoint Studio.
-        2.  În Package Explorer, dați click dreapta pe fișierul XML principal al fluxului (ex: `hello-devi-market-flow.xml`) sau pe proiectul în sine.
-        3.  Selectați `Run As > Mule Application`.
-        4.  Monitorizați consola Anypoint Studio. Așteptați până când vedeți mesajul care indică faptul că aplicația a fost "DEPLOYED" cu succes și că `HTTP Listener`-ul a pornit (de obicei, pe portul 8081). Notați orice erori apar în consolă.
-        5.  Deschideți aplicația Postman (sau un browser web).
-        6.  Creați un nou request GET către URL-ul: `http://localhost:8081/api/hello` (sau portul și calea exactă configurate în `HTTP Listener`-ul din fluxul Mule).
-        7.  Trimiteți request-ul.
-        8.  **Output Așteptat (în Postman/Browser):**
-            *   Status Code HTTP: `200 OK`
-            *   Response Body (JSON): `{"message": "Salut de la API-ul MuleSoft pentru DeviMarket Zero!"}` (sau mesajul exact implementat).
-        9.  **Output Așteptat (în Consola Anypoint Studio):** Ar trebui să vedeți mesajul logat de componenta `Logger` din fluxul Mule (ex: "Request primit la /api/hello").
-        10. Pentru a opri aplicația Mule, click pe iconița roșie "Terminate" din view-ul Console sau Debug.
+- Descrieți **exact**, pas cu pas, comenzile și acțiunile necesare pentru a rula exemplul minimal "Hello World" sau operațiunea de bază care a fost definită ca livrabil pentru acest modul în cadrul Sprintului 2 (conform detaliilor din Capitolul 5.2 al README-ului principal). Includeți orice configurare prealabilă specifică rulării (ex: pornirea altor servicii de care depinde, cum ar fi containerul ClickHouse).
 
-    *(Continuați cu pași similari, extrem de detaliați și specifici, pentru rularea exemplelor "Hello World" pentru Talend, React, Scriptul MicroPython, pornirea containerelor Docker cu ClickHouse și NGINX, și testarea lor inițială, așa cum sunt ele definite ca livrabile pentru Sprint 2 în Capitolul 5.2).*
+  **5.1. Rularea Exemplului "Hello World" API în MuleSoft (Exemplu Specific)** 1. Asigurați-vă că proiectul Mule `sprint2_helloworld_api` (sau numele relevant) este importat corect și deschis în Anypoint Studio. 2. În Package Explorer, dați click dreapta pe fișierul XML principal al fluxului (ex: `hello-devi-market-flow.xml`) sau pe proiectul în sine. 3. Selectați `Run As > Mule Application`. 4. Monitorizați consola Anypoint Studio. Așteptați până când vedeți mesajul care indică faptul că aplicația a fost "DEPLOYED" cu succes și că `HTTP Listener`-ul a pornit (de obicei, pe portul 8081). Notați orice erori apar în consolă. 5. Deschideți aplicația Postman (sau un browser web). 6. Creați un nou request GET către URL-ul: `http://localhost:8081/api/hello` (sau portul și calea exactă configurate în `HTTP Listener`-ul din fluxul Mule). 7. Trimiteți request-ul. 8. **Output Așteptat (în Postman/Browser):**
+  _ Status Code HTTP: `200 OK`
+  _ Response Body (JSON): `{"message": "Salut de la API-ul MuleSoft pentru DeviMarket Zero!"}` (sau mesajul exact implementat). 9. **Output Așteptat (în Consola Anypoint Studio):** Ar trebui să vedeți mesajul logat de componenta `Logger` din fluxul Mule (ex: "Request primit la /api/hello"). 10. Pentru a opri aplicația Mule, click pe iconița roșie "Terminate" din view-ul Console sau Debug.
+
+  _(Continuați cu pași similari, extrem de detaliați și specifici, pentru rularea exemplelor "Hello World" pentru Talend, React, Scriptul MicroPython, pornirea containerelor Docker cu ClickHouse și NGINX, și testarea lor inițială, așa cum sunt ele definite ca livrabile pentru Sprint 2 în Capitolul 5.2)._
 
 ## 6. Troubleshooting / Probleme Comune Întâmpinate și Soluții Specifice Modulului
-*   O listă proactivă de probleme comune care ar putea apărea în timpul instalării, configurării, build-ului sau rulării acestui modul specific, împreună cu soluțiile testate și validate de echipă. Această secțiune va crește pe măsură ce echipa întâmpină și rezolvă probleme.
 
-*   **Problemă 1 (Exemplu MuleSoft):** Anypoint Studio nu pornește sau afișează o eroare la pornire legată de versiunea JDK.
-    *   **Cauză Posibilă:** Variabila de mediu `JAVA_HOME` nu este setată corect, sau este setată la o versiune JDK incompatibilă cu versiunea Anypoint Studio instalată. Anypoint Studio poate avea cerințe specifice (ex: JDK 11, nu JDK 17 pentru anumite versiuni).
-    *   **Soluție Verificată:**
-        1.  Verificați documentația oficială a versiunii Anypoint Studio instalate pentru a confirma cerințele exacte de JDK.
-        2.  Asigurați-vă că versiunea corectă de JDK este instalată (vezi Secțiunea 3.1 a acestui document).
-        3.  Verificați și corectați (dacă e necesar) setarea variabilei `JAVA_HOME` în `~/.bashrc` și asigurați-vă că `$JAVA_HOME/bin` este în `PATH`. Rulați `source ~/.bashrc`.
-        4.  (Pentru Anypoint Studio) Puteți edita fișierul `AnypointStudio.ini` (din directorul de instalare Anypoint Studio) și să specificați explicit calea către `javaw.exe` sau `java` din JDK-ul corect folosind parametrul `-vm`.
+- O listă proactivă de probleme comune care ar putea apărea în timpul instalării, configurării, build-ului sau rulării acestui modul specific, împreună cu soluțiile testate și validate de echipă. Această secțiune va crește pe măsură ce echipa întâmpină și rezolvă probleme.
 
-*   **Problemă 2 (Exemplu Talend):** Job-ul Talend eșuează cu o eroare "Driver not found" la conectarea la ClickHouse, deși JAR-ul driverului JDBC a fost adăugat.
-    *   **Cauză Posibilă:** Talend nu a încărcat corect driverul, sau clasa driverului specificată în configurația conexiunii JDBC este incorectă.
-    *   **Soluție Verificată:**
-        1.  Închideți și redeschideți Talend Open Studio după adăugarea JAR-ului driverului în `lib/java` sau prin `Modules view`.
-        2.  Verificați în `Modules view` că JAR-ul driverului ClickHouse este listat și bifat (are o pictogramă verde).
-        3.  În configurația conexiunii JDBC din Talend Metadata, asigurați-vă că "Driver JAR" este selectat corect și că "Class Name" este exact cel specificat de documentația driverului ClickHouse JDBC (ex: `com.clickhouse.jdbc.ClickHouseDriver` sau `ru.yandex.clickhouse.ClickHouseDriver` pentru drivere mai vechi).
+- **Problemă 1 (Exemplu MuleSoft):** Anypoint Studio nu pornește sau afișează o eroare la pornire legată de versiunea JDK.
+  - **Cauză Posibilă:** Variabila de mediu `JAVA_HOME` nu este setată corect, sau este setată la o versiune JDK incompatibilă cu versiunea Anypoint Studio instalată. Anypoint Studio poate avea cerințe specifice (ex: JDK 11, nu JDK 17 pentru anumite versiuni).
+  - **Soluție Verificată:**
+    1.  Verificați documentația oficială a versiunii Anypoint Studio instalate pentru a confirma cerințele exacte de JDK.
+    2.  Asigurați-vă că versiunea corectă de JDK este instalată (vezi Secțiunea 3.1 a acestui document).
+    3.  Verificați și corectați (dacă e necesar) setarea variabilei `JAVA_HOME` în `~/.bashrc` și asigurați-vă că `$JAVA_HOME/bin` este în `PATH`. Rulați `source ~/.bashrc`.
+    4.  (Pentru Anypoint Studio) Puteți edita fișierul `AnypointStudio.ini` (din directorul de instalare Anypoint Studio) și să specificați explicit calea către `javaw.exe` sau `java` din JDK-ul corect folosind parametrul `-vm`.
 
-*   **Problemă 3 (Exemplu React/Vite):** Serverul de dezvoltare Vite (`npm run dev`) pornește, dar pagina din browser este goală sau afișează erori în consolă legate de Tailwind CSS.
-    *   **Cauză Posibilă:** Configurarea Tailwind CSS în `tailwind.config.js` (secțiunea `content`) nu include corect căile către fișierele `jsx/tsx` unde sunt folosite clasele Tailwind, sau directivele `@tailwind` nu sunt adăugate corect în fișierul CSS principal.
-    *   **Soluție Verificată:**
-        1.  Verificați cu atenție conținutul fișierului `tailwind.config.js`, în special array-ul `content`. Asigurați-vă că include cel puțin: `'./index.html', './src/**/*.{js,ts,jsx,tsx}'`.
-        2.  Verificați că fișierul CSS principal (de obicei `src/index.css` sau `src/main.css`) importat în `main.tsx`/`main.jsx` conține la început directivele:
-            ```css
-            @tailwind base;
-            @tailwind components;
-            @tailwind utilities;
-            ```
-        3.  Opriți și reporniți serverul de dezvoltare Vite (`Ctrl+C` apoi `npm run dev`).
+- **Problemă 2 (Exemplu Talend):** Job-ul Talend eșuează cu o eroare "Driver not found" la conectarea la ClickHouse, deși JAR-ul driverului JDBC a fost adăugat.
+  - **Cauză Posibilă:** Talend nu a încărcat corect driverul, sau clasa driverului specificată în configurația conexiunii JDBC este incorectă.
+  - **Soluție Verificată:**
+    1.  Închideți și redeschideți Talend Open Studio după adăugarea JAR-ului driverului în `lib/java` sau prin `Modules view`.
+    2.  Verificați în `Modules view` că JAR-ul driverului ClickHouse este listat și bifat (are o pictogramă verde).
+    3.  În configurația conexiunii JDBC din Talend Metadata, asigurați-vă că "Driver JAR" este selectat corect și că "Class Name" este exact cel specificat de documentația driverului ClickHouse JDBC (ex: `com.clickhouse.jdbc.ClickHouseDriver` sau `ru.yandex.clickhouse.ClickHouseDriver` pentru drivere mai vechi).
 
-*   *(Adăugați orice alte probleme și soluții specifice descoperite și validate de echipă pe parcursul Sprintului 2 și ulterior).*
+- **Problemă 3 (Exemplu React/Vite):** Serverul de dezvoltare Vite (`npm run dev`) pornește, dar pagina din browser este goală sau afișează erori în consolă legate de Tailwind CSS.
+  - **Cauză Posibilă:** Configurarea Tailwind CSS în `tailwind.config.js` (secțiunea `content`) nu include corect căile către fișierele `jsx/tsx` unde sunt folosite clasele Tailwind, sau directivele `@tailwind` nu sunt adăugate corect în fișierul CSS principal.
+  - **Soluție Verificată:**
+    1.  Verificați cu atenție conținutul fișierului `tailwind.config.js`, în special array-ul `content`. Asigurați-vă că include cel puțin: `'./index.html', './src/**/*.{js,ts,jsx,tsx}'`.
+    2.  Verificați că fișierul CSS principal (de obicei `src/index.css` sau `src/main.css`) importat în `main.tsx`/`main.jsx` conține la început directivele:
+        ```css
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+        ```
+    3.  Opriți și reporniți serverul de dezvoltare Vite (`Ctrl+C` apoi `npm run dev`).
+
+- _(Adăugați orice alte probleme și soluții specifice descoperite și validate de echipă pe parcursul Sprintului 2 și ulterior)._
 
 ## 7. Contact și Suport pentru Acest Modul
-*   Pentru întrebări specifice, nelămuriri sau probleme legate direct de instalarea, configurarea sau funcționarea acestui modul, membrii echipei care pot oferi suport sunt:
-    *   [Nume Student 1 din Echipa Responsabilă] - (Poate menționa o arie de expertiză specifică în cadrul modulului)
-    *   [Nume Student 2 din Echipa Responsabilă] - (...)
-    *   [Nume Student 3 din Echipa Responsabilă] - (...)
-*   Pentru probleme generale de proiect, blocaje majore sau decizii arhitecturale, contactați întotdeauna Tutorele (Petrut Constantin) prin canalele de comunicare stabilite.
 
+- Pentru întrebări specifice, nelămuriri sau probleme legate direct de instalarea, configurarea sau funcționarea acestui modul, membrii echipei care pot oferi suport sunt:
+  - [Nume Student 1 din Echipa Responsabilă] - (Poate menționa o arie de expertiză specifică în cadrul modulului)
+  - [Nume Student 2 din Echipa Responsabilă] - (...)
+  - [Nume Student 3 din Echipa Responsabilă] - (...)
+- Pentru probleme generale de proiect, blocaje majore sau decizii arhitecturale, contactați întotdeauna Tutorele (Petrut Constantin) prin canalele de comunicare stabilite.
 
 8.2. Template Email pentru Solicitarea Accesului la Repository-ul GitHub al Proiectului "DeviMarket Zero" (Actualizat)
 Către: [Adresa de email a lui Petrut Constantin care va fi comunicată]
@@ -3562,90 +3543,98 @@ Cu deosebită considerație,
 [Team-ul din care faci parte, ex: Team_1]
 [Eventual, Grupa/Anul de studiu, dacă este solicitat de Tutore]
 
-
-
 8.3. Lista de API-uri Externe Gratuite Sugerate pentru Integrare (Responsabilitate Team_1 - MuleSoft pentru a alege și integra unul)
 (Această secțiune rămâne identică în conținut cu cea din versiunea anterioară, Versiunea 4.1, oferind aceleași sugestii de API-uri: FakeStoreAPI, DummyJSON, Open Food Facts API, CoGecko API, și nota privind decizia finală).
 **8.3.1. FakeStoreAPI**
-*   **URL Principal:** `https://fakestoreapi.com/`
-*   **Endpoint Produse:** `https://fakestoreapi.com/products` (GET)
-*   **Descriere:** Oferă date JSON simple despre produse generice (electronice, bijuterii, îmbrăcăminte bărbați/femei). Include nume, preț, descriere, categorie, imagine URL, rating.
-*   **Avantaje:** Foarte simplu de utilizat, nu necesită autentificare, structură JSON clară. Bun pentru un prim exercițiu de integrare API.
-*   **Dezavantaje:** Număr limitat de produse (20). Datele sunt statice.
+
+- **URL Principal:** `https://fakestoreapi.com/`
+- **Endpoint Produse:** `https://fakestoreapi.com/products` (GET)
+- **Descriere:** Oferă date JSON simple despre produse generice (electronice, bijuterii, îmbrăcăminte bărbați/femei). Include nume, preț, descriere, categorie, imagine URL, rating.
+- **Avantaje:** Foarte simplu de utilizat, nu necesită autentificare, structură JSON clară. Bun pentru un prim exercițiu de integrare API.
+- **Dezavantaje:** Număr limitat de produse (20). Datele sunt statice.
 
 **8.3.2. DummyJSON**
-*   **URL Principal:** `https://dummyjson.com/`
-*   **Endpoint Produse:** `https://dummyjson.com/products` (GET)
-    *   Suportă paginare: `https://dummyjson.com/products?limit=10&skip=10&select=title,price`
-    *   Căutare: `https://dummyjson.com/products/search?q=phone`
-    *   Categorii: `https://dummyjson.com/products/categories`, `https://dummyjson.com/products/category/smartphones`
-*   **Descriere:** O colecție mult mai bogată și variată de date JSON simulate pentru diverse entități (produse, utilizatori, postări, etc.). Pentru produse, oferă câmpuri multiple: titlu, descriere, preț, discount, rating, stoc, brand, categorie, thumbnail, listă de imagini.
-*   **Avantaje:** Set de date mai mare și mai complex, permite testarea paginării și a căutării. Structura datelor este mai apropiată de un API real. Nu necesită autentificare.
-*   **Dezavantaje:** Complexitatea mai mare a structurii JSON poate necesita transformări DataWeave mai elaborate.
+
+- **URL Principal:** `https://dummyjson.com/`
+- **Endpoint Produse:** `https://dummyjson.com/products` (GET)
+  - Suportă paginare: `https://dummyjson.com/products?limit=10&skip=10&select=title,price`
+  - Căutare: `https://dummyjson.com/products/search?q=phone`
+  - Categorii: `https://dummyjson.com/products/categories`, `https://dummyjson.com/products/category/smartphones`
+- **Descriere:** O colecție mult mai bogată și variată de date JSON simulate pentru diverse entități (produse, utilizatori, postări, etc.). Pentru produse, oferă câmpuri multiple: titlu, descriere, preț, discount, rating, stoc, brand, categorie, thumbnail, listă de imagini.
+- **Avantaje:** Set de date mai mare și mai complex, permite testarea paginării și a căutării. Structura datelor este mai apropiată de un API real. Nu necesită autentificare.
+- **Dezavantaje:** Complexitatea mai mare a structurii JSON poate necesita transformări DataWeave mai elaborate.
 
 **8.3.3. Open Food Facts API (Pentru Produse Alimentare)**
-*   **URL Principal:** `https://world.openfoodfacts.org/data`
-*   **Endpoint Produs după Barcode:** `https://world.openfoodfacts.org/api/v2/product/[barcode].json` (GET, înlocuiți `[barcode]` cu un cod de bare valid)
-*   **Descriere:** O bază de date deschisă, colaborativă, cu informații despre produse alimentare din întreaga lume. Datele sunt foarte detaliate (ingrediente, alergeni, informații nutriționale, etc.).
-*   **Avantaje:** Date reale și extrem de detaliate. Oportunitate de a lucra cu o structură JSON complexă și bogată.
-*   **Dezavantaje:** Necesită un cod de bare valid pentru a prelua un produs. Structura răspunsului JSON este foarte mare și poate fi dificil de parsat și mapat pentru începători. Poate avea limitări de rată.
+
+- **URL Principal:** `https://world.openfoodfacts.org/data`
+- **Endpoint Produs după Barcode:** `https://world.openfoodfacts.org/api/v2/product/[barcode].json` (GET, înlocuiți `[barcode]` cu un cod de bare valid)
+- **Descriere:** O bază de date deschisă, colaborativă, cu informații despre produse alimentare din întreaga lume. Datele sunt foarte detaliate (ingrediente, alergeni, informații nutriționale, etc.).
+- **Avantaje:** Date reale și extrem de detaliate. Oportunitate de a lucra cu o structură JSON complexă și bogată.
+- **Dezavantaje:** Necesită un cod de bare valid pentru a prelua un produs. Structura răspunsului JSON este foarte mare și poate fi dificil de parsat și mapat pentru începători. Poate avea limitări de rată.
 
 **8.3.4. CoGecko API (Pentru Date despre Criptomonede)**
-*   **URL Principal:** `https://www.coingecko.com/en/api/documentation`
-*   **Endpoint Piețe Monede:** `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1` (GET)
-*   **Descriere:** Oferă date de piață (preț, capitalizare, volum, etc.) pentru o gamă largă de criptomonede.
-*   **Avantaje:** Date dinamice, relevante pentru tema Web3 a proiectului (integrarea MetaMask). Structură JSON bine definită. Nu necesită API key pentru multe endpoint-uri publice.
-*   **Dezavantaje:** Poate fi mai puțin relevant pentru un "marketplace de produse" clasic, dar poate servi ca o sursă de date interesantă pentru a diversifica tipurile de "produse" listate (ex: listarea unor criptomonede ca asset-uri). Poate avea limitări de rată.
+
+- **URL Principal:** `https://www.coingecko.com/en/api/documentation`
+- **Endpoint Piețe Monede:** `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1` (GET)
+- **Descriere:** Oferă date de piață (preț, capitalizare, volum, etc.) pentru o gamă largă de criptomonede.
+- **Avantaje:** Date dinamice, relevante pentru tema Web3 a proiectului (integrarea MetaMask). Structură JSON bine definită. Nu necesită API key pentru multe endpoint-uri publice.
+- **Dezavantaje:** Poate fi mai puțin relevant pentru un "marketplace de produse" clasic, dar poate servi ca o sursă de date interesantă pentru a diversifica tipurile de "produse" listate (ex: listarea unor criptomonede ca asset-uri). Poate avea limitări de rată.
 
 **Decizia Finală privind API-ul Extern:** Va fi luată de **Team_1** în colaborare cu **Tutorele (Petrut Constantin)** la începutul Sprintului 3 (sau chiar la finalul Sprintului 2, în faza de analiză și planificare pentru Sprint 3), după ce se evaluează documentația fiecărui API, ușurința de integrare, calitatea și relevanța datelor pentru obiectivele de învățare și pentru popularea marketplace-ului. Se va începe cu cel mai simplu și mai stabil API (probabil FakeStoreAPI sau un subset limitat din DummyJSON) pentru a asigura un succes inițial în procesul de integrare.
-
 
 8.4. Lista Recomandată de Resurse de Învățare Inițială (Link-uri către Documentația Oficială și Tutoriale de Bază per Tehnologie)
 (Această secțiune rămâne identică în conținut cu cea din versiunea anterioară, Versiunea 4.1, listând resursele pentru fiecare tehnologie. Tutorele o poate completa cu link-uri și mai specifice pe parcurs).
 **8.4.1. Resurse pentru React și Vite:**
-*   Documentația Oficială React: [https://react.dev/](https://react.dev/) (în special secțiunile "Learn React" și "Tutorial")
-*   Documentația Oficială Vite: [https://vitejs.dev/guide/](https://vitejs.dev/guide/)
-*   Tutorial React pentru Începători (Exemplu): Căutați pe YouTube "React Crash Course for Beginners" (ex: de la Traversy Media, Programming with Mosh, Net Ninja).
-*   Documentația React Router DOM: [https://reactrouter.com/en/main](https://reactrouter.com/en/main)
-*   Documentația Tailwind CSS: [https://tailwindcss.com/docs/installation](https://tailwindcss.com/docs/installation) (în special ghidul de instalare cu Vite).
-*   Documentația Axios: [https://axios-http.com/docs/intro](https://axios-http.com/docs/intro)
-*   Documentația MetaMask pentru Dezvoltatori: [https://docs.metamask.io/guide/](https://docs.metamask.io/guide/)
+
+- Documentația Oficială React: [https://react.dev/](https://react.dev/) (în special secțiunile "Learn React" și "Tutorial")
+- Documentația Oficială Vite: [https://vitejs.dev/guide/](https://vitejs.dev/guide/)
+- Tutorial React pentru Începători (Exemplu): Căutați pe YouTube "React Crash Course for Beginners" (ex: de la Traversy Media, Programming with Mosh, Net Ninja).
+- Documentația React Router DOM: [https://reactrouter.com/en/main](https://reactrouter.com/en/main)
+- Documentația Tailwind CSS: [https://tailwindcss.com/docs/installation](https://tailwindcss.com/docs/installation) (în special ghidul de instalare cu Vite).
+- Documentația Axios: [https://axios-http.com/docs/intro](https://axios-http.com/docs/intro)
+- Documentația MetaMask pentru Dezvoltatori: [https://docs.metamask.io/guide/](https://docs.metamask.io/guide/)
 
 **8.4.2. Resurse pentru MuleSoft Anypoint Platform și DataWeave:**
-*   Documentația Oficială MuleSoft: [https://docs.mulesoft.com/](https://docs.mulesoft.com/)
-    *   Tutoriale Anypoint Studio: Căutați "MuleSoft Anypoint Studio Tutorial" sau "Mule 4 Fundamentals" pe site-ul MuleSoft sau pe YouTube.
-    *   Documentație DataWeave: [https://docs.mulesoft.com/dataweave/2.4/](https://docs.mulesoft.com/dataweave/2.4/) (sau versiunea relevantă pentru runtime-ul din Anypoint Studio).
-*   Canalul YouTube Oficial MuleSoft: Conține multe tutoriale video, webinarii și prezentări de concepte.
-*   Cursuri Gratuite MuleSoft pentru Începători (MuleSoft Training - Self-Paced Fundamentals): Verificați platforma de training oficială MuleSoft (training.mulesoft.com) pentru cursuri gratuite introductive.
+
+- Documentația Oficială MuleSoft: [https://docs.mulesoft.com/](https://docs.mulesoft.com/)
+  - Tutoriale Anypoint Studio: Căutați "MuleSoft Anypoint Studio Tutorial" sau "Mule 4 Fundamentals" pe site-ul MuleSoft sau pe YouTube.
+  - Documentație DataWeave: [https://docs.mulesoft.com/dataweave/2.4/](https://docs.mulesoft.com/dataweave/2.4/) (sau versiunea relevantă pentru runtime-ul din Anypoint Studio).
+- Canalul YouTube Oficial MuleSoft: Conține multe tutoriale video, webinarii și prezentări de concepte.
+- Cursuri Gratuite MuleSoft pentru Începători (MuleSoft Training - Self-Paced Fundamentals): Verificați platforma de training oficială MuleSoft (training.mulesoft.com) pentru cursuri gratuite introductive.
 
 **8.4.3. Resurse pentru Talend Open Studio for Data Integration:**
-*   Documentația Oficială Talend Help Center: [https://help.talend.com/](https://help.talend.com/) (căutați specific pentru "Talend Open Studio for Data Integration User Guide").
-*   Tutoriale Talend pe YouTube: Căutați "Talend Open Studio Tutorial for Beginners", "Talend ETL examples". Multe canale oferă ghiduri pas cu pas.
-*   Comunitatea Talend: [https://community.talend.com/](https://community.talend.com/) (forumuri de discuții, articole, baze de cunoștințe).
+
+- Documentația Oficială Talend Help Center: [https://help.talend.com/](https://help.talend.com/) (căutați specific pentru "Talend Open Studio for Data Integration User Guide").
+- Tutoriale Talend pe YouTube: Căutați "Talend Open Studio Tutorial for Beginners", "Talend ETL examples". Multe canale oferă ghiduri pas cu pas.
+- Comunitatea Talend: [https://community.talend.com/](https://community.talend.com/) (forumuri de discuții, articole, baze de cunoștințe).
 
 **8.4.4. Resurse pentru ClickHouse:**
-*   Documentația Oficială ClickHouse: [https://clickhouse.com/docs/en/](https://clickhouse.com/docs/en/)
-    *   SQL Reference: [https://clickhouse.com/docs/en/sql-reference/](https://clickhouse.com/docs/en/sql-reference/)
-    *   Table Engines (în special MergeTree family): [https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/)
-    *   JDBC Driver: [https://clickhouse.com/docs/en/integrations/java#jdbc-driver](https://clickhouse.com/docs/en/integrations/java#jdbc-driver)
-*   Tutoriale ClickHouse: Căutați pe blog-uri tehnice și pe YouTube "ClickHouse Tutorial for Beginners", "Getting Started with ClickHouse".
+
+- Documentația Oficială ClickHouse: [https://clickhouse.com/docs/en/](https://clickhouse.com/docs/en/)
+  - SQL Reference: [https://clickhouse.com/docs/en/sql-reference/](https://clickhouse.com/docs/en/sql-reference/)
+  - Table Engines (în special MergeTree family): [https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/](https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree/)
+  - JDBC Driver: [https://clickhouse.com/docs/en/integrations/java#jdbc-driver](https://clickhouse.com/docs/en/integrations/java#jdbc-driver)
+- Tutoriale ClickHouse: Căutați pe blog-uri tehnice și pe YouTube "ClickHouse Tutorial for Beginners", "Getting Started with ClickHouse".
 
 **8.4.5. Resurse pentru MicroPython și Raspberry Pi Pico W:**
-*   Documentația Oficială MicroPython: [http://docs.micropython.org/en/latest/](http://docs.micropython.org/en/latest/)
-*   Documentația Oficială Raspberry Pi pentru Pico și Pico W: [https://www.raspberrypi.com/documentation/microcontrollers/](https://www.raspberrypi.com/documentation/microcontrollers/) (include ghiduri detaliate de pornire cu MicroPython, pinout-uri, etc.).
-*   Tutoriale Specifice pentru RPi Pico W cu MicroPython: Căutați pe YouTube "Raspberry Pi Pico W MicroPython WiFi Tutorial", "RPi Pico W urequests", "RPi Pico W GPIO MicroPython". Mulți creatori au conținut excelent.
-*   Biblioteca `urequests` (dacă nu este built-in și trebuie adăugată manual): Căutați pe GitHub `micropython-lib` pentru a găsi pachetul `urequests`.
+
+- Documentația Oficială MicroPython: [http://docs.micropython.org/en/latest/](http://docs.micropython.org/en/latest/)
+- Documentația Oficială Raspberry Pi pentru Pico și Pico W: [https://www.raspberrypi.com/documentation/microcontrollers/](https://www.raspberrypi.com/documentation/microcontrollers/) (include ghiduri detaliate de pornire cu MicroPython, pinout-uri, etc.).
+- Tutoriale Specifice pentru RPi Pico W cu MicroPython: Căutați pe YouTube "Raspberry Pi Pico W MicroPython WiFi Tutorial", "RPi Pico W urequests", "RPi Pico W GPIO MicroPython". Mulți creatori au conținut excelent.
+- Biblioteca `urequests` (dacă nu este built-in și trebuie adăugată manual): Căutați pe GitHub `micropython-lib` pentru a găsi pachetul `urequests`.
 
 **8.4.6. Resurse pentru Docker și Docker Compose:**
-*   Documentația Oficială Docker: [https://docs.docker.com/](https://docs.docker.com/)
-    *   Get Started Guide: [https://docs.docker.com/get-started/](https://docs.docker.com/get-started/)
-    *   Dockerfile Reference: [https://docs.docker.com/engine/reference/builder/](https://docs.docker.com/engine/reference/builder/)
-    *   Docker Compose CLI Reference (pentru v2): [https://docs.docker.com/compose/reference/](https://docs.docker.com/compose/reference/)
-    *   Best practices for writing Dockerfiles: [https://docs.docker.com/develop/develop-images/dockerfile_best-practices/](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
-*   Tutoriale Docker și Docker Compose: Căutați pe YouTube "Docker Crash Course for Beginners", "Docker Compose Tutorial" (ex: de la Traversy Media, TechWorld with Nana, FreeCodeCamp).
+
+- Documentația Oficială Docker: [https://docs.docker.com/](https://docs.docker.com/)
+  - Get Started Guide: [https://docs.docker.com/get-started/](https://docs.docker.com/get-started/)
+  - Dockerfile Reference: [https://docs.docker.com/engine/reference/builder/](https://docs.docker.com/engine/reference/builder/)
+  - Docker Compose CLI Reference (pentru v2): [https://docs.docker.com/compose/reference/](https://docs.docker.com/compose/reference/)
+  - Best practices for writing Dockerfiles: [https://docs.docker.com/develop/develop-images/dockerfile_best-practices/](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+- Tutoriale Docker și Docker Compose: Căutați pe YouTube "Docker Crash Course for Beginners", "Docker Compose Tutorial" (ex: de la Traversy Media, TechWorld with Nana, FreeCodeCamp).
 
 **8.4.7. Resurse pentru NGINX:**
-*   Documentația Oficială NGINX: [https://nginx.org/en/docs/](https://nginx.org/en/docs/) (în special secțiunile despre "Beginner’s Guide" și "Core Functionality").
-*   NGINX Wiki: [https://www.nginx.com/resources/wiki/](https://www.nginx.com/resources/wiki/)
-*   Tutoriale NGINX: Căutați "NGINX Tutorial for Beginners", "NGINX Reverse Proxy Setup", "NGINX Serve Static Files React". Articole pe DigitalOcean sau alte blog-uri de hosting/devops sunt adesea foarte bune.
-*   Ghid pentru servirea aplicațiilor SPA (Single Page Applications) cu NGINX (important pentru `try_files`): Multe articole online specifice.
+
+- Documentația Oficială NGINX: [https://nginx.org/en/docs/](https://nginx.org/en/docs/) (în special secțiunile despre "Beginner’s Guide" și "Core Functionality").
+- NGINX Wiki: [https://www.nginx.com/resources/wiki/](https://www.nginx.com/resources/wiki/)
+- Tutoriale NGINX: Căutați "NGINX Tutorial for Beginners", "NGINX Reverse Proxy Setup", "NGINX Serve Static Files React". Articole pe DigitalOcean sau alte blog-uri de hosting/devops sunt adesea foarte bune.
+- Ghid pentru servirea aplicațiilor SPA (Single Page Applications) cu NGINX (important pentru `try_files`): Multe articole online specifice.

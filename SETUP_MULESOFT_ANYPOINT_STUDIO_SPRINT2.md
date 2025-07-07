@@ -17,7 +17,6 @@
 
 ---
 
-
 # 2. Crearea proiectului „Hello World” în MuleSoft
 
 1. În Anypoint Studio, creează un nou proiect Mule:  
@@ -36,11 +35,11 @@
           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
           http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
           http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-  
+
   <http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config">
     <http:listener-connection host="0.0.0.0" port="8081" />
   </http:listener-config>
-  
+
   <flow name="hello-word-apiFlow" doc:id="apiFlow">
     <http:listener doc:name="Listener" config-ref="HTTP_Listener_config" path="/api/hello"/>
     <ee:transform doc:name="Transform Message">
@@ -69,3 +68,4 @@ Răspunsul trebuie să fie JSON:
   "message": "Hello MuleSoft!"
 }
 
+```

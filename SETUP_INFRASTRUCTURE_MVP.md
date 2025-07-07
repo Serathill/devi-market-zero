@@ -1,4 +1,4 @@
- 🧱 SETUP_INFRASTRUCTURE_MVP.md
+🧱 SETUP_INFRASTRUCTURE_MVP.md
 
 Documentul prezintă pașii necesari pentru a configura, construi și rula infrastructura containerizată pentru proiectul **DeviMarket Zero**. Stack-ul cuprinde:
 
@@ -131,3 +131,4 @@ NGINX returnează 404 sau blank	Asigură-te că build-ul React e complet și cop
 SSL handshake error	Verifică .crt și .key în certs/, refă-le dacă e cazul
 devimarket.local nu funcționează	Asigură-te că /etc/hosts e setat corect
 ClickHouse nu pornește	Șterge volumele cu docker compose down -v și reconstruiește
+```

@@ -21,7 +21,7 @@ sudo systemctl enable docker.service
 sudo systemctl start docker.service
 sudo usermod -aG docker $USER
 
->Repornește sesiunea (logout/login sau `reboot`) pentru ca modificările să aibă efect.
+> Repornește sesiunea (logout/login sau `reboot`) pentru ca modificările să aibă efect.
 
 ##Verificare Docker
 
@@ -32,9 +32,10 @@ docker run hello-world
 ##Instalare Docker Compose
 
 bash
-docker compose version  # verificare dacă este deja inclus
+docker compose version # verificare dacă este deja inclus
 
 # dacă nu e disponibil:
+
 sudo pacman -S docker-compose
 
 ##Structura proiectului
@@ -78,23 +79,20 @@ docker compose up --build
 ###Pornire simplă:
 bash
 docker compose up
-```
+
+````
 
 ###Oprire containere:
 ```bash
 docker compose down
-```
-
+````
 
 ##Troubleshooting
 
-| Problemă                                  | Soluție                                                                 |
-|-------------------------------------------|-------------------------------------------------------------------------|
-| `Permission denied` la comenzi Docker     | `sudo usermod -aG docker $USER` + `reboot`                             |
-| Porturi ocupate (3000/8000)               | Editează porturile din `docker-compose.yml`                            |
-| Containerele nu comunică între ele        | Folosește numele serviciului ca hostname (ex: `backend:8000`)          |
-| Docker nu pornește                        | Rulează `sudo systemctl start docker`                                  |
-| Ecran mic / fără integrare VirtualBox     | Instalează `sudo pacman -S virtualbox-guest-utils` și repornește       |
-
-
-
+| Problemă                              | Soluție                                                          |
+| ------------------------------------- | ---------------------------------------------------------------- |
+| `Permission denied` la comenzi Docker | `sudo usermod -aG docker $USER` + `reboot`                       |
+| Porturi ocupate (3000/8000)           | Editează porturile din `docker-compose.yml`                      |
+| Containerele nu comunică între ele    | Folosește numele serviciului ca hostname (ex: `backend:8000`)    |
+| Docker nu pornește                    | Rulează `sudo systemctl start docker`                            |
+| Ecran mic / fără integrare VirtualBox | Instalează `sudo pacman -S virtualbox-guest-utils` și repornește |
