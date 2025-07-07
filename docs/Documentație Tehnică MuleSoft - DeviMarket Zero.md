@@ -289,5 +289,5 @@ Generated json
 }
 Use code with caution.
 Json
-<br><br>
+
 Verificare Suplimentară: Rulează din nou Testul 1 (GET /products) pentru a vedea dacă noul produs apare în listă sau verifică direct în baza de date ClickHouse.
