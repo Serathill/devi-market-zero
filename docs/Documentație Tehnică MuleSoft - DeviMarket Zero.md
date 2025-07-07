@@ -303,6 +303,7 @@ Pentru fiecare product_fr, map va executa logica din interiorul acoladelor {...}
 <br><br>
 2. "Traducerea" Câmpurilor (Maparea propriu-zisă):
 Logica din interiorul acoladelor definește exact cum se construiește noul obiect. Fiecare linie este o regulă de mapare:
+<br><br>
 Mapare Directă cu Redenumire:
 <br><br>
 name: product_fr.product_title: Câmpul name din obiectul nou (destinație) va lua valoarea câmpului product_title din obiectul original (sursă).
