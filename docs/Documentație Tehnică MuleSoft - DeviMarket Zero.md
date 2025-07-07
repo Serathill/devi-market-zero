@@ -39,6 +39,7 @@ Acest flux implementează un proces de migrare de date complet automatizat, conc
 
   Fluxul de Scanare Produs (post:/product_scan:application\json:scanare-produs-api-config)
 Transformarea DataWeave din acest flux joacă un rol important în normalizarea și pregătirea datelor pentru a garanta integritatea și compatibilitatea cu baza de date. În primul rând, aplică operațiuni de "curățare a datelor" asupra codului de bare, eliminând spațiile goale și convertind textul în majuscule, o practică esențială pentru a preveni înregistrările duplicate și pentru a asigura o formă standardizată și unică. În al doilea rând, transformarea gestionează data și ora scanării. Aceasta convertește formatul timestamp standard (ISO 8601) primit de la dispozitivul extern în formatul specific cerut de coloana DateTime din ClickHouse, prevenind astfel erorile de scriere în baza de date.
+<br><br>
 <img width="958" alt="image" src="https://github.com/user-attachments/assets/03155f6a-2d76-407a-9135-40b045fe343f" />
 <br><br>
 <img width="958" alt="image" src="https://github.com/user-attachments/assets/a522d406-9902-4645-bdf4-8bcb9ed846c8" />
@@ -47,25 +48,32 @@ Transformarea DataWeave din acest flux joacă un rol important în normalizarea 
 
   Fluxul de Transfer Automat (product-transferFlow)
 Acest flux conține două transformări DataWeave esențiale. Prima este "esența" procesului de ETL, unde, folosind funcția map, fiecare produs din sursa de date este transformat pentru a se potrivi cu structura tabelei destinație. Această mapare implică redenumirea câmpurilor (ex: product_title devine name), ceea ce decuplează complet sistemele, și generarea de date noi, cum ar fi un uuid() unic pentru codul de bare, asigurând o identificare unică în noul sistem. A doua transformare, mult mai complexă, se execută în interiorul buclei For Each și este critică pentru gestionarea structurilor de date complexe precum atributele (obiecte) și tag-urile (array-uri). Aceasta convertește în mod programatic aceste structuri native într-un format de string literal (ex: "{'cheie': 'valoare'}" sau "['tag1', 'tag2']"), care este compatibil cu modul în care ClickHouse stochează tipurile de date Map și Array în coloane de tip String, pregătind astfel payload-ul pentru a fi inserat corect și fără erori în baza de date.
-<img width="954" alt="image" src="https://github.com/user-attachments/assets/1f0315f6-6389-4174-b5e7-385144b17cb0" />
+<br><br>
+<img width="954" alt="image" src="https://github.com/user-attachments/assets/1f0315f6-6389-4174-b5e7-385144b17cb0" /> 
+<br><br>
 <img width="955" alt="image" src="https://github.com/user-attachments/assets/450a1162-3474-4bcb-9aa2-bc73649d7774" />
+<br><br>
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/5910387a-15e0-4be7-80bf-83ae2e815069" />
+<br><br>
 <img width="955" alt="image" src="https://github.com/user-attachments/assets/b2618e21-bfe3-4cfb-98d4-ef23108847fe" />
+<br><br>
 
 
 
   Fluxul de Listare Produse pentru Frontend (get:\products:scanare-produs-api-config)
 Acest flux conține două transformări DataWeave esențiale care lucrează împreună pentru a construi un răspuns complex și complet funcțional pentru paginare. Prima transformare este un constructor dinamic de query SQL, unde, pe baza parametrilor de page și limit primiți, se calculează valoarea offset și se asamblează bucățile unui query SQL (WHERE, ORDER BY, LIMIT OFFSET) într-un obiect structurat. A doua transformare, și cea mai importantă pentru utilizatorul final, este asamblatorul de răspuns final. După ce datele au fost extrase din baza de date, acest script DataWeave ia lista de produse și o combină cu metadatele de paginare (cum ar fi currentPage, totalCount și totalPages, calculat dinamic), împachetându-le într-un singur obiect JSON, curat și bine structurat. Această transformare oferă Frontend-ului (aplicației React) absolut toate informațiile de care are nevoie pentru a afișa atât lista de produse pentru pagina curentă, cât și controalele de navigare complete (ex: "Pagina 2 din 15").
+<br><br>
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/fb85e973-c3a3-4220-afae-1f97d0964c4a" />
+<br><br>
 <img width="957" alt="image" src="https://github.com/user-attachments/assets/429c506e-a6c7-4a60-bbe1-01215bb26413" />
-
+<br><br>
 
 
 ### 2.4 Configurația Conectorului de Bază de Date (Database_Config):
 
-Configurația centrală a conectorului este piesa fundamentală care permite aplicației Mule să comunice cu instanța ClickHouse. Din codul XML, se observă câteva aspecte cheie:
+Configurația centrală a conectorului este piesa fundamentală care permite aplicației Mule să comunice cu instanța ClickHouse. Se observă câteva aspecte cheie:
 
-Tipul Conexiunii: Se folosește o conexiune de tip Generic Connection, ceea ce înseamnă că MuleSoft nu are un conector nativ pre-configurat pentru ClickHouse, ci se bazează pe standardul JDBC (Java Database Connectivity).
+Tipul Conexiunii: Se folosește o conexiune de tip Generic Connection care se bazează pe standardul JDBC (Java Database Connectivity).
 
 Driver JDBC: Este specificat explicit driverul necesar pentru ClickHouse (com.clickhouse.jdbc.ClickHouseDriver). Acest lucru implică faptul că fișierul .jar al driverului trebuie adăugat ca dependență în proiectul Mule.
 
@@ -73,18 +81,17 @@ URL-ul de Conectare: jdbc:clickhouse:https://cd1snbyswh.germanywestcentral.azure
 
 Insight-uri:
 
-Conexiune Cloud: Proiectul se conectează la o instanță ClickHouse găzduită în cloud (pe Azure), nu la una locală (în Docker, cum era planul inițial). Aceasta este o schimbare majoră față de documentația de proiect.
+Conexiune Cloud: Proiectul se conectează la o instanță ClickHouse găzduită în cloud (pe Azure), nu la una locală (în Docker, cum era planul inițial). 
 
 Securitate (SSL): Parametrul ssl=true indică faptul că se stabilește o conexiune securizată (criptată) între aplicația Mule și baza de date.
 
-Performanță: Parametrul compress=0 dezactivează compresia datelor pe conexiune. De obicei, compresia este utilă la transferul unor volume foarte mari de date, dar poate adăuga un mic overhead de procesare.
+Performanță: Parametrul compress=0 dezactivează compresia datelor pe conexiune. De obicei, compresia este utilă la transferul unor volume foarte mari de date.
 
-Credențiale: Conexiunea este autentificată folosind un utilizator (default) și o parolă, care sunt stocate direct în configurație. Într-un mediu de producție, acestea ar trebui externalizate și securizate.
+Credențiale: Conexiunea este autentificată folosind un utilizator (default) și o parolă, care sunt stocate direct în configurație. 
 
-Interogările Cheie (Key Queries) din Fiecare Flux
-1. Fluxul de Scanare Produs (post:\product_scan...)
+Interogările Cheie (Key Queries) din Fiecare Flux:
 
-Acest flux execută o singură interogare de citire pentru a verifica existența și una de scriere pentru a adăuga date noi.
+1. Fluxul de Scanare Produs
 
 Interogarea de Verificare (db:select):
 
@@ -92,39 +99,33 @@ Query: SELECT 1 FROM devimarket_db.product_scan WHERE barcode = :barcode LIMIT 1
 
 Scop: Aceasta este o interogare de tip "lookup", extrem de eficientă. Nu este interesată de datele produsului, ci doar de existența lui. SELECT 1 este mai rapid decât SELECT * deoarece nu trebuie să citească nicio valoare din coloane. LIMIT 1 îi spune bazei de date să se oprească imediat ce găsește o potrivire, optimizând și mai mult căutarea.
 
-Parametrizare: Folosește un parametru denumit (:barcode), ceea ce este o bună practică de securitate pentru a preveni atacurile de tip SQL Injection.
-
 Interogarea de Inserare (db:insert):
 
 Query: INSERT INTO devimarket_db.product_scan(barcode, timestamp) VALUES (:barcode, :clickhouse_formatted_timestamp)
 
 Scop: Adaugă o nouă înregistrare în tabela de scanări. Folosește din nou parametri denumiți pentru a insera în mod sigur valorile de barcode și timestamp (pre-formatat în DataWeave) în coloanele corespunzătoare.
 
-2. Fluxul de Listare Produse (get:\products...)
-
-Acest flux demonstrează construirea dinamică a interogărilor și executarea a două SELECT-uri secvențiale pentru a construi răspunsul pentru paginare.
+2. Fluxul de Listare Produse 
 
 Interogarea Dinamică pentru Date (db:select - primul):
 
 Query: #[vars.sqlQuery as String]
 
-Scop: Această interogare este construită dinamic în pașii anteriori ai fluxului, asamblând bucăți de text pentru a forma un query complet, cum ar fi: SELECT * FROM devimarket_db.products WHERE is_active = 1 ORDER BY name ASC LIMIT 50 OFFSET 0. Execută interogarea pentru a prelua "felia" exactă de produse necesară pentru pagina curentă.
+Scop: Această interogare este construită dinamic în pașii anteriori ai fluxului, asamblând bucăți de text pentru a forma un query complet, cum ar fi: SELECT * FROM devimarket_db.products WHERE is_active = 1 ORDER BY name ASC LIMIT 50 OFFSET 0. Execută interogarea pentru a prelua numărul exact de produse necesar pentru pagina curentă.
 
 Interogarea pentru Numărul Total (db:select - al doilea):
 
 Query: SELECT COUNT(*) AS total FROM devimarket_db.products
 
-Scop: Este o interogare de agregare simplă, dar vitală. Calculează numărul total de produse din tabel. Acest număr este apoi folosit în DataWeave pentru a calcula totalPages și totalCount din metadatele răspunsului, permițând Frontend-ului să construiască corect controalele de paginare.
+Scop: Calculează numărul total de produse din tabel. Acest număr este apoi folosit în DataWeave pentru a calcula totalPages și totalCount din metadatele răspunsului, permițând Frontend-ului să construiască corect controalele de paginare.
 
-3. Fluxul de Transfer Automat (product-transferFlow)
-
-Acest flux arată un model de migrare de date, cu operațiuni de citire dintr-o tabelă și scriere în alta, plus o actualizare pentru a marca progresul.
+3. Fluxul de Transfer Automat 
 
 Interogarea de Extragere (db:select):
 
 Query: SELECT * FROM clickhouse_db_franceza.products_fr WHERE is_active=1 AND is_transfered=0
 
-Scop: Selectează toate produsele active din tabela sursă (products_fr) care nu au fost încă marcate ca transferate. Acest filtru (is_transfered=0) este critic pentru a asigura că fluxul este idempotent și nu procesează aceleași date de mai multe ori la rulări succesive.
+Scop: Selectează toate produsele active din tabela sursă (products_fr) care nu au fost încă marcate ca transferate. Acest filtru (is_transfered=0) este critic pentru a asigura că fluxul nu procesează aceleași date de mai multe ori la rulări succesive.
 
 Interogarea de Inserare (db:insert):
 
