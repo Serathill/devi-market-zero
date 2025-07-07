@@ -240,6 +240,7 @@ key: page, value: 1
 key: limit, value: 50
 Apasă Send.
 Rezultat Așteptat: În secțiunea de răspuns (Response), ar trebui să primești un status 200 OK și un corp JSON structurat astfel:
+<br><br>
 Generated json
 {
     "metadata": {
@@ -264,6 +265,7 @@ Acest test verifică logica de inserare a unei noi scanări.
 Introdu URL-ul: http://localhost:8081/api/product_scan
 Mergi la tab-ul Body, selectează raw și alege JSON din meniul dropdown.
 În câmpul de text, introdu un JSON valid, similar cu cel trimis de RPi Pico:
+<br><br>
 Generated json
 {
   "barcode": "  123456789 ",
@@ -272,10 +274,12 @@ Generated json
 
 Use code with caution.
 Json
+<br><br>
 Apasă Send.
 Rezultat Așteptat (pentru un produs nou):
 Un status 201 Created.
 Un corp JSON de forma:
+<br><br>
 Generated json
 {
     "status": "success",
@@ -285,4 +289,5 @@ Generated json
 }
 Use code with caution.
 Json
+<br><br>
 Verificare Suplimentară: Rulează din nou Testul 1 (GET /products) pentru a vedea dacă noul produs apare în listă sau verifică direct în baza de date ClickHouse.
