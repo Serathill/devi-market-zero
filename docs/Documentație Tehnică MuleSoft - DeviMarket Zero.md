@@ -157,7 +157,7 @@ Scop: Aceasta este "cheia" care închide bucla procesului de migrare. Imediat du
 <br><br>
 <img width="793" alt="image" src="https://github.com/user-attachments/assets/96030463-5caf-477c-bbdc-ac33a088f4f4" />
 
-## 3.Documentarea configurațiilor globale, erorilor și componentelor reutilizabile
+## 3. Documentarea configurațiilor globale, erorilor și componentelor reutilizabile
 
 Configurații Globale (Global Configurations):
 Sunt elemente centralizate și reutilizabile, definite o singură dată și apoi referite în multiple locuri din aplicație. Acest lucru simplifică mentenanța și asigură consistența.
@@ -196,7 +196,7 @@ Deși proiectul nu definește sub-fluxuri (private flows) separate pentru reutil
 Componenta Reutilizabilă Principală: Cea mai importantă componentă reutilizabilă este Database_Config. Fără aceasta, fiecare din cele șase conectori de bază de date (db:select, db:insert, db:update) din aplicația noastră ar fi trebuit să aibă URL-ul, driverul și credențialele definite individual.
 Reutilizare Implicită: APIkit Router este, prin natura sa, o componentă reutilizabilă care aplică aceleași reguli de validare și rutare pentru toate endpoint-urile definite în RAML, fără a fi nevoie să scrii cod de validare manual pentru fiecare.
 
-## 4.Instrucțiuni pentru Rularea și Testarea Aplicațiilor MuleSoft DeviMarket Zero
+## 4. Instrucțiuni pentru Rularea și Testarea Aplicațiilor MuleSoft DeviMarket Zero
 Pasul 1: Importarea Proiectului în Anypoint Studio
 <br><br>
 Vom importa proiectele MuleSoft în workspace-ul din Anypoint Studio.
@@ -290,3 +290,26 @@ Use code with caution.
 Json
 
 Verificare Suplimentară: Rulează din nou Testul 1 (GET /products) pentru a vedea dacă noul produs apare în listă sau verifică direct în baza de date ClickHouse.
+
+## 5. Detalierea procesului de mapare în fluxul product-trasferFlow:
+
+În acest flux, procesul de mapare este realizat de componenta Transform Message. Scopul său este să ia lista de produse primită de la baza de date sursă (clickhouse_db_franceza.products_fr) și să o "traducă" într-o nouă listă de produse, structurată exact cum o cere tabela destinație (devimarket_db.products).
+<br><br>
+Explicația Detaliată a Procesului de Mapare:
+1. Iterarea prin Sursă (payload map (product_fr) -> ...):
+Când datele ajung la această componentă, payload-ul este un array (o listă) de obiecte, unde fiecare obiect reprezintă un rând din tabela sursă products_fr.
+Funcția map este folosită pentru a parcurge acest array. Ea ia fiecare obiect din listă, unul câte unul, și îl denumește temporar product_fr pentru a putea lucra cu el.
+Pentru fiecare product_fr, map va executa logica din interiorul acoladelor {...} și va returna un obiect nou, transformat. La final, toate aceste obiecte noi vor forma un nou array.
+<br><br>
+2. "Traducerea" Câmpurilor (Maparea propriu-zisă):
+Logica din interiorul acoladelor definește exact cum se construiește noul obiect. Fiecare linie este o regulă de mapare:
+Mapare Directă cu Redenumire:
+name: product_fr.product_title: Câmpul name din obiectul nou (destinație) va lua valoarea câmpului product_title din obiectul original (sursă).
+description: product_fr.description_text: Câmpul description din destinație ia valoarea din description_text din sursă.
+price: product_fr.unit_price: Câmpul price ia valoarea din unit_price.
+category: product_fr.french_category: Câmpul category ia valoarea din french_category.
+Mapare 1-la-1 (același nume):
+brand: product_fr.brand: Când numele câmpului este același în sursă și destinație, regula este similară.
+Generare de Date Noi:
+barcode: uuid(): Aici nu se ia o valoare din sursă. În schimb, pentru fiecare produs, se generează un identificator unic universal (UUID) nou și se atribuie câmpului barcode. Aceasta este o regulă de transformare, nu doar de mapare.
+source_etl: "FR_TRANSFER_PROCESS": Se adaugă un câmp nou, source_etl, cu o valoare statică (un text fix). Acest lucru este util pentru a ști mai târziu, în tabela destinație, de unde a provenit fiecare înregistrare.
