@@ -17,6 +17,7 @@ Pentru a utiliza ClickHouse cu **Database Connector** din MuleSoft, am adăugat 
   <version>1.0.0</version>
 </dependency>
 
+---
 ## 2. Crearea configurației Database Config în MuleSoft
 
 Accesează tabul Global Elements (colțul din stânga-jos).
