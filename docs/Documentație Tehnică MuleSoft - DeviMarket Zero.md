@@ -356,8 +356,8 @@ Orice modificare a codului sursă necesită re-împachetarea aplicației într-u
 Următorul tabel centralizează toate endpoint-urile expuse de aplicația devi-market-zero în CloudHub. URL-ul de bază este cel public, furnizat de CloudHub la deployment.
 | Numele Endpoint-ului | Metoda HTTP | URL Complet | Parametri de Query / Exemplu Body | Descriere Scurtă |
 |----------------------|-------------|-------------|------------------------------------|------------------|
-| Product Scan | POST | `https://.../product_scan` | Body (JSON): `{ "barcode": "1234567890122", "scan_timestamp": "2025-06-27T14:23:11Z" }` | Primește datele unei scanări de produs (de la RPi Pico sau Postman) și le inserează/actualizează în baza de date. |
-| List Products | GET | `https://.../products` | Parametri opționali: `limit` (ex: 10), `page` (ex: 1) | Returnează o listă paginată de produse. Se pot adăuga parametri în URL (ex: `.../products?limit=10&page=1`). |
+| Product Scan | POST | `[https://.../product_scan](https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/product_scan)` | Body (JSON): `{ "barcode": "1234567890122", "scan_timestamp": "2025-06-27T14:23:11Z" }` | Primește datele unei scanări de produs (de la RPi Pico sau Postman) și le inserează/actualizează în baza de date. |
+| List Products | GET | `[https://.../products](https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/products?limit=50&page=1)` | Parametri opționali: `limit` (ex: 10), `page` (ex: 1) | Returnează o listă paginată de produse. Se pot adăuga parametri în URL (ex: `.../products?limit=10&page=1`). |
 | Transfer Products | *(Intern)* | *(Nu se aplică)* | *(Nu se aplică)* | Proces intern declanșat de un **Scheduler** la fiecare oră. Nu este endpoint public.|
 <br><br>
 6.3. Instrucțiuni de Testare cu Postman
