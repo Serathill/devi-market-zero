@@ -331,3 +331,38 @@ Generare de Date Noi:
 barcode: uuid(): Aici nu se ia o valoare din sursă. În schimb, pentru fiecare produs, se generează un identificator unic universal (UUID) nou și se atribuie câmpului barcode. Aceasta este o regulă de transformare, nu doar de mapare.
 <br><br>
 source_etl: "FR_TRANSFER_PROCESS": Se adaugă un câmp nou, source_etl, cu o valoare statică (un text fix). Acest lucru este util pentru a ști mai târziu, în tabela destinație, de unde a provenit fiecare înregistrare.
+
+##  6. Deployment în CloudHub și Specificații API:
+
+Acest capitol documentează procesul de deployment al aplicației MuleSoft în mediul cloud al Anypoint Platform, CloudHub, și centralizează toate endpoint-urile API expuse public, împreună cu detaliile necesare pentru a le testa și utiliza. Trecerea de la un mediu de dezvoltare local la unul cloud reprezintă un pas major în ciclul de viață al unei aplicații, oferind disponibilitate, scalabilitate și un punct de acces public, stabil.
+<br><br>
+6.1. Deployment-ul Aplicației în Anypoint CloudHub
+Aplicația devi-market-zero, care încapsulează logica pentru scanare, listare și transfer de produse, a fost publicată cu succes în Anypoint CloudHub. Acest mediu gestionat de MuleSoft elimină necesitatea de a administra servere locale și asigură că API-urile noastre sunt disponibile constant pentru a fi consumate de aplicația Frontend, de dispozitivul RPi Pico și de alte servicii.
+Numele Aplicației în CloudHub: devi-market-zero
+Statusul Aplicației: <span style="color:green;">●</span> Running
+Regiunea de Deployment (Target): Cloudhub-EU-Central-1 (Europa Centrală)
+Versiune Runtime Mule: 4.9.6
+Fișierul de Deployment: devi-market-zero-v1.6.jar
+Public Endpoint (URL de Bază): 	https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io
+Orice modificare a codului sursă necesită re-împachetarea aplicației într-un nou fișier .jar și aplicarea modificărilor prin interfața Runtime Manager, ceea ce va declanșa un nou proces de deployment pentru a actualiza aplicația la cea mai recentă versiune.
+6.2. Lista Completă a Endpoint-urilor API
+Următorul tabel centralizează toate endpoint-urile expuse de aplicația devi-market-zero în CloudHub. URL-ul de bază este cel public, furnizat de CloudHub la deployment.
+| Numele Endpoint-ului | Metoda HTTP | URL Complet                                                                                          | Exemplu Body (pentru POST)                                                                                 | Descriere Scurtă |
+|----------------------|-------------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|------------------|
+| Product Scan         | POST        | 	https://devi-market-zero-ypueen.2ky31l-1.deu-c1.eu1.cloudhub.io/api/product_scan                     | ```json<br>{<br>  "barcode": "1234567890122",<br>  "scan_timestamp": "2025-06-27T14:23:11Z"<br>}```         | Primește datele unei scanări de produs (de la RPi Pico sau Postman) și le inserează/actualizează în baza de date. |
+| List Products        | GET         | https://devi-market-zero-vpqueen.2ky3l1-1.deu-c1.eu1.cloudhub.io/api/products                         | (N/A)                                                                                                       | Returnează o listă paginată de produse din baza de date. Suportă parametrii de query `?limit=` și `?page=`. |
+                                                                                             | Returnează detaliile complete pentru un singur produs, pe baza ID-ului furnizat în URL. |
+| Transfer Products    | *(Intern)*  | (N/A)                                                                                                | (N/A)                                                                                                       | Acesta este un proces intern, declanșat de un **Scheduler** la fiecare oră. Nu are un endpoint public. |
+6.3. Instrucțiuni de Testare cu Postman
+Pentru a valida funcționalitatea API-urilor publicate în CloudHub, se poate folosi un client API precum Postman.
+Configurare: Asigură-te că folosești URL-urile complete din tabelul de mai sus, care includ adresa publică CloudHub.
+Testarea Product Scan:
+Creează o cerere de tip POST către URL-ul Product Scan.
+În tab-ul Body, selectează raw și JSON.
+Copiază și lipește exemplul de Body din tabel.
+Apasă Send.
+Rezultat Așteptat: Un status 201 Created (pentru un produs nou) sau 200 OK (pentru un produs existent).
+Testarea List Products:
+Creează o cerere de tip GET către URL-ul List Products. Poți adăuga parametrii ?limit=5&page=1 pentru a testa paginarea.
+Apasă Send.
+Rezultat Așteptat: Un status 200 OK și un răspuns JSON care conține obiectul metadata și un array data cu produsele.
