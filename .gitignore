@@ -172,3 +172,16 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# ignore vechiul dist archive
+/frontend/dist.tar.gz
+
+# ignore folderul dist (Vite) și eventual build (alte tool-uri)
+/frontend/dist/
+/frontend/build/
+
+# ignore artefactele full_project
+/full_project/
+
+# ignore certificatele SSL locale
+/team7_infrastructure/docker_compose_setup/ssl/
