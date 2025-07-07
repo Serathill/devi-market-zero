@@ -76,7 +76,7 @@ Acest flux conține două transformări DataWeave esențiale care lucrează împ
 
 
 ### 2.4 Configurația Conectorului de Bază de Date (Database_Config):
-<br><br>
+
 
 Configurația centrală a conectorului este piesa fundamentală care permite aplicației Mule să comunice cu instanța ClickHouse. Se observă câteva aspecte cheie:
 
@@ -257,7 +257,6 @@ Generated json
 Use code with caution.
 Json
 
-<br><br>
 
 Test 2: Scanarea unui Produs (Endpoint POST /product_scan)
 Acest test verifică logica de inserare a unei noi scanări.
