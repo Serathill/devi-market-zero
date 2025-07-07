@@ -319,8 +319,6 @@ brand: product_fr.brand: Când numele câmpului este același în sursă și des
 <br><br>
 Generare de Date Noi:
 <br><br>
-barcode: uuid(): Aici nu se ia o valoare din sursă. În schimb, pentru fiecare produs, se generează un identificator unic
-<br><br>
-universal (UUID) nou și se atribuie câmpului barcode. Aceasta este o regulă de transformare, nu doar de mapare.
+barcode: uuid(): Aici nu se ia o valoare din sursă. În schimb, pentru fiecare produs, se generează un identificator unic universal (UUID) nou și se atribuie câmpului barcode. Aceasta este o regulă de transformare, nu doar de mapare.
 <br><br>
 source_etl: "FR_TRANSFER_PROCESS": Se adaugă un câmp nou, source_etl, cu o valoare statică (un text fix). Acest lucru este util pentru a ști mai târziu, în tabela destinație, de unde a provenit fiecare înregistrare.
