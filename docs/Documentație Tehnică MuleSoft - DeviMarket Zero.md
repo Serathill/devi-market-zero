@@ -362,14 +362,26 @@ Următorul tabel centralizează toate endpoint-urile expuse de aplicația devi-m
 
 6.3. Instrucțiuni de Testare cu Postman
 Pentru a valida funcționalitatea API-urilor publicate în CloudHub, se poate folosi un client API precum Postman.
+
 Configurare: Asigură-te că folosești URL-urile complete din tabelul de mai sus, care includ adresa publică CloudHub.
+<br><br>
 Testarea Product Scan:
+<br><br>
 Creează o cerere de tip POST către URL-ul Product Scan.
+<br><br>
+<br><br>
 În tab-ul Body, selectează raw și JSON.
+<br><br>
 Copiază și lipește exemplul de Body din tabel.
+<br><br>
 Apasă Send.
+<br><br>
 Rezultat Așteptat: Un status 201 Created (pentru un produs nou) sau 200 OK (pentru un produs existent).
+<br><br>
 Testarea List Products:
+<br><br>
 Creează o cerere de tip GET către URL-ul List Products. Poți adăuga parametrii ?limit=5&page=1 pentru a testa paginarea.
+<br><br>
 Apasă Send.
+<br><br>
 Rezultat Așteptat: Un status 200 OK și un răspuns JSON care conține obiectul metadata și un array data cu produsele.
