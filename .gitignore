@@ -117,4 +117,3 @@ cython_debug/
 /team7_infrastructure/docker_compose_setup/ssl/
 
 /team7_infrastructure/clickhouse_init_scripts/
-
