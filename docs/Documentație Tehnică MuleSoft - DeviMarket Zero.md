@@ -304,12 +304,23 @@ Pentru fiecare product_fr, map va executa logica din interiorul acoladelor {...}
 2. "Traducerea" Câmpurilor (Maparea propriu-zisă):
 Logica din interiorul acoladelor definește exact cum se construiește noul obiect. Fiecare linie este o regulă de mapare:
 Mapare Directă cu Redenumire:
+<br><br>
 name: product_fr.product_title: Câmpul name din obiectul nou (destinație) va lua valoarea câmpului product_title din obiectul original (sursă).
+<br><br>
 description: product_fr.description_text: Câmpul description din destinație ia valoarea din description_text din sursă.
+<br><br>
 price: product_fr.unit_price: Câmpul price ia valoarea din unit_price.
+<br><br>
 category: product_fr.french_category: Câmpul category ia valoarea din french_category.
+<br><br>
 Mapare 1-la-1 (același nume):
+<br><br>
 brand: product_fr.brand: Când numele câmpului este același în sursă și destinație, regula este similară.
+<br><br>
 Generare de Date Noi:
-barcode: uuid(): Aici nu se ia o valoare din sursă. În schimb, pentru fiecare produs, se generează un identificator unic universal (UUID) nou și se atribuie câmpului barcode. Aceasta este o regulă de transformare, nu doar de mapare.
+<br><br>
+barcode: uuid(): Aici nu se ia o valoare din sursă. În schimb, pentru fiecare produs, se generează un identificator unic
+<br><br>
+universal (UUID) nou și se atribuie câmpului barcode. Aceasta este o regulă de transformare, nu doar de mapare.
+<br><br>
 source_etl: "FR_TRANSFER_PROCESS": Se adaugă un câmp nou, source_etl, cu o valoare statică (un text fix). Acest lucru este util pentru a ști mai târziu, în tabela destinație, de unde a provenit fiecare înregistrare.
