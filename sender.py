@@ -1,4 +1,4 @@
-# sender.py in VS Code!!!!
+# sender.py
 
 import serial
 import requests
@@ -42,7 +42,6 @@ def listen_to_pico():
     
     while True: # Loop forever to try and reconnect if Pico is disconnected
         try:
-            # The 'with' statement handles opening and closing the port
             with serial.Serial(PICO_COM_PORT, BAUD_RATE, timeout=1) as ser:
                 print(f"Successfully connected to Pico on {PICO_COM_PORT}. Listening for data...")
                 
