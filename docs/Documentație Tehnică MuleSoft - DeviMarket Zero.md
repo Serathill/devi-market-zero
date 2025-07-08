@@ -401,7 +401,6 @@ Apasă Send.
 Rezultat Așteptat: Un status 200 OK și un răspuns JSON care conține obiectul metadata și un array data cu produsele.
 
 ## 7. Diagrama logicii proiectului:
-<br><br>
 Mai jos este prezentată diagrama logică a proiectului, care oferă o imagine de ansamblu asupra componentelor principale și a modului în care acestea interacționează între ele. Diagrama evidențiază fluxurile de date și procesele implicate, de la interacțiunea utilizatorului până la gestionarea și procesarea informațiilor în backend.
 <br><br>
 ![WhatsApp Image 2025-07-08 at 09 23 52_40e2ee0a](https://github.com/user-attachments/assets/c6d903e2-33b2-47ac-9f47-46000a2f77e7)
