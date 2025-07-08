@@ -384,7 +384,9 @@ Rezultat Așteptat: Un status 201 Created (pentru un produs nou) sau 200 OK (pen
 <br><br>
 Testarea List Products:
 <br><br>
-Creează o cerere de tip GET către URL-ul List Products. Poți adăuga parametrii ?limit=5&page=1 pentru a testa paginarea.
+Creează o cerere de tip GET către URL-ul List Products.
+<br><br>
+Poți adăuga parametrii ?limit=5&page=1 pentru a testa paginarea.
 <br><br>
 Apasă Send.
 <br><br>
