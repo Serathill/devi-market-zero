@@ -186,6 +186,7 @@ Vezi 2.4.
 <br><br>
 <br><br>
 Strategii de Gestionare a Erorilor (Error Handling Strategies)
+<br><br>
 Aplicația folosește o abordare pe mai multe niveluri pentru a gestiona erorile, ceea ce este o bună practică pentru a asigura vigurozitatea.
 <br><br>
 Nivel 1: Gestionarea Erorilor de API (în scanare-produs-api-main)
