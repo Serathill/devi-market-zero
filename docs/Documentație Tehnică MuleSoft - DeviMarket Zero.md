@@ -184,6 +184,7 @@ Scop: Centralizează toate detaliile necesare pentru a stabili o conexiune cu ba
 Detalii Cheie:
 Vezi 2.4.
 <br><br>
+<br><br>
 Strategii de Gestionare a Erorilor (Error Handling Strategies)
 Aplicația folosește o abordare pe mai multe niveluri pentru a gestiona erorile, ceea ce este o bună practică pentru a asigura vigurozitatea.
 <br><br>
@@ -201,7 +202,9 @@ Validare Proactivă (Raise Error): Înainte de a procesa datele, un bloc Choice 
 Gestionare Erori de Bază de Date (Try Scope): Operațiunea db:insert, care este o operațiune critică ce poate eșua, este încapsulată într-un bloc Try. Acest bloc are propriul său On Error Propagate care prinde doar erorile apărute la inserare, le înregistrează în log și construiește un răspuns JSON specific pentru eșecul de inserare.
 Gestionare Generală (error-handler la final): La finalul fluxului, un error-handler de tip "catch-all" prinde orice altă eroare neașteptată, o înregistrează și returnează un mesaj de eroare generic pentru a proteja detaliile interne.
 <br><br>
+<br><br>
 Componente Reutilizabile
+<br><br>
 Deși proiectul nu definește sub-fluxuri (private flows) separate pentru reutilizare, conceptul de reutilizare este implementat prin configurațiile globale menționate mai sus.
 Componenta Reutilizabilă Principală: Cea mai importantă componentă reutilizabilă este Database_Config. Fără aceasta, fiecare din cele șase conectori de bază de date (db:select, db:insert, db:update) din aplicația noastră ar fi trebuit să aibă URL-ul, driverul și credențialele definite individual.
 Reutilizare Implicită: APIkit Router este, prin natura sa, o componentă reutilizabilă care aplică aceleași reguli de validare și rutare pentru toate endpoint-urile definite în RAML, fără a fi nevoie să scrii cod de validare manual pentru fiecare.
