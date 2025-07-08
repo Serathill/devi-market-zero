@@ -166,16 +166,20 @@ Scop: Aceasta este "cheia" care închide bucla procesului de migrare. Imediat du
 ## 3. Documentarea configurațiilor globale, erorilor și componentelor reutilizabile
 
 Configurații Globale (Global Configurations):
+<br><br>
 Sunt elemente centralizate și reutilizabile, definite o singură dată și apoi referite în multiple locuri din aplicație. Acest lucru simplifică mentenanța și asigură consistența.
 <br><br>
-APIkit Config (scanare-produs-api-config)
+-APIkit Config (scanare-produs-api-config)
+<br><br>
 Scop: Aceasta este configurația principală pentru APIkit Router. Ea leagă aplicația Mule de contractul API definit în fișierul scanare-produs-api.raml. APIkit o folosește pentru a valida cererile primite față de specificație și pentru a le direcționa automat către fluxurile corespunzătoare. 
 <br><br>
-HTTP Listener Config (HTTPS_Listener_config)
+-HTTP Listener Config (HTTPS_Listener_config)
+<br><br>
 Scop: Definește un punct de intrare (endpoint) pentru toate cererile HTTP. 
 Pentru detaliile cheie, vezi 2.5.
 <br><br>
-Database Config (Database_Config)
+-Database Config (Database_Config)
+<br><br>
 Scop: Centralizează toate detaliile necesare pentru a stabili o conexiune cu baza de date ClickHouse. Orice componentă din aplicație care trebuie să interacționeze cu baza de date (ex: db:select, db:insert, db:update) va refolosi această configurație.
 Detalii Cheie:
 Vezi 2.4.
