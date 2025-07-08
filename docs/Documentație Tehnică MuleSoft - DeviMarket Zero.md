@@ -365,8 +365,9 @@ Următorul tabel centralizează toate endpoint-urile expuse de aplicația devi-m
 | Transfer Products | *(Intern)* | *(Nu se aplică)* | *(Nu se aplică)* | Proces intern declanșat de un **Scheduler** la fiecare oră. Nu este endpoint public.|
 
 6.3. Instrucțiuni de Testare cu Postman
-Pentru a valida funcționalitatea API-urilor publicate în CloudHub, se poate folosi un client API precum Postman.
 
+Pentru a valida funcționalitatea API-urilor publicate în CloudHub, se poate folosi un client API precum Postman.
+<br><br>
 Configurare: Asigură-te că folosești URL-urile complete din tabelul de mai sus, care includ adresa publică CloudHub.
 <br><br>
 Testarea Product Scan:
