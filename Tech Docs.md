@@ -4,10 +4,10 @@ Documentație Tehnică: Sistemul de Scanare cu Raspberry Pi Pico
 Acest document detaliază proiectarea și implementarea sistemului de scanare a codurilor de bare. Scopul principal a fost capturarea codurilor de bare ale produselor și transmiterea acestora către un endpoint API MuleSoft.
 
 Arhitectura finală constă dintr-un sistem format din două părți:
-1. Dispozitiv de Captură RPi Pico: Un Raspberry Pi Pico standard este responsabil pentru toată interacțiunea hardware. Singurul său rol este să citească un cod de bare de la apasarea unui buton, la un scanner TTL atașat, să ofere feedback fizic imediat printr-un LED și un buzzer, să formateze datele într-un payload JSON standardizat și să transmită acest payload instantaneu prin conexiunea sa serială USB.
+1. Dispozitiv  RPi Pico: Un Raspberry Pi Pico standard este responsabil pentru toată interacțiunea hardware. Singurul său rol este să citească un cod de bare de la apasarea unui buton, la un scanner TTL atașat, să ofere feedback fizic imediat printr-un LED și un buzzer, să formateze datele într-un payload JSON standardizat și să transmită acest payload instantaneu prin conexiunea sa serială USB.
 2. Script de Transmisie pe PC: Un script Python (sender.py) care rulează pe un PC conectat ascultă continuu portul serial al Pico-ului. La primirea unui payload JSON, îl trimite imediat către API-ul MuleSoft printr-o cerere HTTPS POST.
 
-### Partea 1: Dispozitivul de Captură RPi Pico
+### Partea 1: Dispozitivul  RPi Pico
 
 Componenete Hardware:
 - Microcontroler: Raspberry Pi Pico .
